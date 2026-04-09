@@ -143,19 +143,45 @@
         </Style>
 
         <Style x:Key="WindowButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="36"/>
-            <Setter Property="Height" Value="32"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Background" Value="#EAF1FF"/>
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="10">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="12">
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#F0F4FA"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CloseButtonStyle" TargetType="Button" BasedOn="{StaticResource WindowButtonStyle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="12">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#E74C3C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -209,18 +235,17 @@
 
                         <Grid Margin="44">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel>
-                                <Border Width="74"
-                                        Height="74"
-                                        CornerRadius="22"
-                                        Background="#24FFFFFF"
-                                        HorizontalAlignment="Left">
-                                    <Viewbox Margin="20">
+                            <StackPanel VerticalAlignment="Center">
+                                <Border Width="90"
+                                        Height="90"
+                                        CornerRadius="26"
+                                        Background="#28FFFFFF"
+                                        HorizontalAlignment="Center">
+                                    <Viewbox Margin="24">
                                         <Canvas Width="24" Height="24">
                                             <Path Fill="White"
                                                   Data="M12,2A3.25,3.25 0 1 1 8.75,5.25A3.25,3.25 0 0 1 12,2M6,10A4,4 0 1 1 2,14A4,4 0 0 1 6,10M18,10A4,4 0 1 1 14,14A4,4 0 0 1 18,10M12,11C15.87,11 19,13.24 19,16V19H5V16C5,13.24 8.13,11 12,11Z"/>
@@ -228,92 +253,27 @@
                                     </Viewbox>
                                 </Border>
 
-                                <TextBlock Margin="0,10,0,0"
+                                <TextBlock Margin="0,32,0,0"
                                            FontFamily="Bahnschrift"
-                                           FontSize="36"
+                                           FontSize="42"
                                            FontWeight="Bold"
                                            Foreground="White"
-                                           Text="Quản lý thiết bị" Height="43"/>
-                                <TextBlock Margin="0,16,10,0"
-                                           FontSize="17"
-                                           Foreground="#E5F0FF"
+                                           TextAlignment="Center"
+                                           Text="Quản lý thiết bị"/>
+                                <TextBlock Margin="0,20,0,0"
+                                           FontSize="16"
+                                           Foreground="#D8E7FF"
+                                           TextAlignment="Center"
                                            TextWrapping="Wrap"
-                                           LineHeight="26"
-                                           Text="Không gian làm việc sáng sủa, rõ ràng để bạn đăng nhập nhanh và bắt đầu quản lý thiết bị ngay." Height="53" RenderTransformOrigin="0.5,0.5">
-                                    <TextBlock.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform ScaleY="1"/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform/>
-                                        </TransformGroup>
-                                    </TextBlock.RenderTransform>
-                                </TextBlock>
+                                           LineHeight="24"
+                                           Text="Hệ thống quản lý thiết bị thông minh"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Row="1"
-                                        VerticalAlignment="Center">
-                                <Border Margin="0,0,0,14"
-                                        Padding="18"
-                                        CornerRadius="22"
-                                        Background="#1CFFFFFF"
-                                        BorderBrush="#26FFFFFF"
-                                        BorderThickness="1">
-                                    <StackPanel>
-                                        <TextBlock FontSize="15"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="White"
-                                                   Text="Bố cục dễ dùng"/>
-                                        <TextBlock Margin="0,8,0,0"
-                                                   FontSize="13"
-                                                   Foreground="#E2ECFF"
-                                                   TextWrapping="Wrap"
-                                                   Text="Tài khoản, mật khẩu và ghi nhớ đăng nhập được chia tách rõ ràng, dễ quan sát."/>
-                                    </StackPanel>
-                                </Border>
-
-                                <Border Margin="0,0,0,14"
-                                        Padding="18"
-                                        CornerRadius="22"
-                                        Background="#1CFFFFFF"
-                                        BorderBrush="#26FFFFFF"
-                                        BorderThickness="1">
-                                    <StackPanel>
-                                        <TextBlock FontSize="15"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="White"
-                                                   Text="Phong cách hiện đại"/>
-                                        <TextBlock Margin="0,8,0,0"
-                                                   FontSize="13"
-                                                   Foreground="#E2ECFF"
-                                                   TextWrapping="Wrap"
-                                                   Text="Nền sáng, khối bo tròn và điểm nhấn xanh giúp giao diện gọn mà vẫn chuyên nghiệp."/>
-                                    </StackPanel>
-                                </Border>
-
-                                <Border Padding="18"
-                                        CornerRadius="22"
-                                        Background="#1CFFFFFF"
-                                        BorderBrush="#26FFFFFF"
-                                        BorderThickness="1">
-                                    <StackPanel>
-                                        <TextBlock FontSize="15"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="White"
-                                                   Text="Sẵn sàng mở rộng"/>
-                                        <TextBlock Margin="0,8,0,0"
-                                                   FontSize="13"
-                                                   Foreground="#E2ECFF"
-                                                   TextWrapping="Wrap"
-                                                   Text="Có thể nối đăng nhập thật, kiểm tra dữ liệu hoặc binding sang ViewModel bất cứ lúc nào."/>
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-
-                            <TextBlock Grid.Row="2"
+                            <TextBlock Grid.Row="1"
                                        FontSize="13"
-                                       Foreground="#DCE9FF"
-                                       Text="QLTB Workspace | Smart Equipment Management" Margin="0,0,0,-37"/>
+                                       Foreground="#C5DBFF"
+                                       TextAlignment="Center"
+                                       Text="HTBB company"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -447,26 +407,39 @@
                             Orientation="Horizontal"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
-                            Margin="0,16,18,0">
-                    <Button Style="{StaticResource WindowButtonStyle}"
+                            Margin="0,20,24,0">
+                    <Button x:Name="btnMinimize"
+                            Style="{StaticResource WindowButtonStyle}"
                             Click="BtnMinimize_Click"
                             ToolTip="Thu nhỏ">
-                        <Path Data="M0 0 H12"
-                              Stroke="#174EA6"
-                              StrokeThickness="2"
+                        <Path Width="16"
+                              Height="2"
+                              Data="M0,0 H16"
+                              Stroke="#5A6C84"
+                              StrokeThickness="2.5"
                               Stretch="Uniform"/>
                     </Button>
-                    <Button Margin="8,0,0,0"
-                            Style="{StaticResource WindowButtonStyle}"
-                            Background="#F06644"
+                    <Button x:Name="btnClose"
+                            Margin="10,0,0,0"
+                            Style="{StaticResource CloseButtonStyle}"
                             Click="BtnClose_Click"
                             ToolTip="Đóng">
-                        <Path Data="M3 3 L9 9 M9 3 L3 9"
-                              Stroke="White"
-                              StrokeThickness="2"
-                              StrokeStartLineCap="Round"
-                              StrokeEndLineCap="Round"
-                              Stretch="Uniform"/>
+                        <Path Width="16"
+                              Height="16"
+                              Data="M2,2 L14,14 M14,2 L2,14"
+                              Stroke="#5A6C84"
+                              StrokeThickness="2.5"
+                              Stretch="Uniform">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                            <Setter Property="Stroke" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
                     </Button>
                 </StackPanel>
             </Grid>
