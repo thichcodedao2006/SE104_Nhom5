@@ -89,7 +89,10 @@ namespace QLTB
 
         private void btnDangKy_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Tính năng này sẽ hỗ trợ khi cập nhật xong!");
+            fmDangKy dk = new fmDangKy();
+            this.Hide();
+            dk.ShowDialog();
+            this.Show();
         }
     }
 }

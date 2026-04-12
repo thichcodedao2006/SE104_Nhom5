@@ -1,0 +1,299 @@
+﻿<Window x:Class="QLTB.fmDangKy"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QLTB"
+        mc:Ignorable="d"
+        Title="fmDangKy" 
+        Width="980"
+        Height="720"
+        MinWidth="980"
+        MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        FontFamily="Segoe UI"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        >
+    <Grid
+        Background="{StaticResource MainBackgroundBrush}"
+        >
+        <TextBlock
+            Text="ĐĂNG KÝ TÀI KHOẢN"
+            Width="500"
+            Height="100"
+            FontSize="40"
+            FontWeight="Bold"
+            FontFamily="Bahnschrift"
+            TextAlignment="Center"
+            VerticalAlignment="Top"
+            Margin="0 15 0 0"
+            ></TextBlock>
+        <Border
+            Height="800"
+            Width="700"
+            Background="White"
+            CornerRadius="25"
+            Margin="0 0 0 -300"
+            >
+            <Grid>
+                <StackPanel 
+                    Width="300"
+                    Height="100"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="30 30 0 0"
+                    >
+                    <TextBlock Style="{StaticResource FieldLabelStyle}"
+               Text="Tên đăng nhập"/>
+                    <Border Style="{StaticResource InputShellStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Width="30"
+                    Height="30"
+                    Background="#E5EEFF"
+                    CornerRadius="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                                <Path Width="14"
+                      Height="14"
+                      Stretch="Uniform"
+                      Fill="#145CC6"
+                      Data="M12,12A4,4 0 1 0 8,8A4,4 0 0 0 12,12M12,14C8.13,14 5,16.13 5,18.75V20H19V18.75C19,16.13 15.87,14 12,14Z"/>
+                            </Border>
+
+                            <TextBox Grid.Column="1"
+                     x:Name="txtTenDangNhap"
+                     Margin="0,0,16,0"
+                     Style="{StaticResource PlainTextBoxStyle}"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <StackPanel 
+         Width="300"
+         Height="100"
+         VerticalAlignment="Top"
+         HorizontalAlignment="Right"
+         Margin="0 30 30 0"
+         >
+                        <TextBlock Style="{StaticResource FieldLabelStyle}"
+    Text="Họ và tên"/>
+                    <Border Style="{StaticResource InputShellStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Width="30"
+         Height="30"
+         Background="#E5EEFF"
+         CornerRadius="10"
+         HorizontalAlignment="Center"
+         VerticalAlignment="Center">
+                                <Path Width="14"
+           Height="14"
+           Stretch="Uniform"
+           Fill="#145CC6"
+           Data="M160-80q-33 0-56.5-23.5T80-160v-440q0-33 23.5-56.5T160-680h200v-120q0-33 23.5-56.5T440-880h80q33 0 56.5 23.5T600-800v120h200q33 0 56.5 23.5T880-600v440q0 33-23.5 56.5T800-80H160Zm0-80h640v-440H600q0 33-23.5 56.5T520-520h-80q-33 0-56.5-23.5T360-600H160v440Zm80-80h240v-18q0-17-9.5-31.5T444-312q-20-9-40.5-13.5T360-330q-23 0-43.5 4.5T276-312q-17 8-26.5 22.5T240-258v18Zm320-60h160v-60H560v60Zm-157.5-77.5Q420-395 420-420t-17.5-42.5Q385-480 360-480t-42.5 17.5Q300-445 300-420t17.5 42.5Q335-360 360-360t42.5-17.5ZM560-420h160v-60H560v60ZM440-600h80v-200h-80v200Zm40 220Z"/>
+                            </Border>
+
+                            <TextBox Grid.Column="1"
+          Margin="0,0,16,0"
+          Style="{StaticResource PlainTextBoxStyle}"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <StackPanel 
+     Width="300"
+     Height="100"
+     VerticalAlignment="Top"
+     HorizontalAlignment="Right"
+     Margin="0 270 30 0"
+     >
+                    <TextBlock Style="{StaticResource FieldLabelStyle}"
+Text="Email"/>
+                    <Border Style="{StaticResource InputShellStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Width="30"
+     Height="30"
+     Background="#E5EEFF"
+     CornerRadius="10"
+     HorizontalAlignment="Center"
+     VerticalAlignment="Center">
+                                <Path Width="14"
+       Height="14"
+       Stretch="Uniform"
+       Fill="#145CC6"
+       Data="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h404q-4 20-4 40t4 40H160l320 200 146-91q14 13 30.5 22.5T691-572L480-440 160-640v400h640v-324q23-5 43-14t37-22v360q0 33-23.5 56.5T800-160H160Zm0-560v480-480Zm515 45q-35-35-35-85t35-85q35-35 85-35t85 35q35 35 35 85t-35 85q-35 35-85 35t-85-35Z"/>
+                            </Border>
+
+                            <TextBox Grid.Column="1"
+      Margin="0,0,16,0"
+      Style="{StaticResource PlainTextBoxStyle}"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <StackPanel 
+     Width="300"
+     Height="100"
+     VerticalAlignment="Top"
+     HorizontalAlignment="Right"
+     Margin="0 150 30 0"
+     >
+                    <TextBlock Style="{StaticResource FieldLabelStyle}"
+Text="Số điện thoại"/>
+                    <Border Style="{StaticResource InputShellStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Width="30"
+     Height="30"
+     Background="#E5EEFF"
+     CornerRadius="10"
+     HorizontalAlignment="Center"
+     VerticalAlignment="Center">
+                                <Path Width="14"
+       Height="14"
+       Stretch="Uniform"
+       Fill="#145CC6"
+       Data="M680-480v-152l-92 92-28-28 112-112-112-112 28-28 92 92v-152h20l114 116-86 84 86 86-114 114h-20Zm40-76 38-38-38-38v76Zm0-172 38-36-38-38v74Zm78 608q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/>
+                            </Border>
+
+                            <TextBox Grid.Column="1"
+      Margin="0,0,16,0"
+      Style="{StaticResource PlainTextBoxStyle}"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <StackPanel
+                    Width="300"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="30 150 0 0"
+                    >
+                    <TextBlock Style="{StaticResource FieldLabelStyle}"
+               Text="Mật khẩu"/>
+                    <Border Style="{StaticResource InputShellStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Width="30"
+                    Height="30"
+                    Background="#E5EEFF"
+                    CornerRadius="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                                <Path Width="14"
+                      Height="14"
+                      Stretch="Uniform"
+                      Fill="#145CC6"
+                      Data="M12,1A4,4 0 0 0 8,5V7H7A2,2 0 0 0 5,9V18A2,2 0 0 0 7,20H17A2,2 0 0 0 19,18V9A2,2 0 0 0 17,7H16V5A4,4 0 0 0 12,1M10,5A2,2 0 0 1 14,5V7H10Z"/>
+                            </Border>
+
+                            <PasswordBox Grid.Column="1"
+                         x:Name="txtMatKhau"
+                         Margin="0,0,16,0"
+                         Style="{StaticResource PlainPasswordBoxStyle}"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <StackPanel
+     Width="300"
+     Height="100"
+     HorizontalAlignment="Left"
+     VerticalAlignment="Top"
+     Margin="30 270 0 0"
+     >
+                    <TextBlock Style="{StaticResource FieldLabelStyle}"
+Text="Nhập lại mật khẩu"/>
+                    <Border Style="{StaticResource InputShellStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Width="30"
+     Height="30"
+     Background="#E5EEFF"
+     CornerRadius="10"
+     HorizontalAlignment="Center"
+     VerticalAlignment="Center">
+                                <Path Width="14"
+       Height="14"
+       Stretch="Uniform"
+       Fill="#145CC6"
+       Data="M12,1A4,4 0 0 0 8,5V7H7A2,2 0 0 0 5,9V18A2,2 0 0 0 7,20H17A2,2 0 0 0 19,18V9A2,2 0 0 0 17,7H16V5A4,4 0 0 0 12,1M10,5A2,2 0 0 1 14,5V7H10Z"/>
+                            </Border>
+
+                            <PasswordBox Grid.Column="1"
+          Margin="0,0,16,0"
+          Style="{StaticResource PlainPasswordBoxStyle}"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <CheckBox 
+                    Margin="30 0 0 0"
+                    VerticalAlignment="Center"
+          Foreground="#5356FF"
+          Content="Tôi đồng ý với các điều khoản và chính sách của ứng dụng"/>
+                <Button
+                    Width="250"
+                    Height="70"
+                    Content="Đăng ký"
+                    FontSize="20"
+                    Margin="0 180 0 0"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    >
+                    
+                </Button>
+            </Grid>
+        </Border>
+        <Button
+            Width="70"
+            Height="50"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Margin="10 10 0 0"
+            Background="Transparent"
+            BorderThickness="0"
+            >
+            <Path
+                Width="30"
+                Height="30"
+                Stretch="Uniform"
+                Fill="Black"
+                Data="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"
+                
+                >
+            </Path>
+        </Button>
+    </Grid>
+</Window>
+
+
+
+

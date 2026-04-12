@@ -38,16 +38,17 @@ create table NhanVien
 	HoTen nvarchar(50),
 	SDT varchar(10),
 	Email varchar(50),
-	ChuyenMon nvarchar(100),
+	ChuyenMon nvarchar(100) -- Quan ly la chuyen mon rieng ,
 	TinhTrang nvarchar(50), -- đang rảnh, đang bận, nghỉ việc, ...
 )
+
 
 create table TaiKhoan
 (
 	TenTaiKhoan varchar(50) primary key,
 	MatKhau varchar(50),
 	Email varchar(50), -- không được sử dụng trùng email 
-	LoaiTaiKhoan int, --0: admin, 1: Nhan vien bao tri, 2: Nhan vien binh thuong 
+	LoaiTaiKhoan int, --0: Giam doc, 1: Quan ly kho, 2: Nhan vien binh thuong 
 	DuocXacThuc int, --0: chua duoc, 1: duoc 
 )
 

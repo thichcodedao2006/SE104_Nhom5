@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:QLTB"
              StartupUri="fmDangNhap.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="/Resource/MainResource.xaml"></ResourceDictionary>
     </Application.Resources>
 </Application>

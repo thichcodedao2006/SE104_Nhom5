@@ -12,19 +12,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="fmDangKy.xaml" />
+    <None Remove="Resource\MainResource.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0" />
+    <Page Include="fmDangKy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="fmDangNhap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resource\MainResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Update="fmDangNhap.xaml.cs">
       <DependentUpon>fmDangNhap.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
 
 </Project>

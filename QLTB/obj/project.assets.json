@@ -1201,24 +1201,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Acer\\.nuget\\packages\\": {},
-    "D:\\Program Files\\Visual\\Shared\\NuGetPackages": {}
+    "C:\\Users\\HP\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DOANTHIETBI\\SE104_Nhom5\\QLTB\\QLTB.csproj",
+      "projectUniqueName": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\QLTB.csproj",
       "projectName": "QLTB",
-      "projectPath": "D:\\DOANTHIETBI\\SE104_Nhom5\\QLTB\\QLTB.csproj",
-      "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-      "outputPath": "D:\\DOANTHIETBI\\SE104_Nhom5\\QLTB\\obj\\",
+      "projectPath": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\QLTB.csproj",
+      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+      "outputPath": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "D:\\Program Files\\Visual\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1274,7 +1269,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
