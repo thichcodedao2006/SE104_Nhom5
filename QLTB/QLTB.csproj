@@ -13,7 +13,11 @@
 
   <ItemGroup>
     <None Remove="fmDangKy.xaml" />
+    <None Remove="fmQuenMatKhau.xaml" />
     <None Remove="Resource\MainResource.xaml" />
+    <None Remove="UserControlFolder\ForgetPass1.xaml" />
+    <None Remove="UserControlFolder\ForgetPass2.xaml" />
+    <None Remove="UserControlFolder\ForgetPass3.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +33,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="fmQuenMatKhau.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resource\MainResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\ForgetPass1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\ForgetPass2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\ForgetPass3.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Update="fmDangNhap.xaml.cs">

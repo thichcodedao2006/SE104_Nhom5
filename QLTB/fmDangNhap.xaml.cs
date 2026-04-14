@@ -84,7 +84,10 @@ namespace QLTB
         }
         private void QuenMatKhau_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+            fmQuenMatKhau mk = new fmQuenMatKhau();
+            this.Hide();
+            mk.ShowDialog();
+            this.Show();
         }
 
         private void btnDangKy_Click(object sender, RoutedEventArgs e)

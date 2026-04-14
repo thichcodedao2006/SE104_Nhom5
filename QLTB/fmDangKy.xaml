@@ -28,7 +28,7 @@
             Text="ĐĂNG KÝ TÀI KHOẢN"
             Width="500"
             Height="100"
-            FontSize="40"
+            FontSize="35"
             FontWeight="Bold"
             FontFamily="Bahnschrift"
             TextAlignment="Center"
@@ -273,17 +273,18 @@ Text="Nhập lại mật khẩu"/>
             </Grid>
         </Border>
         <Button
-            Width="70"
-            Height="50"
+            Width="40"
+            Height="30"
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
             Margin="10 10 0 0"
             Background="Transparent"
             BorderThickness="0"
+            Click="Button_Click"
             >
             <Path
-                Width="30"
-                Height="30"
+                Width="20"
+                Height="20"
                 Stretch="Uniform"
                 Fill="Black"
                 Data="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"

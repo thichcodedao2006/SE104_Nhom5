@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="QLTB.UserControlFolder.ForgetPass1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QLTB.UserControlFolder"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+    <Grid>
+        <Border
+            Background="White"
+            CornerRadius="30"
+            ></Border>
+        <StackPanel 
+     Width="400"
+     Height="100"
+     VerticalAlignment="Center"
+     HorizontalAlignment="Center"
+     Margin="0 -70 0 0"
+     >
+            <TextBlock Style="{StaticResource FieldLabelStyle}"
+Text="Nhập tên đăng nhập"
+                       TextAlignment="Center"
+                       Margin="0 0 0 10"/>
+            <Border Style="{StaticResource InputShellStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Width="30"
+     Height="30"
+     Background="#E5EEFF"
+     CornerRadius="10"
+     HorizontalAlignment="Center"
+     VerticalAlignment="Center">
+                        <Path Width="14"
+       Height="14"
+       Stretch="Uniform"
+       Fill="#145CC6"
+       Data="M12,12A4,4 0 1 0 8,8A4,4 0 0 0 12,12M12,14C8.13,14 5,16.13 5,18.75V20H19V18.75C19,16.13 15.87,14 12,14Z"/>
+                    </Border>
+
+                    <TextBox Grid.Column="1"
+                           Text="{Binding Username}"
+      Margin="0,0,16,0"
+      Style="{StaticResource PlainTextBoxStyle}"/>
+                </Grid>
+            </Border>
+        </StackPanel>
+        <Button
+    Width="150"
+    Height="50"
+    Content="Xác nhận"
+    FontSize="15"
+    Margin="0 180 0 0"
+    Style="{StaticResource PrimaryButtonStyle}"
+            Command="{Binding ConfirmCommand}"
+    >
+
+        </Button>
+    </Grid>
+</UserControl>

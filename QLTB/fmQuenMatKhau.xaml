@@ -1,0 +1,109 @@
+﻿<Window x:Class="QLTB.fmQuenMatKhau"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QLTB"
+        xmlns:uc ="clr-namespace:QLTB.UserControlFolder"
+        xmlns:vm="clr-namespace:QLTB.ViewModel"
+        mc:Ignorable="d"
+        Title="fmQuenMatKhau" 
+        Height="450" 
+        Width="700"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        FontFamily="Segoe UI"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        >
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:ForgetPass1VM}">
+            <uc:ForgetPass1/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ForgetPass2VM}">
+            <uc:ForgetPass2/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ForgetPass3VM}">
+            <uc:ForgetPass3/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid 
+        Background="{StaticResource MainBackgroundBrush}"
+        >
+        <TextBlock
+            Width="500"
+            Height="80"
+            Text="THIẾT LẬP MẬT KHẨU"
+            TextAlignment="Center"
+            FontSize="30"
+            FontWeight="Bold"
+            FontFamily="Bahnschrift"
+            VerticalAlignment="Top"
+            Margin="0 15 0 0"
+            ></TextBlock>
+        <Button
+    Width="20"
+    Height="20"
+    VerticalAlignment="Top"
+    HorizontalAlignment="Left"
+    Margin="10 10 0 0"
+    Background="Transparent"
+    BorderThickness="0"
+    Click="Button_Click"
+    >
+            <Path
+        Width="15"
+        Height="15"
+        Stretch="Uniform"
+        Fill="Black"
+        Data="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"
+        
+        >
+            </Path>
+        </Button>
+        <ContentControl
+    Height="300"
+    Width="500"
+    Margin="0 30 0 0"
+    Content="{Binding CurrentUC, NotifyOnTargetUpdated=True}">
+
+            <ContentControl.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </ContentControl.RenderTransform>
+
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                            <BeginStoryboard>
+                                <Storyboard>
+
+                                    <DoubleAnimation 
+                                Storyboard.TargetProperty="Opacity"
+                                From="0.0" To="1.0" 
+                                Duration="0:0:0.3" />
+
+                                    <DoubleAnimation 
+                                Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                From="50" To="0" 
+                                Duration="0:0:0.5">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CubicEase EasingMode="EaseOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+    </Grid>
+    
+</Window>

@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="QLTB.UserControlFolder.ForgetPass2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QLTB.UserControlFolder"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+    <Grid>
+        <Border
+            Background="White"
+            CornerRadius="30"
+            ></Border>
+        <TextBlock
+            Width="200"
+            Height="50"
+            FontWeight="SemiBold"
+            TextAlignment="Center"
+            FontSize="15"
+            VerticalAlignment="Top"
+            Margin="0 25 0 0"
+            >
+            Nhập mã OTP
+            <LineBreak></LineBreak>
+            (Mã đã được gửi qua email)
+        </TextBlock>
+        <!--<StackPanel Orientation="Horizontal"
+                    Height="100"
+                    Width="420"
+                    Margin="0 -50 0 0"
+                    >
+            <StackPanel.Resources>
+                
+                <DataTemplate x:Key="BorderTextBox">
+                    <Border
+    Height="80"
+    Width="60"
+    Background="#E5EEFF"
+    CornerRadius="10"
+    >
+                        <TextBox
+        Background="Transparent"
+        Height="50"
+        Width="40"
+        FontSize="25"
+        TextAlignment="Center"
+        BorderThickness="0"
+        Margin="0 10 0 0"
+        Foreground="Blue"
+        ></TextBox>
+                    </Border>
+                </DataTemplate>
+            </StackPanel.Resources>
+            <ContentControl ContentTemplate="{StaticResource BorderTextBox}"
+                            Margin="5 0 10 0"
+                            ></ContentControl>
+            <ContentControl ContentTemplate="{StaticResource BorderTextBox}"
+                            Margin="0 0 10 0"></ContentControl>
+            <ContentControl ContentTemplate="{StaticResource BorderTextBox}"
+                            Margin="0 0 10 0"></ContentControl>
+            <ContentControl ContentTemplate="{StaticResource BorderTextBox}"
+                Margin="0 0 10 0"></ContentControl>
+            <ContentControl ContentTemplate="{StaticResource BorderTextBox}"
+                Margin="0 0 10 0"></ContentControl>
+            <ContentControl ContentTemplate="{StaticResource BorderTextBox}"
+               ></ContentControl>
+        </StackPanel>-->
+        <ItemsControl ItemsSource="{Binding OtpList}">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
+                                Margin="0 -50 0 0"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="60" Height="80" Margin="5" Background="#E5EEFF" CornerRadius="10">
+
+                        <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
+                         MaxLength="1" 
+                         IsEnabled="{Binding IsEnable, UpdateSourceTrigger=PropertyChanged}"         
+                         FontSize="25"
+                         Height= "50"
+                         Width="40"
+                         Foreground="Blue"
+                         FontWeight="Bold"
+                         TextAlignment="Center"
+                         VerticalAlignment="Center"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         TextChanged="TextBox_TextChanged"
+                          />
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+        <StackPanel
+            Height="30"
+            Width="200"
+            Margin="0 65 0 0"
+            Orientation="Horizontal"
+            >
+            <TextBlock
+    Height="20"
+    Width="130"
+    Text="Chưa nhận được email?"
+                Foreground="Gray"
+                Margin="20 0 0 0"
+    ></TextBlock>
+            <TextBlock
+                Height="20"
+                Width="50"
+                
+                Foreground="#145CC6"
+                FontWeight="SemiBold"
+                >
+                <Hyperlink > Gửi lại</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+        <Button
+Width="150"
+Height="50"
+Content="Xác nhận"
+FontSize="15"
+Margin="0 200 80 0"
+            HorizontalAlignment="Right"
+Style="{StaticResource PrimaryButtonStyle}"
+>
+
+        </Button>
+        <Button
+Width="150"
+Height="50"
+Content="Trở lại trang trước"
+FontSize="15"
+Margin="80 200 0 0"
+            HorizontalAlignment="Left"
+Style="{StaticResource SecondaryButtonStyle}"
+>
+
+        </Button>
+    </Grid>
+</UserControl>

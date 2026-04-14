@@ -191,3 +191,12 @@ D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\Q
 D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\Resource\MainResource.baml
 D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\fmDangKy.g.cs
 D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\fmDangKy.baml
+D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\fmQuenMatKhau.g.cs
+D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\ForgetPass1.g.cs
+D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\fmQuenMatKhau.baml
+D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\ForgetPass1.baml
+D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\ForgetPass2.g.cs
+D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\ForgetPass3.g.cs
+D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\ForgetPass2.baml
+D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\ForgetPass3.baml
+D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
