@@ -65,7 +65,7 @@
             <ContentControl ContentTemplate="{StaticResource BorderTextBox}"
                ></ContentControl>
         </StackPanel>-->
-        <ItemsControl ItemsSource="{Binding OtpList}">
+        <ItemsControl ItemsSource="{Binding Data.OtpList}">
 
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -128,6 +128,7 @@ FontSize="15"
 Margin="0 200 80 0"
             HorizontalAlignment="Right"
 Style="{StaticResource PrimaryButtonStyle}"
+            Command="{Binding NextCommand}"
 >
 
         </Button>
@@ -139,6 +140,7 @@ FontSize="15"
 Margin="80 200 0 0"
             HorizontalAlignment="Left"
 Style="{StaticResource SecondaryButtonStyle}"
+            Command="{Binding BackCommand}"
 >
 
         </Button>

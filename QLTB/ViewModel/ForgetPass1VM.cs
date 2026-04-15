@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLTB.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,17 +11,20 @@ namespace QLTB.ViewModel
 {
     public class ForgetPass1VM : BaseViewModel
     {
-        private string username;
+        private ForgetPass data;
+        public ICommand ConfirmCommand {  get; set; }
 
-        private ICommand confirmCommand;
+        public Action<ForgetPass> DoneWithUsername { get; set; }
+        public ForgetPass Data { get => data; set => data = value; }
 
-        public ICommand ConfirmCommand { get => confirmCommand; set => confirmCommand = value; }
-        public string Username { get => username; set => username = value; }
-
-        public ForgetPass1VM(Action<string> Confirm )
+        public ForgetPass1VM(ForgetPass data)
         {
-            ConfirmCommand = new RelayCommand<string>(/*o => !string.IsNullOrEmpty(Username),*/o => true, o => Confirm.Invoke(Username));
+            Data = data;
+            ConfirmCommand = new RelayCommand<string>(o => true, o =>
+            {
+                // kiểm tra Database 
+                DoneWithUsername.Invoke(Data);
+            });
         }
-
     }
 }

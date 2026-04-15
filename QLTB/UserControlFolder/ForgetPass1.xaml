@@ -43,7 +43,7 @@ Text="Nhập tên đăng nhập"
                     </Border>
 
                     <TextBox Grid.Column="1"
-                           Text="{Binding Username}"
+                           Text="{Binding Data.Username}"
       Margin="0,0,16,0"
       Style="{StaticResource PlainTextBoxStyle}"/>
                 </Grid>

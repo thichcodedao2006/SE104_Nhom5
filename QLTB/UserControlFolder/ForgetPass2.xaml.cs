@@ -30,8 +30,7 @@ namespace QLTB.UserControlFolder
             var tb = sender as TextBox;
             if (tb != null && tb.Text.Length == tb.MaxLength)
             {
-                // Cho hệ thống trễ lại 1 nhịp siêu nhỏ (mắt thường không thấy) 
-                // để ViewModel kịp mở khóa ô tiếp theo
+                // chờ 
                 tb.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     tb.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
