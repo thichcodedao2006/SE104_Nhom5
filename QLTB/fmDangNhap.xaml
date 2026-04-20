@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        x:Name="SignInWindow"
         mc:Ignorable="d"
         Title="Đăng nhập hệ thống"
         Width="1180"
@@ -166,6 +168,7 @@
                                         <TextBox Grid.Column="1"
                                                  x:Name="txtTenDangNhap"
                                                  Margin="0,0,16,0"
+                                                 Text="{Binding Username}"
                                                  Style="{StaticResource PlainTextBoxStyle}"/>
                                     </Grid>
                                 </Border>
@@ -197,7 +200,14 @@
                                         <PasswordBox Grid.Column="1"
                                                      x:Name="txtMatKhau"
                                                      Margin="0,0,16,0"
-                                                     Style="{StaticResource PlainPasswordBoxStyle}"/>
+                                                     Style="{StaticResource PlainPasswordBoxStyle}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="PasswordChanged">
+                                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                           CommandParameter="{Binding ElementName=txtMatKhau}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </PasswordBox>
                                     </Grid>
                                 </Border>
                             </StackPanel>
@@ -216,14 +226,18 @@
                                            VerticalAlignment="Center"
                                            FontWeight="SemiBold"
                                            Foreground="#145CC6">
-                                            <Hyperlink Click="QuenMatKhau_Click">Quên mật khẩu?</Hyperlink>
+                                            <Hyperlink 
+                                                Command="{Binding ForgetPassCommand}"
+                                                CommandParameter="{Binding ElementName=SignInWindow}"
+                                                >Quên mật khẩu?</Hyperlink>
                                 </TextBlock>
 
                             </Grid>
 
                             <Button x:Name="btn_DangNhap" Margin="0,24,0,0"
                                     Style="{StaticResource PrimaryButtonStyle}"
-                                    Content="Đăng nhập" Click="btn_DangNhap_Click"
+                                    Content="Đăng nhập" 
+                                    Command="{Binding SignInCommand}"
                                     IsDefault="True"/>
 
 
@@ -232,7 +246,9 @@
                         <Button Grid.Row="1"
                                 HorizontalAlignment="Center"
                                 Style="{StaticResource SecondaryButtonStyle}"
-                                Content="Đăng ký" Click="btnDangKy_Click" Margin="0,351,0,30" Width="432"/>
+                                Command="{Binding SignUpCommand}"
+                                CommandParameter="{Binding ElementName=SignInWindow}"
+                                Content="Đăng ký" Margin="0,351,0,30" Width="432"/>
                     </Grid>
                 </Grid>
 
