@@ -16,18 +16,22 @@ namespace QLTB.ViewModel
 {
     public class LogInVM
     {
+        #region Property
         private string username;
         private string password;
         private bool IsCheckingLogIn = false;
 
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }
+        #endregion
 
+        #region Command
         public ICommand SignInCommand { get; set; }
         public ICommand SignUpCommand { get; set; }
         public ICommand ForgetPassCommand {  get; set; }    
 
         public ICommand PasswordChangedCommand { get; set; }
+        #endregion
 
         public LogInVM()
         {
@@ -53,6 +57,7 @@ namespace QLTB.ViewModel
                 );
         }
 
+        #region ExecuteCommand
         private void OpenSignUp(Window w)
         {
             w.Hide();
@@ -79,6 +84,11 @@ namespace QLTB.ViewModel
             if (IsCheckingLogIn) return;
             try // tránh lỗi văng 
             {
+                if (!CheckValidPass())
+                {
+                    MessageBox.Show("Mật khẩu phải có độ dài ít nhất là 8 kí tự.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
                 IsCheckingLogIn = true;
                 string hashpass = Security.HashPasswordSHA256(Password);
                 var tk = await DataProvider.Instance.DB.TaiKhoans.FirstOrDefaultAsync(
@@ -101,5 +111,11 @@ namespace QLTB.ViewModel
             
            
         }
+
+        private bool CheckValidPass()
+        {
+            return !(Password.Length < 8);
+        }
+        #endregion
     }
 }

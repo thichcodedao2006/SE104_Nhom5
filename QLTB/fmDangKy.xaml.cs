@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QLTB.ViewModel;
 
 namespace QLTB
 {
@@ -22,6 +23,7 @@ namespace QLTB
         public fmDangKy()
         {
             InitializeComponent();
+            this.DataContext = new SignUpVM();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

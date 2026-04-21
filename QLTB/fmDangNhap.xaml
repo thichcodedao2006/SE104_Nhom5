@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:con="clr-namespace:QLTB.Condition"
         x:Name="SignInWindow"
         mc:Ignorable="d"
         Title="Đăng nhập hệ thống"
@@ -169,7 +170,12 @@
                                                  x:Name="txtTenDangNhap"
                                                  Margin="0,0,16,0"
                                                  Text="{Binding Username}"
-                                                 Style="{StaticResource PlainTextBoxStyle}"/>
+                                                 Style="{StaticResource PlainTextBoxStyle}"
+                                                 InputMethod.IsInputMethodEnabled="false">
+                                            <i:Interaction.Behaviors>
+                                                <con:UsernameInputCondition></con:UsernameInputCondition>
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
                                     </Grid>
                                 </Border>
                             </StackPanel>
@@ -200,13 +206,18 @@
                                         <PasswordBox Grid.Column="1"
                                                      x:Name="txtMatKhau"
                                                      Margin="0,0,16,0"
-                                                     Style="{StaticResource PlainPasswordBoxStyle}">
+                                                     Style="{StaticResource PlainPasswordBoxStyle}"
+                                                     InputMethod.IsInputMethodEnabled="false">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="PasswordChanged">
                                                     <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
                                            CommandParameter="{Binding ElementName=txtMatKhau}"/>
                                                 </i:EventTrigger>
+                                                
                                             </i:Interaction.Triggers>
+                                            <i:Interaction.Behaviors>
+                                                <con:PasswordInputCondition/>
+                                            </i:Interaction.Behaviors>
                                         </PasswordBox>
                                     </Grid>
                                 </Border>

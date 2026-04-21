@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLTB"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:con="clr-namespace:QLTB.Condition"
         mc:Ignorable="d"
         Title="fmDangKy" 
         Width="980"
@@ -75,7 +77,13 @@
                             <TextBox Grid.Column="1"
                      x:Name="txtTenDangNhap"
                      Margin="0,0,16,0"
-                     Style="{StaticResource PlainTextBoxStyle}"/>
+                     Style="{StaticResource PlainTextBoxStyle}"
+                                     InputMethod.IsInputMethodEnabled="false"
+                                     Text="{Binding Username}">
+                                <i:Interaction.Behaviors>
+                                    <con:UsernameInputCondition></con:UsernameInputCondition>
+                                </i:Interaction.Behaviors>
+                            </TextBox>
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -110,7 +118,8 @@
 
                             <TextBox Grid.Column="1"
           Margin="0,0,16,0"
-          Style="{StaticResource PlainTextBoxStyle}"/>
+          Style="{StaticResource PlainTextBoxStyle}"
+                                     Text="{Binding Realname}"/>
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -145,7 +154,13 @@ Text="Email"/>
 
                             <TextBox Grid.Column="1"
       Margin="0,0,16,0"
-      Style="{StaticResource PlainTextBoxStyle}"/>
+      Style="{StaticResource PlainTextBoxStyle}"
+                                     InputMethod.IsInputMethodEnabled="false"
+                                     Text="{Binding Email}">
+                                <i:Interaction.Behaviors>
+                                    <con:UsernameInputCondition></con:UsernameInputCondition>
+                                </i:Interaction.Behaviors>
+                            </TextBox>
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -180,7 +195,12 @@ Text="Số điện thoại"/>
 
                             <TextBox Grid.Column="1"
       Margin="0,0,16,0"
-      Style="{StaticResource PlainTextBoxStyle}"/>
+      Style="{StaticResource PlainTextBoxStyle}"
+                                     Text="{Binding Phone}">
+                                <i:Interaction.Behaviors>
+                                    <con:PhoneCondition></con:PhoneCondition>
+                                </i:Interaction.Behaviors>
+                            </TextBox>
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -216,7 +236,19 @@ Text="Số điện thoại"/>
                             <PasswordBox Grid.Column="1"
                          x:Name="txtMatKhau"
                          Margin="0,0,16,0"
-                         Style="{StaticResource PlainPasswordBoxStyle}"/>
+                         Style="{StaticResource PlainPasswordBoxStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction 
+                                            Command="{Binding PasswordChangedCommand}"
+                                            CommandParameter="{Binding ElementName=txtMatKhau}"
+                                            ></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <i:Interaction.Behaviors>
+                                    <con:PasswordInputCondition></con:PasswordInputCondition>
+                                </i:Interaction.Behaviors>
+                            </PasswordBox>
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -249,9 +281,23 @@ Text="Nhập lại mật khẩu"/>
        Data="M12,1A4,4 0 0 0 8,5V7H7A2,2 0 0 0 5,9V18A2,2 0 0 0 7,20H17A2,2 0 0 0 19,18V9A2,2 0 0 0 17,7H16V5A4,4 0 0 0 12,1M10,5A2,2 0 0 1 14,5V7H10Z"/>
                             </Border>
 
-                            <PasswordBox Grid.Column="1"
+                            <PasswordBox 
+                                x:Name="txbPass"
+                                Grid.Column="1"
           Margin="0,0,16,0"
-          Style="{StaticResource PlainPasswordBoxStyle}"/>
+          Style="{StaticResource PlainPasswordBoxStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger  EventName="PasswordChanged">
+                                        <i:InvokeCommandAction
+                                            Command="{Binding RetypePassChangedCommand}"
+                                            CommandParameter="{Binding ElementName=txbPass}"
+                                            ></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <i:Interaction.Behaviors>
+                                    <con:PasswordInputCondition></con:PasswordInputCondition>
+                                </i:Interaction.Behaviors>
+                            </PasswordBox>
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -267,6 +313,7 @@ Text="Nhập lại mật khẩu"/>
                     FontSize="20"
                     Margin="0 180 0 0"
                     Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding SignUpCommand}"
                     >
                     
                 </Button>
