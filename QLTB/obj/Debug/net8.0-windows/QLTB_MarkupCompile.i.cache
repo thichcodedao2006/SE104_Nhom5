@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\
 QLTB
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\App.xaml
-7364026899
+D:\SE104_Nhom5\QLTB\App.xaml
+251552611416
 
-33-2087336873
-2241880769354
-fmDangKy.xaml;fmDangNhap.xaml;fmQuenMatKhau.xaml;Resource\MainResource.xaml;UserControlFolder\ForgetPass1.xaml;UserControlFolder\ForgetPass2.xaml;UserControlFolder\ForgetPass3.xaml;
+50480111143
+227-480842531
+fmDangKy.xaml;fmDangNhap.xaml;fmQuenMatKhau.xaml;MainWindow.xaml;Resource\MainResource.xaml;UserControlFolder\DashBoard\DashBoardView.xaml;UserControlFolder\Device\DeviceView.xaml;UserControlFolder\Employee\EmployeeView.xaml;UserControlFolder\ForgetPass1.xaml;UserControlFolder\ForgetPass2.xaml;UserControlFolder\ForgetPass3.xaml;UserControlFolder\Maintenance\MaintenancePlan.xaml;UserControlFolder\Maintenance\MaintenanceTask.xaml;UserControlFolder\Material\MaterialFormView.xaml;UserControlFolder\Material\MaterialView.xaml;Resource\Button.xaml;Resource\ButtonStyles.xaml;Resource\CardStyles.xaml;Resource\ComboBoxStyles.xaml;Resource\DataGridStyles.xaml;Resource\DatePickerStyles.xaml;Resource\InputStyles.xaml;Resource\SBButton.xaml;Resource\TextBox.xaml;Resource\TextBoxStyles.xaml;
 
-True
+False
 

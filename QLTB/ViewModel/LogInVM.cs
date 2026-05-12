@@ -98,6 +98,16 @@ namespace QLTB.ViewModel
                 if (tk != null)
                 {
                     MessageBox.Show("Đăng nhập thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                    // Mở MainWindow và đóng form đăng nhập
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    
+                    // Đóng cửa sổ đăng nhập hiện tại
+                    if (p is Window loginWindow)
+                    {
+                        loginWindow.Close();
+                    }
                 }
                 else
                 {

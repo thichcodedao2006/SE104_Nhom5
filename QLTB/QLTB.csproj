@@ -14,10 +14,18 @@
   <ItemGroup>
     <None Remove="fmDangKy.xaml" />
     <None Remove="fmQuenMatKhau.xaml" />
+    <None Remove="MainWindow.xaml" />
     <None Remove="Resource\MainResource.xaml" />
+    <None Remove="UserControlFolder\DashBoard\DashBoardView.xaml" />
+    <None Remove="UserControlFolder\Device\DeviceView.xaml" />
+    <None Remove="UserControlFolder\Employee\EmployeeView.xaml" />
     <None Remove="UserControlFolder\ForgetPass1.xaml" />
     <None Remove="UserControlFolder\ForgetPass2.xaml" />
     <None Remove="UserControlFolder\ForgetPass3.xaml" />
+    <None Remove="UserControlFolder\Maintenance\MaintenancePlan.xaml" />
+    <None Remove="UserControlFolder\Maintenance\MaintenanceTask.xaml" />
+    <None Remove="UserControlFolder\Material\MaterialFormView.xaml" />
+    <None Remove="UserControlFolder\Material\MaterialView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +33,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="FontAwesome5.WPF" Version="1.0.5" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.26">
       <PrivateAssets>all</PrivateAssets>
@@ -46,7 +56,19 @@
     <Page Include="fmQuenMatKhau.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resource\MainResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\DashBoard\DashBoardView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Device\DeviceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Employee\EmployeeView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\ForgetPass1.xaml">
@@ -58,10 +80,55 @@
     <Page Include="UserControlFolder\ForgetPass3.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControlFolder\Maintenance\MaintenancePlan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Maintenance\MaintenanceTask.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Material\MaterialFormView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Material\MaterialView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Compile Update="fmDangNhap.xaml.cs">
       <DependentUpon>fmDangNhap.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="Resource\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\ButtonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\CardStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\ComboBoxStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\DataGridStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\DatePickerStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\InputStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\SBButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\TextBoxStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
 </Project>

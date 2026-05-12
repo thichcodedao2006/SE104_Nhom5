@@ -11,6 +11,18 @@
     <Compile Update="fmQuenMatKhau.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\DashBoard\DashBoardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Device\DeviceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Employee\EmployeeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControlFolder\ForgetPass1.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -20,6 +32,76 @@
     <Compile Update="UserControlFolder\ForgetPass3.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\Maintenance\MaintenancePlan.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Maintenance\MaintenanceTask.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Material\MaterialFormView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Material\MaterialView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Resource\Button.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Resource\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Resource\CardStyles.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Resource\ComboBoxStyles.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Resource\DataGridStyles.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Resource\DatePickerStyles.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Resource\InputStyles.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Resource\SBButton.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Resource\TextBox.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Resource\TextBoxStyles.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <Page Update="UserControlFolder\Maintenance\MaintenanceTask.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\Maintenance\MaintenancePlan.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\Employee\EmployeeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\Material\MaterialFormView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\Material\MaterialView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\Device\DeviceView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\DashBoard\DashBoardView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="UserControlFolder\ForgetPass3.xaml">
