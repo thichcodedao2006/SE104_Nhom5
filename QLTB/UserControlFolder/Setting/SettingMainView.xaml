@@ -8,7 +8,65 @@
              mc:Ignorable="d" 
              Background="#F8FAFC">
 
-    <Grid>
-        
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Cài đặt"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   Foreground="#111827"/>
+            <TextBlock Text="Quản lý tài khoản và tùy chỉnh cấu hình hệ thống"
+                   Margin="0,6,0,0"
+                   FontSize="14"
+                   Foreground="#6B7280"/>
+        </StackPanel>
+
+        <Border Grid.Row="2" 
+            BorderBrush="#E5E7EB" 
+            BorderThickness="0,0,0,1"
+            >
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Content="Hồ sơ" 
+                         FontSize="18"
+                         IsChecked="True"
+                         GroupName="SettingTabs"
+                         Style="{StaticResource SidebarRadioButton}"
+                         Command="{Binding ShowProfileCommand}"/>
+                <RadioButton Content="Bảo mật" 
+                         FontSize="18"
+                         GroupName="SettingTabs"
+                         Style="{StaticResource SidebarRadioButton}"
+                         Command="{Binding ShowSecurityCommand}"
+                         Margin="24,0,0,0"/>
+                <RadioButton Content="Thông báo" 
+                         FontSize="18"
+                         GroupName="SettingTabs"
+                         Style="{StaticResource SidebarRadioButton}"
+                         Command="{Binding ShowNotificationsCommand}"
+                         Margin="24,0,0,0"/>
+                <RadioButton Content="Hệ thống" 
+                         FontSize="18"
+                         GroupName="SettingTabs"
+                         Style="{StaticResource SidebarRadioButton}"
+                         Command="{Binding ShowSystemCommand}"
+                         Margin="24,0,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="4"
+            Background="White"
+            BorderBrush="#E5E7EB"
+            BorderThickness="1"
+            CornerRadius="14"
+            Padding="32">
+            <ContentControl Content="{Binding CurrentSettingsView}"/>
+        </Border>
     </Grid>
 </UserControl>
