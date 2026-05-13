@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="QLTB.UserControlFolder.IncidentReport.IncidentReportFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QLTB.UserControlFolder.IncidentReport"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d" 
+             Background="Transparent">
+
+    <Border Width="600"
+            Background="White"
+            CornerRadius="16"
+            Padding="25"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.1"/>
+        </Border.Effect>
+
+        <StackPanel>
+            <TextBlock Text="Báo cáo sự cố mới" 
+                       FontSize="22" 
+                       FontWeight="Bold" 
+                       Foreground="#111827" 
+                       Margin="0,0,0,20"/>
+
+            <StackPanel Margin="0,0,0,15">
+                <TextBlock Text="Thiết bị/Trang thiết bị" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                <ComboBox Style="{StaticResource ModernComboBox}" 
+                          Height="42" 
+                          SelectedIndex="0"
+                          ItemsSource="{Binding Devices}"
+                          SelectedItem="{Binding SelectedDevice}">
+                    <ComboBoxItem Content="Chọn một thiết bị"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,15">
+                <TextBlock Text="Mức độ ưu tiên" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                <ComboBox Style="{StaticResource ModernComboBox}" 
+                          Height="42" 
+                          SelectedIndex="0"
+                          ItemsSource="{Binding Priorities}"
+                          SelectedItem="{Binding SelectedPriority}">
+                    <ComboBoxItem Content="Thấp"/>
+                    <ComboBoxItem Content="Trung bình"/>
+                    <ComboBoxItem Content="Cao"/>
+                    <ComboBoxItem Content="Khẩn cấp"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,15">
+                <TextBlock Text="Mô tả vấn đề" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                <TextBox Style="{StaticResource RoundedTextBox}" 
+                         Height="100" 
+                         Padding="12" 
+                         VerticalContentAlignment="Top"
+                         AcceptsReturn="True" 
+                         TextWrapping="Wrap"
+                         BorderBrush="#2563EB"
+                         Tag="Mô tả chi tiết vấn đề đang gặp phải..." 
+                         Text="{Binding ProblemDescription}"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,20">
+                <TextBlock Text="Tải ảnh lên" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                <Border Height="140" 
+                        BorderBrush="#D1D5DB" 
+                        BorderThickness="1.5" 
+                        CornerRadius="10" 
+                        Background="#F9FAFB">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <fa:ImageAwesome Icon="Image" Width="32" Height="32" Foreground="#6B7280" Margin="0,0,0,10"/>
+                        <TextBlock Text="Tải lên hình ảnh của sự cố" Foreground="#6B7280" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <Button Content="Chọn tệp" 
+                                Width="110" 
+                                Height="35" 
+                                Background="#F3F4F6" 
+                                BorderBrush="#D1D5DB"
+                                Cursor="Hand"
+                                Command="{Binding SelectPhotosCommand}"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button Content="Hủy bỏ" 
+                        Width="100" 
+                        Height="42" 
+                        Background="White" 
+                        BorderBrush="#D1D5DB" 
+                        BorderThickness="1" 
+                        Margin="0,0,12,0" 
+                        Cursor="Hand" 
+                        Command="{Binding CancelCommand}"/>
+
+                <Button Content="Gửi báo cáo" 
+                        Width="140" 
+                        Height="42" 
+                        Background="#2563EB" 
+                        Foreground="White" 
+                        FontWeight="Bold" 
+                        BorderThickness="0" 
+                        Cursor="Hand" 
+                        Command="{Binding SubmitReportCommand}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

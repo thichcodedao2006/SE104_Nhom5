@@ -460,3 +460,11 @@ D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Maintenance\Maint
 D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Maintenance\MaintenanceHistoryView.baml
 D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\IncidentReport\IncidentReportView.g.cs
 D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\IncidentReport\IncidentReportView.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Employee\EmployeeFormView.g.cs
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Device\DeviceFormView.g.cs
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\IncidentReport\IncidentReportFormView.g.cs
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Maintenance\MaintenancePlanFormView.g.cs
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Employee\EmployeeFormView.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Device\DeviceFormView.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\IncidentReport\IncidentReportFormView.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Maintenance\MaintenancePlanFormView.baml

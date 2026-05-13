@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="QLTB.UserControlFolder.Maintenance.MaintenancePlanFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QLTB.UserControlFolder.Maintenance"
+             mc:Ignorable="d" 
+             Background="Transparent">
+
+    <Border Width="650"
+            Background="White"
+            CornerRadius="16"
+            Padding="30"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.1"/>
+        </Border.Effect>
+
+        <StackPanel>
+            <TextBlock Text="Tạo kế hoạch bảo trì" 
+                       FontSize="22" 
+                       FontWeight="Bold" 
+                       Foreground="#111827" 
+                       Margin="0,0,0,25"/>
+
+            <StackPanel Margin="0,0,0,20">
+                <TextBlock Text="Tên kế hoạch" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                <TextBox Style="{StaticResource RoundedTextBox}" 
+                         Height="45" 
+                         Padding="12,0" 
+                         VerticalContentAlignment="Center" 
+                         BorderBrush="#2563EB"
+                         Tag="Nhập tên kế hoạch bảo trì" 
+                         Text="{Binding PlanName}"/>
+            </StackPanel>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Loại bảo trì" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                    <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
+                              ItemsSource="{Binding MaintenanceTypes}" SelectedItem="{Binding SelectedType}">
+                        <ComboBoxItem Content="Phòng ngừa"/>
+                        <ComboBoxItem Content="Sửa chữa"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Thiết bị" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
+                              ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}">
+                        <ComboBoxItem Content="Máy CNC A"/>
+                        <ComboBoxItem Content="Máy Phay B"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Chu kỳ thực hiện" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
+                              ItemsSource="{Binding Cycles}" SelectedItem="{Binding SelectedCycle}">
+                        <ComboBoxItem Content="Hàng tuần"/>
+                        <ComboBoxItem Content="Hàng tháng"/>
+                        <ComboBoxItem Content="Hàng quý"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Mức độ ưu tiên" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                    <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
+                              ItemsSource="{Binding Priorities}" SelectedItem="{Binding SelectedPriority}">
+                        <ComboBoxItem Content="Cao"/>
+                        <ComboBoxItem Content="Trung bình"/>
+                        <ComboBoxItem Content="Thấp"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Người thực hiện" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
+                              ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
+                        <ComboBoxItem Content="Nguyễn Văn A"/>
+                        <ComboBoxItem Content="Trần Thị B"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Chi phí ước tính ($)" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" Height="45" Padding="12,0" 
+                             VerticalContentAlignment="Center" Tag="Nhập chi phí dự kiến" 
+                             Text="{Binding EstimatedCost}"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Margin="0,20,0,0">
+                <TextBlock Text="Ghi chú" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                <TextBox Style="{StaticResource RoundedTextBox}" 
+                         Height="120" 
+                         Padding="12" 
+                         VerticalContentAlignment="Top"
+                         AcceptsReturn="True" 
+                         TextWrapping="Wrap"
+                         Tag="Nhập thêm ghi chú hoặc hướng dẫn chi tiết..." 
+                         Text="{Binding Notes}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,30,0,0">
+                <Button Content="Hủy bỏ" Width="110" Height="45" Background="White" 
+                        BorderBrush="#D1D5DB" BorderThickness="1" Margin="0,0,15,0" 
+                        Cursor="Hand" Command="{Binding CancelCommand}"/>
+
+                <Button Content="Tạo kế hoạch" Width="150" Height="45" Background="#2563EB" 
+                        Foreground="White" FontWeight="Bold" BorderThickness="0" 
+                        Cursor="Hand" Command="{Binding CreatePlanCommand}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

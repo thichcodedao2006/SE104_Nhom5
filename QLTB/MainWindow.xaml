@@ -108,7 +108,7 @@
                 <!-- Menu -->
                 <StackPanel Grid.Row="1" Margin="0 12 0 0">
 
-                    <Button Style="{StaticResource SidebarButtonActive}"
+                    <Button Style="{StaticResource SidebarButton}"
                         Command="{Binding OpenDashboardCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="ThLarge"
@@ -251,37 +251,47 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Search -->
-                    <Border Width="470"
-                         Height="42"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Background="White"
-                         BorderBrush="#D1D5DB"
-                         BorderThickness="1"
-                         CornerRadius="9">
+<Border Height="72" 
+        Background="White" 
+        BorderBrush="#E5E7EB" 
+        BorderThickness="0,0,0,1" 
+        Padding="24,0">
+    
+    <Grid>
+        <Border Width="470"
+                Height="40"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="#F9FAFB" 
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="8"> <Grid Margin="12,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="44"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                <fa:ImageAwesome Icon="InfoCircle" 
+                               Width="14" 
+                               Height="14" 
+                               Foreground="#6B7280" 
+                               VerticalAlignment="Center"
+                               Margin="0,0,10,0"/>
 
-                            <fa:ImageAwesome Icon="Search"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="#6B7280"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
-
-                            <TextBox Grid.Column="1"
-                                  BorderThickness="0"
-                                  Background="Transparent"
-                                  VerticalContentAlignment="Center"
-                                  FontSize="14"
-                                  Foreground="#111827"
-                                  Text="Tìm kiếm thiết bị, nhân viên, công việc..."/>
-                        </Grid>
-                    </Border>
+                <TextBox Grid.Column="1"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         VerticalContentAlignment="Center"
+                         FontSize="16"
+                         FontWeight="Medium"
+                         Foreground="#374151" 
+                         IsReadOnly="True"
+                         Text="Chào mừng bạn đến với HTBB Company"/>
+            </Grid>
+        </Border>
+        
+        </Grid>
+</Border>
 
                     <!-- Right user area -->
                     <StackPanel Grid.Column="1"

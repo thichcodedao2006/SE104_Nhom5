@@ -17,7 +17,13 @@
     <Compile Update="UserControlFolder\DashBoard\DashBoardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\Device\DeviceFormView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControlFolder\Device\DeviceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Employee\EmployeeFormView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControlFolder\Employee\EmployeeView.xaml.cs">
@@ -32,6 +38,9 @@
     <Compile Update="UserControlFolder\ForgetPass3.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\IncidentReport\IncidentReportFormView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControlFolder\IncidentReport\IncidentReportView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -39,6 +48,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControlFolder\Maintenance\MaintenancePlan.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Maintenance\MaintenancePlanFormView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControlFolder\Maintenance\MaintenanceTask.xaml.cs">
@@ -82,6 +94,18 @@
     <None Update="Resource\TextBoxStyles.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UserControlFolder\Device\DeviceFormView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\Employee\EmployeeFormView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\IncidentReport\IncidentReportFormView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\Maintenance\MaintenancePlanFormView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\IncidentReport\IncidentReportView.xaml">
       <SubType>Designer</SubType>
     </Page>
