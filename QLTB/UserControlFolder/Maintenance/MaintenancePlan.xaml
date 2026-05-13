@@ -21,12 +21,12 @@
         <!-- HEADER -->
         <Grid Grid.Row="0">
             <StackPanel>
-                <TextBlock Text="Maintenance Plans"
+                <TextBlock Text="KẾ HOẠCH BẢO TRÌ"
                        FontSize="28"
                        FontWeight="Bold"
                        Foreground="#111827"/>
 
-                <TextBlock Text="Schedule and manage preventive maintenance activities"
+                <TextBlock Text="Lập kế hoạch và quản lý các hoạt động bảo trì dự phòng"
                        Margin="0 6 0 0"
                        FontSize="14"
                        Foreground="#6B7280"/>
@@ -48,7 +48,7 @@
                                  Height="14"
                                  Foreground="White"
                                  Margin="0 0 8 0"/>
-                    <TextBlock Text="Create Plan"/>
+                    <TextBlock Text="Tạo kế hoạch"/>
                 </StackPanel>
             </Button>
         </Grid>
@@ -73,7 +73,7 @@
                 CornerRadius="14"
                 Padding="20">
                 <StackPanel>
-                    <TextBlock Text="Total Plans"
+                    <TextBlock Text="Tổng kế hoạch"
                            FontSize="13"
                            Foreground="#6B7280"
                            Margin="0 0 0 8"/>
@@ -92,7 +92,7 @@
                 CornerRadius="14"
                 Padding="20">
                 <StackPanel>
-                    <TextBlock Text="Active Plans"
+                    <TextBlock Text="Kế hoạch hoạt động"
                            FontSize="13"
                            Foreground="#6B7280"
                            Margin="0 0 0 8"/>
@@ -111,7 +111,7 @@
                 CornerRadius="14"
                 Padding="20">
                 <StackPanel>
-                    <TextBlock Text="Due This Month"
+                    <TextBlock Text="Đến hạn trong tháng"
                            FontSize="13"
                            Foreground="#6B7280"
                            Margin="0 0 0 8"/>
@@ -130,7 +130,7 @@
                 CornerRadius="14"
                 Padding="20">
                 <StackPanel>
-                    <TextBlock Text="Estimated Monthly Cost"
+                    <TextBlock Text="Chi phí ước tính hàng tháng"
                            FontSize="13"
                            Foreground="#6B7280"
                            Margin="0 0 0 8"/>
@@ -147,7 +147,7 @@
         <!-- VIEW TABS -->
         <Grid Grid.Row="4">
             <StackPanel Orientation="Horizontal">
-                <Button Content="List View"
+                <Button Content="Danh sách"
                     Command="{Binding SwitchToListViewCommand}"
                     Height="36"
                     Padding="16 0"
@@ -183,7 +183,7 @@
                     </Button.Style>
                 </Button>
 
-                <Button Content="Calendar View"
+                <Button Content="Lịch"
                     Command="{Binding SwitchToCalendarViewCommand}"
                     Height="36"
                     Padding="16 0"
@@ -267,7 +267,7 @@
                                                VerticalAlignment="Center"
                                                Margin="0 0 16 0"/>
 
-                                        <Button Content="View Details"
+                                        <Button Content="Xem chi tiết"
                                             Command="{Binding DataContext.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                             Style="{StaticResource BlueButton}"
                                             Height="36"
@@ -290,13 +290,13 @@
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Priority}" Value="High Priority">
+                                                    <DataTrigger Binding="{Binding Priority}" Value="Cao">
                                                         <Setter Property="Background" Value="#FEE2E2"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Priority}" Value="Medium Priority">
+                                                    <DataTrigger Binding="{Binding Priority}" Value="Trung bình">
                                                         <Setter Property="Background" Value="#FEF3C7"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Priority}" Value="Low Priority">
+                                                    <DataTrigger Binding="{Binding Priority}" Value="Thấp">
                                                         <Setter Property="Background" Value="#DBEAFE"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -309,13 +309,13 @@
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Priority}" Value="High Priority">
+                                                        <DataTrigger Binding="{Binding Priority}" Value="Cao">
                                                             <Setter Property="Foreground" Value="#DC2626"/>
                                                         </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Priority}" Value="Medium Priority">
+                                                        <DataTrigger Binding="{Binding Priority}" Value="Trung bình">
                                                             <Setter Property="Foreground" Value="#D97706"/>
                                                         </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Priority}" Value="Low Priority">
+                                                        <DataTrigger Binding="{Binding Priority}" Value="Thấp">
                                                             <Setter Property="Foreground" Value="#2563EB"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -356,7 +356,7 @@
                                                      VerticalAlignment="Center"
                                                      Margin="0 0 8 0"/>
                                         <StackPanel>
-                                            <TextBlock Text="Next Due"
+                                            <TextBlock Text="Đến hạn"
                                                    FontSize="11"
                                                    Foreground="#6B7280"/>
                                             <TextBlock Text="{Binding NextDue}"
@@ -376,7 +376,7 @@
                                                      VerticalAlignment="Center"
                                                      Margin="0 0 8 0"/>
                                         <StackPanel>
-                                            <TextBlock Text="Schedule"
+                                            <TextBlock Text="Lịch trình"
                                                    FontSize="11"
                                                    Foreground="#6B7280"/>
                                             <TextBlock Text="{Binding Schedule}"
@@ -395,7 +395,7 @@
                                                      VerticalAlignment="Center"
                                                      Margin="0 0 8 0"/>
                                         <StackPanel>
-                                            <TextBlock Text="Assigned To"
+                                            <TextBlock Text="Người được giao"
                                                    FontSize="11"
                                                    Foreground="#6B7280"/>
                                             <TextBlock Text="{Binding AssignedTo}"

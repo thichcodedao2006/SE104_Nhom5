@@ -100,8 +100,8 @@ namespace QLTB.ViewModel
                 {
                     Title = "Monthly CNC Inspection",
                     Equipment = "CNC Machine A",
-                    Priority = "High Priority",
-                    Status = "Active",
+                    Priority = "Cao",
+                    Status = "Hoạt động",
                     Type = "Preventive",
                     NextDue = "2026-06-01",
                     Schedule = "Monthly - 1st",
@@ -112,7 +112,7 @@ namespace QLTB.ViewModel
                 {
                     Title = "Quarterly Hydraulic Service",
                     Equipment = "Hydraulic Press B",
-                    Priority = "Medium Priority",
+                    Priority = "Trung bình",
                     Status = "Active",
                     Type = "Preventive",
                     NextDue = "2026-07-15",
@@ -124,7 +124,7 @@ namespace QLTB.ViewModel
                 {
                     Title = "Weekly Safety Check",
                     Equipment = "Conveyor System C",
-                    Priority = "High Priority",
+                    Priority = "Cao",
                     Status = "Active",
                     Type = "Preventive",
                     NextDue = "2026-05-19",

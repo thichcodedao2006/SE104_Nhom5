@@ -32,14 +32,14 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel>
-                <TextBlock Text="Employee Management" FontSize="26" FontWeight="Bold" Foreground="#111827"/>
-                <TextBlock Text="Manage technicians and maintenance staff" FontSize="14" Foreground="#6B7280" Margin="0 6 0 0"/>
+                <TextBlock Text="QUẢN LÝ NHÂN VIÊN" FontSize="26" FontWeight="Bold" Foreground="#111827"/>
+                <TextBlock Text="Quản lý kỹ thuật và nhân viên bảo trì" FontSize="14" Foreground="#6B7280" Margin="0 6 0 0"/>
             </StackPanel>
 
             <Button Grid.Column="1" Style="{StaticResource BlueButton}" Height="42" Padding="22 0" Command="{Binding AddEmployeeCommand}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="➕" Margin="0 0 8 0"/>
-                    <TextBlock Text="Add Employee"/>
+                    <TextBlock Text="Thêm nhân viên"/>
                 </StackPanel>
             </Button>
         </Grid>
@@ -57,7 +57,7 @@
             <Border Style="{StaticResource CardStyle}" Margin="0 0 24 0" Grid.Column="0">
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Total Employees" FontSize="15" Foreground="#374151"/>
+                        <TextBlock Text="Số nhân viên" FontSize="15" Foreground="#374151"/>
                         <TextBlock Text="{Binding TotalEmployees}" FontSize="24" FontWeight="Bold" Foreground="#2563EB" Margin="0 12 0 0"/>
                     </StackPanel>
                     <Border Width="48" Height="48" Background="#DBEAFE" CornerRadius="8"
@@ -74,7 +74,7 @@
 
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Active" FontSize="15" Foreground="#374151"/>
+                        <TextBlock Text="Hoạt động" FontSize="15" Foreground="#374151"/>
                         <TextBlock Text="{Binding ActiveEmployees}" FontSize="24" FontWeight="Bold" Foreground="#16A34A" Margin="0 12 0 0"/>
                     </StackPanel>
                     <Border Width="48" Height="48" Background="#DCFCE7" CornerRadius="8"
@@ -89,7 +89,7 @@
             <Border Style="{StaticResource CardStyle}" Margin="0 0 24 0" Grid.Column="2">
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Departments" FontSize="15" Foreground="#374151"/>
+                        <TextBlock Text="Bộ phận" FontSize="15" Foreground="#374151"/>
                         <TextBlock Text="{Binding DepartmentsCount}" FontSize="24" FontWeight="Bold" Foreground="#2563EB" Margin="0 12 0 0"/>
                     </StackPanel>
                     <Border Width="48" Height="48" Background="#DBEAFE" CornerRadius="8"
@@ -104,7 +104,7 @@
             <Border Style="{StaticResource CardStyle}" Grid.Column="3">
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Roles" FontSize="15" Foreground="#374151"/>
+                        <TextBlock Text="Vai trò" FontSize="15" Foreground="#374151"/>
                         <TextBlock Text="{Binding RolesCount}" FontSize="24" FontWeight="Bold" Foreground="#2563EB" Margin="0 12 0 0"/>
                     </StackPanel>
                     <Border Width="48" Height="48" Background="#DBEAFE" CornerRadius="8"
@@ -146,9 +146,9 @@
                             <StackPanel Margin="12">
 
                                 <!-- Header: Avatar + Name + Position + Status -->
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" >
                                     <Ellipse Width="36" Height="36" Fill="#E0E7FF"/>
-                                    <StackPanel Margin="8 0 0 0">
+                                    <StackPanel Margin="8 0 10 0">
                                         <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                                         <TextBlock Text="{Binding Position}" FontSize="12" Foreground="#6B7280"/>
                                     </StackPanel>
@@ -176,7 +176,7 @@
 
                                 <!-- Action Buttons -->
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 12 0 0">
-                                    <Button Content="Edit" Style="{StaticResource BlueButton}" Width="160" Height="32"
+                                    <Button Content="Chỉnh sửa" Style="{StaticResource BlueButton}" Width="160" Height="32"
                                         Command="{Binding DataContext.EditEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                         CommandParameter="{Binding}"/>
                                     <Button Content="🗑" Background="#FEE2E2" Foreground="#B91C1C" Width="32" Height="32" Margin="8 0 0 0"

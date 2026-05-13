@@ -82,8 +82,8 @@ namespace QLTB.ViewModel
                     Type = "Preventive Maintenance",
                     DueDate = "2026-05-12",
                     AssignedTo = "John Doe",
-                    Priority = "High",
-                    Status = "Overdue"
+                    Priority = "Cao",
+                    Status = "Quá hạn"
                 },
                 new MaintenanceTaskItem
                 {
@@ -91,8 +91,8 @@ namespace QLTB.ViewModel
                     Type = "Inspection",
                     DueDate = "2026-05-16",
                     AssignedTo = "Jane Smith",
-                    Priority = "Medium",
-                    Status = "Pending"
+                    Priority = "Trung bình",
+                    Status = "Đang chờ"
                 },
                 new MaintenanceTaskItem
                 {
@@ -100,8 +100,8 @@ namespace QLTB.ViewModel
                     Type = "Repair",
                     DueDate = "2026-05-13",
                     AssignedTo = "Bob Johnson",
-                    Priority = "High",
-                    Status = "In Progress"
+                    Priority = "Cao",
+                    Status = "Đang tiến hành"
                 },
                 new MaintenanceTaskItem
                 {
@@ -109,8 +109,8 @@ namespace QLTB.ViewModel
                     Type = "Preventive Maintenance",
                     DueDate = "2026-05-18",
                     AssignedTo = "Alice Brown",
-                    Priority = "Low",
-                    Status = "Pending"
+                    Priority = "Thấp",
+                    Status = "Đang chờ"
                 },
                 new MaintenanceTaskItem
                 {
@@ -118,8 +118,8 @@ namespace QLTB.ViewModel
                     Type = "Emergency Repair",
                     DueDate = "2026-05-11",
                     AssignedTo = "John Doe",
-                    Priority = "High",
-                    Status = "Completed"
+                    Priority = "Cao",
+                    Status = "Hoàn thành"
                 }
             };
 
@@ -131,7 +131,7 @@ namespace QLTB.ViewModel
             {
                 if (o is MaintenanceTaskItem task)
                 {
-                    task.Status = "Completed";
+                    task.Status = "Hoàn thành";
                     UpdateStatistics();
                 }
             });
@@ -140,9 +140,9 @@ namespace QLTB.ViewModel
         private void UpdateStatistics()
         {
             TotalTasks = Tasks.Count;
-            PendingTasks = Tasks.Count(t => t.Status == "Pending");
-            OverdueTasks = Tasks.Count(t => t.Status == "Overdue");
-            CompletedTasks = Tasks.Count(t => t.Status == "Completed");
+            PendingTasks = Tasks.Count(t => t.Status == "Đang chờ");
+            OverdueTasks = Tasks.Count(t => t.Status == "Quá hạn");
+            CompletedTasks = Tasks.Count(t => t.Status == "Hoàn thành");
         }
     }
 }
