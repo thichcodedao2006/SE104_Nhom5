@@ -62,6 +62,12 @@
     <Compile Update="UserControlFolder\Material\MaterialView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\Setting\SettingMainView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Setting\SettingProfileView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Update="Resource\Button.xaml">
@@ -88,12 +94,21 @@
     <None Update="Resource\SBButton.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UserControlFolder\Setting\SettingProfileView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resource\SidebarRadioButtonStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <None Update="Resource\TextBox.xaml">
       <SubType>Designer</SubType>
     </None>
     <None Update="Resource\TextBoxStyles.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UserControlFolder\Setting\SettingMainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\Device\DeviceFormView.xaml">
       <SubType>Designer</SubType>
     </Page>
