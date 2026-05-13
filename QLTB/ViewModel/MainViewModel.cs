@@ -28,6 +28,7 @@ namespace QLTB.ViewModel
         public ICommand OpenMaintenancePlanCommand { get; set; }
         public ICommand OpenMaintenanceTaskCommand { get; set; }
         public ICommand OpenMaintenanceHistoryCommand { get; set; }
+        public ICommand OpenIncidentReportCommand { get; set; }
         public MainViewModel()
         {
            CurrentViewModel = new DashBoardViewModel();
@@ -65,6 +66,11 @@ namespace QLTB.ViewModel
             OpenMaintenanceHistoryCommand = new RelayCommand(o =>
             {
                 CurrentViewModel = new MaintenanceHistoryViewModel();
+            });
+
+            OpenIncidentReportCommand = new RelayCommand(o =>
+            {
+                CurrentViewModel = new IncidentReportViewModel();
             });
         }
     }

@@ -4,9 +4,415 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QLTB.UserControlFolder.IncidentReport"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             Background="#F8FAFC" >
+
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Grid Grid.Row="0">
+            <StackPanel>
+                <TextBlock Text="Báo cáo sự cố"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#111827"/>
+
+                <TextBlock Text="Báo cáo và theo dõi các vấn đề và sự cố thiết bị"
+                       Margin="0 6 0 0"
+                       FontSize="14"
+                       Foreground="#6B7280"/>
+            </StackPanel>
+
+            <Button Style="{StaticResource BlueButton}"
+                Command="{Binding ReportIncidentCommand}"
+                Height="42"
+                Padding="20 0"
+                HorizontalAlignment="Right"
+                Background="#2563EB"
+                Foreground="White"
+                BorderThickness="0"
+                FontWeight="SemiBold"
+                Cursor="Hand">
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="Plus"
+                                 Width="14"
+                                 Height="14"
+                                 Foreground="White"
+                                 Margin="0 0 8 0"/>
+                    <TextBlock Text="Báo cáo sự cố"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- STATISTICS CARDS -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Total Incidents -->
+            <Border Grid.Column="0"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="14"
+                Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Tổng sự cố"
+                           FontSize="13"
+                           Foreground="#6B7280"
+                           Margin="0 0 0 8"/>
+                    <TextBlock Text="{Binding TotalIncidents}"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="#111827"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Open -->
+            <Border Grid.Column="2"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="14"
+                Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Mới mở"
+                           FontSize="13"
+                           Foreground="#6B7280"
+                           Margin="0 0 0 8"/>
+                    <TextBlock Text="{Binding OpenIncidents}"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="#EF4444"/>
+                </StackPanel>
+            </Border>
+
+            <!-- In Progress -->
+            <Border Grid.Column="4"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="14"
+                Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Đang xử lý"
+                           FontSize="13"
+                           Foreground="#6B7280"
+                           Margin="0 0 0 8"/>
+                    <TextBlock Text="{Binding InProgressIncidents}"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="#F59E0B"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Resolved -->
+            <Border Grid.Column="6"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="14"
+                Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Đã giải quyết"
+                           FontSize="13"
+                           Foreground="#6B7280"
+                           Margin="0 0 0 8"/>
+                    <TextBlock Text="{Binding ResolvedIncidents}"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="#10B981"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- SEARCH AND FILTERS -->
+        <Border Grid.Row="4"
+            Background="White"
+            BorderBrush="#E5E7EB"
+            BorderThickness="1"
+            CornerRadius="14"
+            Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search Box -->
+                <Border Grid.Column="0"
+                    Height="42"
+                    Background="White"
+                    BorderBrush="#D1D5DB"
+                    BorderThickness="1"
+                    CornerRadius="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <fa:ImageAwesome Icon="Search"
+                                     Width="16"
+                                     Height="16"
+                                     Foreground="#6B7280"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"/>
+
+                        <TextBox Grid.Column="1"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             VerticalContentAlignment="Center"
+                             FontSize="14"
+                             Foreground="#111827"
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBlock Grid.Column="1"
+                               Text="Tìm kiếm theo thiết bị hoặc mô tả..."
+                               Foreground="#9CA3AF"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               IsHitTestVisible="False">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SearchText}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding SearchText}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+
+                <!-- Status Filter -->
+                <ComboBox Grid.Column="2"
+                      Width="150"
+                      Height="42"
+                      SelectedIndex="0"
+                      Style="{StaticResource ModernComboBox}">
+                    <ComboBoxItem Content="Tất cả trạng thái"/>
+                    <ComboBoxItem Content="Mới mở"/>
+                    <ComboBoxItem Content="Đang xử lý"/>
+                    <ComboBoxItem Content="Đã giải quyết"/>
+                </ComboBox>
+
+                <!-- Priority Filter -->
+                <ComboBox Grid.Column="4"
+                      Width="150"
+                      Height="42"
+                      SelectedIndex="0"
+                      Style="{StaticResource ModernComboBox}">
+                    <ComboBoxItem Content="Tất cả mức độ"/>
+                    <ComboBoxItem Content="Nghiêm trọng"/>
+                    <ComboBoxItem Content="Cao"/>
+                    <ComboBoxItem Content="Trung bình"/>
+                    <ComboBoxItem Content="Thấp"/>
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <!-- INCIDENTS LIST -->
+        <ScrollViewer Grid.Row="6"
+                  VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Incidents}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White"
+                            BorderBrush="#E5E7EB"
+                            BorderThickness="1"
+                            CornerRadius="14"
+                            Padding="24"
+                            Margin="0 0 0 16">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="12"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="18"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- HEADER ROW -->
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0"
+                                            Orientation="Horizontal">
+                                        <!-- Priority Badge -->
+                                        <Border CornerRadius="12"
+                                            Padding="10 4"
+                                            Margin="0 0 8 0">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Priority}" Value="Nghiêm trọng">
+                                                            <Setter Property="Background" Value="#FEE2E2"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Priority}" Value="Cao">
+                                                            <Setter Property="Background" Value="#FED7AA"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Priority}" Value="Trung bình">
+                                                            <Setter Property="Background" Value="#FEF3C7"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+
+                                            <TextBlock Text="{Binding Priority}"
+                                                   FontSize="12"
+                                                   FontWeight="SemiBold">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Priority}" Value="Nghiêm trọng">
+                                                                <Setter Property="Foreground" Value="#DC2626"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Priority}" Value="Cao">
+                                                                <Setter Property="Foreground" Value="#EA580C"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Priority}" Value="Trung bình">
+                                                                <Setter Property="Foreground" Value="#D97706"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Border>
+
+                                        <!-- Status Badge -->
+                                        <Border CornerRadius="12"
+                                            Padding="10 4">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Mới mở">
+                                                            <Setter Property="Background" Value="#FEE2E2"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Đang xử lý">
+                                                            <Setter Property="Background" Value="#FEF3C7"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Đã giải quyết">
+                                                            <Setter Property="Background" Value="#DCFCE7"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+
+                                            <TextBlock Text="{Binding Status}"
+                                                   FontSize="12"
+                                                   FontWeight="SemiBold">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Mới mở">
+                                                                <Setter Property="Foreground" Value="#DC2626"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Đang xử lý">
+                                                                <Setter Property="Foreground" Value="#D97706"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Đã giải quyết">
+                                                                <Setter Property="Foreground" Value="#047857"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <Button Grid.Column="1"
+                                        Content="Xem chi tiết"
+                                        Command="{Binding DataContext.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource BlueButton}"
+                                        Height="36"
+                                        Padding="16 0"
+                                        Background="#2563EB"
+                                        Foreground="White"
+                                        BorderThickness="0"
+                                        FontWeight="SemiBold"
+                                        Cursor="Hand"/>
+                                </Grid>
+
+                                <!-- DEVICE NAME -->
+                                <TextBlock Grid.Row="2"
+                                       Text="{Binding DeviceName}"
+                                       FontSize="18"
+                                       FontWeight="Bold"
+                                       Foreground="#111827"/>
+
+                                <!-- DESCRIPTION -->
+                                <TextBlock Grid.Row="3"
+                                       Text="{Binding Description}"
+                                       FontSize="14"
+                                       Foreground="#6B7280"
+                                       TextWrapping="Wrap"/>
+
+                                <!-- FOOTER INFO -->
+                                <Grid Grid.Row="4"
+                                  Margin="0 12 0 0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Foreground="#6B7280"
+                                               FontSize="13">
+                                        <Run Text="Báo cáo bởi:"/>
+                                        <Run Text="{Binding ReportedBy}"
+                                             FontWeight="SemiBold"
+                                             Foreground="#111827"/>
+                                        </TextBlock>
+
+                                        <TextBlock Foreground="#6B7280"
+                                               FontSize="13"
+                                               Margin="24 0 0 0">
+                                        <Run Text="Lúc:"/>
+                                        <Run Text="{Binding ReportedAt}"
+                                             FontWeight="SemiBold"
+                                             Foreground="#111827"/>
+                                        </TextBlock>
+
+                                        <TextBlock Foreground="#6B7280"
+                                               FontSize="13"
+                                               Margin="24 0 0 0"
+                                               Visibility="{Binding HasAssignee, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Run Text="Giao cho:"/>
+                                        <Run Text="{Binding AssignedTo}"
+                                             FontWeight="SemiBold"
+                                             Foreground="#111827"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

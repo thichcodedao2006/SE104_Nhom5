@@ -11,6 +11,7 @@
         xmlns:material="clr-namespace:QLTB.UserControlFolder.Material"
         xmlns:employee="clr-namespace:QLTB.UserControlFolder.Employee"
         xmlns:maintenance="clr-namespace:QLTB.UserControlFolder.Maintenance"
+        xmlns:Incident="clr-namespace:QLTB.UserControlFolder.IncidentReport"
          Height="900"
          Width="1280"
          WindowState="Maximized"
@@ -48,6 +49,9 @@
             <maintenance:MaintenanceHistoryView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:IncidentReportViewModel}">
+            <Incident:IncidentReportView/>
+        </DataTemplate>
         <!-- Active Sidebar Button -->
     <Style x:Key="SidebarButtonActive"
             TargetType="Button"
@@ -189,7 +193,8 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}">
+                    <Button Style="{StaticResource SidebarButton}"
+                            Command="{Binding OpenIncidentReportCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="ExclamationTriangle"
                                           Width="16"
