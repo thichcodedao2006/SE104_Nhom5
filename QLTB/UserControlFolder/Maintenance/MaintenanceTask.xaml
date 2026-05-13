@@ -222,7 +222,8 @@
                     <DataGridTextColumn Header="Device"
                                     Binding="{Binding Device}"
                                     Width="1.5*"
-                                    FontWeight="SemiBold"/>
+                                    FontWeight="SemiBold"
+                                   />
 
                     <!-- TYPE -->
                     <DataGridTemplateColumn Header="Type"

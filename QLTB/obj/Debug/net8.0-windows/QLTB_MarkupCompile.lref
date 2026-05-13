@@ -1,5 +1,5 @@
 ﻿
-Fd:\SE104_Nhom5\QLTB\App.xaml;;
+FD:\SE104_Nhom5\QLTB\App.xaml;;
 FD:\SE104_Nhom5\QLTB\fmDangKy.xaml;;
 FD:\SE104_Nhom5\QLTB\fmDangNhap.xaml;;
 FD:\SE104_Nhom5\QLTB\fmQuenMatKhau.xaml;;
@@ -14,4 +14,6 @@ FD:\SE104_Nhom5\QLTB\UserControlFolder\Maintenance\MaintenancePlan.xaml;;
 FD:\SE104_Nhom5\QLTB\UserControlFolder\Material\MaterialFormView.xaml;;
 FD:\SE104_Nhom5\QLTB\UserControlFolder\Material\MaterialView.xaml;;
 FD:\SE104_Nhom5\QLTB\UserControlFolder\Maintenance\MaintenanceTask.xaml;;
+FD:\SE104_Nhom5\QLTB\UserControlFolder\Maintenance\MaintenanceHistoryView.xaml;;
+FD:\SE104_Nhom5\QLTB\UserControlFolder\IncidentReport\IncidentReportView.xaml;;
 

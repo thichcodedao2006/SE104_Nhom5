@@ -456,3 +456,7 @@ D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\QLTB.genruntimeconfig.cache
 D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\ref\QLTB.dll
 D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Maintenance\MaintenanceTask.g.cs
 D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Maintenance\MaintenanceTask.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Maintenance\MaintenanceHistoryView.g.cs
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Maintenance\MaintenanceHistoryView.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\IncidentReport\IncidentReportView.g.cs
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\IncidentReport\IncidentReportView.baml

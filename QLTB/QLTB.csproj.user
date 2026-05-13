@@ -32,6 +32,12 @@
     <Compile Update="UserControlFolder\ForgetPass3.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\IncidentReport\IncidentReportView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Maintenance\MaintenanceHistoryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControlFolder\Maintenance\MaintenancePlan.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -76,6 +82,12 @@
     <None Update="Resource\TextBoxStyles.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UserControlFolder\IncidentReport\IncidentReportView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\Maintenance\MaintenanceHistoryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\Maintenance\MaintenanceTask.xaml">
       <SubType>Designer</SubType>
     </Page>

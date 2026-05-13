@@ -44,6 +44,10 @@
             <maintenance:MaintenanceTask/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:MaintenanceHistoryViewModel}">
+            <maintenance:MaintenanceHistoryView/>
+        </DataTemplate>
+
         <!-- Active Sidebar Button -->
     <Style x:Key="SidebarButtonActive"
             TargetType="Button"
@@ -173,7 +177,8 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}">
+                    <Button Style="{StaticResource SidebarButton}"
+                            Command="{Binding OpenMaintenanceHistoryCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="History"
                                           Width="16"
