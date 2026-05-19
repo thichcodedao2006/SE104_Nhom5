@@ -4,12 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using QLTB.Data;
 using QLTB.Helpers;
+using QLTB.Models;
 namespace QLTB.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
+        #region Declare
         private object _currentViewModel;
+        public TaiKhoan UserAccount { get; set; }
+        public NhanVien UserDetail { get; set; }
 
         public object CurrentViewModel
         {
@@ -21,6 +26,17 @@ namespace QLTB.ViewModel
             }
         }
 
+        private DashBoardViewModel _dashboardVM;
+        private MaterialViewModel _materialVM;
+        private DeviceViewModel _deviceVM;
+        private EmployeeViewModel _employeeVM;
+        private MaintenancePlanViewModel _maintenancePlanVM;
+        private MaintenanceTaskViewModel _maintenanceTaskVM;
+        private MaintenanceHistoryViewModel _maintenanceHistoryVM;
+        private IncidentReportViewModel _incidentReportVm;
+        private SettingViewModel _settingVM;
+        #endregion
+
         public ICommand OpenDashboardCommand { get; set; }
         public ICommand OpenMaterialCommand { get; set; }
         public ICommand OpenDeviceCommand { get; set; }
@@ -30,54 +46,105 @@ namespace QLTB.ViewModel
         public ICommand OpenMaintenanceHistoryCommand { get; set; }
         public ICommand OpenIncidentReportCommand { get; set; }
         public ICommand OpenSettingCommand { get; set; }
-        public MainViewModel()
+        public MainViewModel(TaiKhoan t)
         {
-           CurrentViewModel = new DashBoardViewModel();
+            SetUpUser(t);
+
+            _dashboardVM = new DashBoardViewModel();
+            CurrentViewModel = _dashboardVM;
 
             OpenDashboardCommand = new RelayCommand(o =>
             {
-                CurrentViewModel = new DashBoardViewModel();
+                if (_dashboardVM == null)
+                {
+                    _dashboardVM = new DashBoardViewModel();
+                }
+                CurrentViewModel = _dashboardVM;
+                _dashboardVM.Reload();
+
             });
 
             OpenMaterialCommand = new RelayCommand(o =>
             {
-                CurrentViewModel = new MaterialViewModel();
+                if (_materialVM == null)
+                {
+                    _materialVM = new MaterialViewModel();
+                }
+                CurrentViewModel = _materialVM;
             });
 
             OpenDeviceCommand = new RelayCommand(o =>
             {
-                CurrentViewModel = new DeviceViewModel();
+                if (_deviceVM == null)
+                {
+                    _deviceVM = new DeviceViewModel();
+                }
+                CurrentViewModel = _deviceVM;
             });
 
             OpenEmployeeCommand = new RelayCommand(o =>
             {
-                CurrentViewModel = new EmployeeViewModel();
+                if (_employeeVM == null)
+                {
+                    _employeeVM = new EmployeeViewModel();
+                }
+                CurrentViewModel = _employeeVM;
             });
 
             OpenMaintenancePlanCommand = new RelayCommand(o =>
             {
-                CurrentViewModel = new MaintenancePlanViewModel();
+                if (_maintenancePlanVM == null)
+                {
+                    _maintenancePlanVM = new MaintenancePlanViewModel();
+                }
+                CurrentViewModel = _maintenancePlanVM;
             });
 
             OpenMaintenanceTaskCommand = new RelayCommand(o =>
             {
-                CurrentViewModel = new MaintenanceTaskViewModel();
+                if (_maintenanceTaskVM == null)
+                {
+                    _maintenanceTaskVM = new MaintenanceTaskViewModel();
+                }
+                CurrentViewModel = _maintenanceTaskVM;
             });
 
             OpenMaintenanceHistoryCommand = new RelayCommand(o =>
             {
-                CurrentViewModel = new MaintenanceHistoryViewModel();
+                if (_maintenanceHistoryVM == null)
+                {
+                    _maintenanceHistoryVM = new MaintenanceHistoryViewModel();
+                }
+                CurrentViewModel = _maintenanceHistoryVM;
             });
 
             OpenIncidentReportCommand = new RelayCommand(o =>
             {
-                CurrentViewModel = new IncidentReportViewModel();
+                if (_incidentReportVm == null)
+                {
+                    _incidentReportVm = new IncidentReportViewModel();
+                }
+                CurrentViewModel = _incidentReportVm;
             });
 
             OpenSettingCommand = new RelayCommand(o =>
             {
-                CurrentViewModel = new SettingViewModel();
+                if (_settingVM == null)
+                {
+                    _settingVM = new SettingViewModel();
+                }
+                CurrentViewModel = _settingVM;
             });
+        }
+
+        private void SetUpUser(TaiKhoan t)
+        {
+            UserAccount = t;
+            var nv = DataProvider.Instance.DB.NhanViens.FirstOrDefault(x => x.Email == t.Email);
+            if (nv != null)
+            {
+                UserDetail = nv;
+            }
         }
     }
 }

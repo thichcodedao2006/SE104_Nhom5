@@ -13,6 +13,7 @@
         xmlns:maintenance="clr-namespace:QLTB.UserControlFolder.Maintenance"
         xmlns:Incident="clr-namespace:QLTB.UserControlFolder.IncidentReport"
         xmlns:Setting="clr-namespace:QLTB.UserControlFolder.Setting"
+        xmlns:converter ="clr-namespace:QLTB.Helpers"
          Height="900"
          Width="1280"
          WindowState="Maximized"
@@ -64,6 +65,8 @@
         <Setter Property="Background" Value="#EFF6FF"/>
         <Setter Property="Foreground" Value="#2563EB"/>
     </Style>
+
+        <converter:ConvertAccount x:Key="RoleConverter"/>
     </Window.Resources>
 
     <Grid>
@@ -329,14 +332,17 @@
                                     Foreground="White"
                                     FontWeight="Bold"
                                     HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
+                                    VerticalAlignment="Bottom" Margin="0,0,0,9"/>
                         </Border>
 
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Nguyễn Văn A"
+                            <TextBlock 
+                                    Text="{Binding UserDetail.HoTen}"
                                     FontWeight="SemiBold"
-                                    Foreground="#111827"/>
-                            <TextBlock Text="Kỹ thuật viên"
+                                    Foreground="#111827"
+                                />
+                            <TextBlock 
+                                Text="{Binding UserAccount.LoaiTaiKhoan, Converter={StaticResource RoleConverter}}"
                                     FontSize="12"
                                     Foreground="#6B7280"/>
                         </StackPanel>

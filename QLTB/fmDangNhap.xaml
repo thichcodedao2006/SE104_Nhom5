@@ -133,16 +133,16 @@
                                        FontWeight="Bold"
                                        Foreground="{StaticResource TitleBrush}"
                                        Text="Đăng nhập tài khoản"/>
-                            <TextBlock Margin="0,12,0,0"
+                            <!--<TextBlock Margin="0,12,0,0"
                                        FontSize="14"
                                        Foreground="{StaticResource BodyBrush}"
                                        TextWrapping="Wrap"
                                        LineHeight="22"
-                                       Text="Nhập thông tin để truy cập hệ thống quản lý thiết bị."/>
+                                       Text="Nhập thông tin để truy cập hệ thống quản lý thiết bị."/>-->
                         </StackPanel>
 
                         <StackPanel Grid.Row="1"
-                                    Margin="0,30,0,24">
+                                    Margin="0,50,0,24">
                             <StackPanel Margin="0,0,0,18">
                                 <TextBlock Style="{StaticResource FieldLabelStyle}"
                                            Text="Tên đăng nhập"/>
@@ -249,6 +249,7 @@
                                     Style="{StaticResource PrimaryButtonStyle}"
                                     Content="Đăng nhập" 
                                     Command="{Binding SignInCommand}"
+                                    CommandParameter="{Binding ElementName=SignInWindow}"
                                     IsDefault="True"/>
 
 

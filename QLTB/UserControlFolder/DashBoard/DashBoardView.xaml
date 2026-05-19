@@ -63,13 +63,9 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource BlueButton}"
-                        Content="▣  Thêm thiết bị"
-                        Margin="0 0 12 0"/>
+                    
 
-                    <Button Style="{StaticResource BlueButton}"
-                        Content="⬡  Thêm vật tư"
-                        Margin="0 0 12 0"/>
+                    
 
                     <Button Style="{StaticResource RedButton}"
                         Content="⚠  Báo cáo sự cố"/>
@@ -98,7 +94,7 @@
                         </Border>
                         <StackPanel>
                             <TextBlock Text="Tổng thiết bị" Foreground="Black" />
-                            <TextBlock Text="156"
+                            <TextBlock Text="{Binding TotalDevice, UpdateSourceTrigger=PropertyChanged}"
                                    Margin="0 12 0 0"
                                    FontSize="30"
                                    FontWeight="Bold"
@@ -110,8 +106,8 @@
                 <Border Style="{StaticResource CardStyle}" Margin="0 0 18 0">
                     <Grid>
                         <StackPanel>
-                            <TextBlock Text="Bảo trì đến hạn" Foreground="Black"/>
-                            <TextBlock Text="24"
+                            <TextBlock Text="Đến hạn bảo trì" Foreground="Black"/>
+                            <TextBlock Text="{Binding DeviceNeedRepair, UpdateSourceTrigger=PropertyChanged}"
                                    Margin="0 12 0 0"
                                    FontSize="30"
                                    FontWeight="Bold"
@@ -137,8 +133,8 @@
                 <Border Style="{StaticResource CardStyle}" Margin="0 0 18 0">
                     <Grid>
                         <StackPanel>
-                            <TextBlock Text="Bảo trì quá hạn" Foreground="Black"/>
-                            <TextBlock Text="8"
+                            <TextBlock Text="Quá hạn bảo trì" Foreground="Black"/>
+                            <TextBlock Text="{Binding DeviceOverRepair, UpdateSourceTrigger=PropertyChanged}"
                                    Margin="0 12 0 0"
                                    FontSize="30"
                                    FontWeight="Bold"
@@ -160,31 +156,7 @@
                     </Grid>
                 </Border>
 
-                <Border Style="{StaticResource CardStyle}">
-                    <Grid>
-                        <StackPanel>
-                            <TextBlock Text="Vật tư dưới mức" Foreground="Black"/>
-                            <TextBlock Text="12"
-                                   Margin="0 12 0 0"
-                                   FontSize="30"
-                                   FontWeight="Bold"
-                                   Foreground="#F59E0B"/>
-                        </StackPanel>
-                        <Border Width="48"
-                            Height="48"
-                            Background="#FEF3C7"
-                            CornerRadius="8"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top">
-                            <fa:ImageAwesome Icon="Cube"
-                             Width="24"
-                             Height="24"
-                             Foreground="#F59E0B"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"/>
-                        </Border>
-                    </Grid>
-                </Border>
+                
 
             </UniformGrid>
 

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using QLTB.UserControlFolder;
+using QLTB.Models;
 namespace QLTB
 {
     /// <summary>
@@ -20,10 +21,10 @@ namespace QLTB
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(TaiKhoan t)
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            DataContext = new MainViewModel(t);
         }
     }
 }

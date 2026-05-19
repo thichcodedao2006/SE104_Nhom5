@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,9 +44,9 @@ namespace QLTB.ViewModel
                     Password = p.Password;
                 }
                 );
-            SignInCommand = new RelayCommand<object>
+            SignInCommand = new RelayCommand<Window>
                 (
-                    (p) => CanLogIn(p), (p) => LogIn(p)
+                    (p) => CanLogIn(p), async (p) => await LogIn(p)
 
                 );
             SignUpCommand = new RelayCommand<Window>
@@ -79,9 +80,10 @@ namespace QLTB.ViewModel
             return !string.IsNullOrEmpty(Username) &&  Username.Length >0 && !string.IsNullOrEmpty(Password) &&  Password.Length > 0;   
         }
 
-        private async void LogIn(object p)
+        private async Task LogIn(Window p)
         {
             if (IsCheckingLogIn) return;
+
             try // tránh lỗi văng 
             {
                 if (!CheckValidPass())
@@ -92,27 +94,42 @@ namespace QLTB.ViewModel
                 IsCheckingLogIn = true;
                 string hashpass = Security.HashPasswordSHA256(Password);
                 var tk = await DataProvider.Instance.DB.TaiKhoans.FirstOrDefaultAsync(
-                    x => x.TenTaiKhoan == Username && x.MatKhau == hashpass && x.DuocXacThuc == 1
+                    x => x.TenTaiKhoan == Username && x.MatKhau == hashpass 
 
                     );
                 if (tk != null)
                 {
-                    MessageBox.Show("Đăng nhập thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    
-                    // Mở MainWindow và đóng form đăng nhập
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    
-                    // Đóng cửa sổ đăng nhập hiện tại
-                    if (p is Window loginWindow)
+                    if (tk is TaiKhoan t)
                     {
-                        loginWindow.Close();
+                        if (t.DuocXacThuc == 1)
+                        {
+
+                            // Mở MainWindow và đóng form đăng nhập
+                            MainWindow mainWindow = new MainWindow(t);
+                            mainWindow.Show();
+
+                            p.Close();
+                        } else
+                        {
+                            MessageBox.Show("Tài khoản chưa được xác thực.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
                     }
                 }
                 else
                 {
                     MessageBox.Show("Sai tên tài khoản hoặc mật khẩu.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
+            }
+            catch (Exception ex)
+            {
+                // ĐÂY LÀ NƠI BẮT LỖI GÂY VĂNG APP
+                // Nó sẽ hiển thị chính xác lý do tại sao EF Core không chạy được sau khi Scaffold
+                string errorMsg = $"Lỗi kết nối cơ sở dữ liệu: {ex.Message}";
+                if (ex.InnerException != null)
+                {
+                    errorMsg += $"\nChi tiết: {ex.InnerException.Message}";
+                }
+                MessageBox.Show(errorMsg, "Lỗi Nghiêm Trọng", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

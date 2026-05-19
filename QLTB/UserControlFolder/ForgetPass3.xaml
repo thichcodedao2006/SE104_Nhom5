@@ -43,10 +43,18 @@ Text="Nhập lại mật khẩu mới"/>
                     </Border>
 
                     <PasswordBox Grid.Column="1"
-          x:Name="txtMatKhau"
+          x:Name="txtLaiMatKhau"
           Margin="0,0,16,0"
           Style="{StaticResource PlainPasswordBoxStyle}"
                                  InputMethod.IsInputMethodEnabled="false">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction 
+Command="{Binding RetypePasswordChangedCommand}"
+CommandParameter="{Binding ElementName=txtLaiMatKhau}"
+></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <i:Interaction.Behaviors>
                             <con:PasswordInputCondition></con:PasswordInputCondition>
                         </i:Interaction.Behaviors>
@@ -83,10 +91,20 @@ Text="Mật khẩu mới"/>
        Data="M12,1A4,4 0 0 0 8,5V7H7A2,2 0 0 0 5,9V18A2,2 0 0 0 7,20H17A2,2 0 0 0 19,18V9A2,2 0 0 0 17,7H16V5A4,4 0 0 0 12,1M10,5A2,2 0 0 1 14,5V7H10Z"/>
                     </Border>
 
-                    <PasswordBox Grid.Column="1"
+                    <PasswordBox
+                        x:Name="txtMatKhau"
+                        Grid.Column="1"
           Margin="0,0,16,0"
           Style="{StaticResource PlainPasswordBoxStyle}"
                                  InputMethod.IsInputMethodEnabled="false">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction 
+            Command="{Binding PasswordChangedCommand}"
+            CommandParameter="{Binding ElementName=txtMatKhau}"
+            ></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <i:Interaction.Behaviors>
                             <con:PasswordInputCondition></con:PasswordInputCondition>
                         </i:Interaction.Behaviors>
@@ -102,7 +120,8 @@ FontSize="15"
 Margin="0 200 0 0"
             HorizontalAlignment="Center"
 Style="{StaticResource PrimaryButtonStyle}"
->
+Command="{Binding ConfirmPassCommand}"
+            >
 
         </Button>
     </Grid>

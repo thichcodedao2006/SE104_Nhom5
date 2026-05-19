@@ -123,7 +123,7 @@ xmlns:con="clr-namespace:QLTB.Condition"
                 Foreground="#145CC6"
                 FontWeight="SemiBold"
                 >
-                <Hyperlink > Gửi lại</Hyperlink>
+                <Hyperlink Command="{Binding ResendOTP}"> Gửi lại</Hyperlink>
             </TextBlock>
         </StackPanel>
         <Button

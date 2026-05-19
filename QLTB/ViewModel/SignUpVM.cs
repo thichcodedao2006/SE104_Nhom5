@@ -11,6 +11,8 @@ using System.Linq.Expressions;
 using QLTB.Data;
 using Microsoft.EntityFrameworkCore;
 using QLTB.Models;
+using QLTB.HashingData;
+using QLTB.Helpers;
 
 namespace QLTB.ViewModel
 {
@@ -53,7 +55,7 @@ namespace QLTB.ViewModel
                 );
             SignUpCommand = new RelayCommand<object>
                 (
-                    (p) => CanSignUp(p), (p) => SignUp(p)
+                    (p) => CanSignUp(p), async (p) =>  await SignUp(p)
                 );
         }
 
@@ -65,7 +67,7 @@ namespace QLTB.ViewModel
                 && Phone.Length > 0 && Email.Length > 0;
         }
 
-        private async void SignUp(object t)
+        private async Task SignUp(object t)
         {
             if (IsSignUp) return;
             try
@@ -76,17 +78,31 @@ namespace QLTB.ViewModel
                     return;
                 }
                 // đủ các điều kiện 
+                string HashPass = Security.HashPasswordSHA256(Password);
                 var NewAccount = new TaiKhoan()
                 {
                     TenTaiKhoan = Username,
                     LoaiTaiKhoan = 1,
-                    MatKhau = Password,
+                    MatKhau = HashPass,
                     DuocXacThuc = 0,
                     Email = Email
                 };
-                DataProvider.Instance.DB.TaiKhoans.Add(NewAccount);
+                DataProvider.Instance.DB.TaiKhoans.Add(NewAccount); // thêm vào Database TaiKhoan 
+                var NewEmployee = new NhanVien()
+                {
+                    HoTen = Realname,
+                    Sdt = Phone,
+                    Email = Email,
+                    ChuyenMon = "Sửa chữa",
+                    TinhTrang = "Đang rảnh"
+                };
+                DataProvider.Instance.DB.NhanViens.Add(NewEmployee);    
                 await DataProvider.Instance.DB.SaveChangesAsync();
-                MessageBox.Show("Đăng kí thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                // gửi Email
+                await EmailService.SendEmail(Email, "Cảm ơn bạn đã đăng kí tài khoản tại app. Xin hãy chờ sự phê duyệt từ người quản lý.");
+                MessageBox.Show("Đăng kí thành công. Kiểm tra email đăng kí.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                await EmailService.SendEmail(KeyData.AdminEmail, "Có người đăng kí tài khoản mới. Hãy vào ứng dụng để kiểm tra.");
+
             }
             finally
             {
@@ -106,12 +122,17 @@ namespace QLTB.ViewModel
                 MessageBox.Show("Mật khẩu được xác nhận không khớp.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
+            if (! await ValidName())
+            {
+                MessageBox.Show("Tên nhân viên đăng kí tài khoản đã tồn tại.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
             if (!ValidPhone())
             {
                 MessageBox.Show("Số điện thoại có độ dài không hợp lệ.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
-            if (!ValidEmail())
+            if (! await ValidEmail())
             {
                 MessageBox.Show("Email có định dạng không hợp lệ hoặc đã tồn tại.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
@@ -129,6 +150,27 @@ namespace QLTB.ViewModel
             var tk = await DataProvider.Instance.DB.TaiKhoans.FirstOrDefaultAsync(x => x.TenTaiKhoan == Username);
             return tk == null;
         }
+
+        private async  Task<bool> ValidEmail()
+        {
+            
+            try
+            {
+                var address = new MailAddress(Email); // có thể null -> NullReference
+
+                if (address.Address == Email)
+                {
+                    var tk = await DataProvider.Instance.DB.TaiKhoans.FirstOrDefaultAsync(x => x.Email == Email);
+                    return tk == null; // không được tồn tại trùng Email
+                } else
+                {
+                    return false;
+                }
+            }
+            catch
+            { return false; }
+
+        }
         private bool ValidPass()
         {
             return Password.Length >= 8;
@@ -144,18 +186,12 @@ namespace QLTB.ViewModel
             return Phone.Length>= 9 && Phone.Length<=10;
         }
 
-        private bool ValidEmail()
+        private async Task<bool> ValidName()
         {
-            try
-            {
-                var address = new MailAddress(Email); // có thể null -> NullReference
-
-                return address.Address == Email;
-            }
-            catch
-            {  return false; }
-            
+            var tk = await DataProvider.Instance.DB.NhanViens.FirstOrDefaultAsync(x => x.HoTen == Realname);
+            return tk == null; // mỗi nhân viên chỉ có 1 tài khoản 
         }
+
 
 
 

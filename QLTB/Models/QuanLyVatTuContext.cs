@@ -23,6 +23,8 @@ public partial class QuanLyVatTuContext : DbContext
 
     public virtual DbSet<DichVuBaoTri> DichVuBaoTris { get; set; }
 
+    public virtual DbSet<FogetPass> FogetPasses { get; set; }
+
     public virtual DbSet<NhanVien> NhanViens { get; set; }
 
     public virtual DbSet<PhongBan> PhongBans { get; set; }
@@ -129,6 +131,29 @@ public partial class QuanLyVatTuContext : DbContext
             entity.Property(e => e.TenDichVu).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<FogetPass>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__FogetPas__3214EC27A5F36EF8");
+
+            entity.ToTable("FogetPass");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.ExpiredTime)
+                .HasDefaultValueSql("(dateadd(minute,(5),getdate()))")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Otp)
+                .HasMaxLength(6)
+                .IsUnicode(false)
+                .HasColumnName("OTP");
+            entity.Property(e => e.Username)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.UsernameNavigation).WithMany(p => p.FogetPasses)
+                .HasForeignKey(d => d.Username)
+                .HasConstraintName("FK__FogetPass__Usern__5165187F");
+        });
+
         modelBuilder.Entity<NhanVien>(entity =>
         {
             entity.HasKey(e => e.IdnhanVien).HasName("PK__NhanVien__7AC2D9F7DA19FDF2");
@@ -173,7 +198,7 @@ public partial class QuanLyVatTuContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.MatKhau)
-                .HasMaxLength(50)
+                .HasMaxLength(80)
                 .IsUnicode(false);
         });
 

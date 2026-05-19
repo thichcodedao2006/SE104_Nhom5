@@ -23,10 +23,18 @@ namespace QLTB
         public fmQuenMatKhau()
         {
             InitializeComponent();
-            this.DataContext = new ForgetPassVM();
+            ForgetPassVM vm = new ForgetPassVM();
+            this.DataContext = vm;
+            vm.CloseThisWindow += Close;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CLose()
         {
             this.Close();
         }
