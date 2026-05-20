@@ -58,35 +58,34 @@
                 <ControlTemplate TargetType="ComboBox">
                     <Grid>
                         <ToggleButton x:Name="ToggleButton"
-                                      Style="{StaticResource ComboBoxToggleButton}"
-                                      IsChecked="{Binding IsDropDownOpen,
-                                                          Mode=TwoWay,
-                                                          RelativeSource={RelativeSource TemplatedParent}}"/>
+                                  Style="{StaticResource ComboBoxToggleButton}"
+                                  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
 
                         <ContentPresenter x:Name="ContentSite"
-                                          IsHitTestVisible="False"
-                                          Content="{TemplateBinding SelectionBoxItem}"
-                                          ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
-                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                          Margin="14 0 36 0"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"/>
+                  IsHitTestVisible="False"
+                  Content="{Binding Path=SelectionBoxItem, RelativeSource={RelativeSource TemplatedParent}}"
+                  ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                  Margin="14 0 36 0"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Left"/>
 
                         <Popup x:Name="Popup"
-                               Placement="Bottom"
-                               IsOpen="{TemplateBinding IsDropDownOpen}"
-                               AllowsTransparency="True"
-                               Focusable="False"
-                               PopupAnimation="Fade">
+                           Placement="Bottom"
+                           IsOpen="{TemplateBinding IsDropDownOpen}"
+                           AllowsTransparency="True"
+                           Focusable="False"
+                           PopupAnimation="Fade">
                             <Border Margin="0 6 0 0"
-                                    MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
-                                    Background="White"
-                                    BorderBrush="#E5E7EB"
-                                    BorderThickness="1"
-                                    CornerRadius="10">
+                                MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                Background="White"
+                                BorderBrush="#E5E7EB"
+                                BorderThickness="1"
+                                CornerRadius="10">
                                 <ScrollViewer MaxHeight="220">
                                     <StackPanel IsItemsHost="True"
-                                                KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                            KeyboardNavigation.DirectionalNavigation="Contained"/>
                                 </ScrollViewer>
                             </Border>
                         </Popup>

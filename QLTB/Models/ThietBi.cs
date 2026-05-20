@@ -19,5 +19,9 @@ public partial class ThietBi
 
     public double? Gia { get; set; }
 
+    public int? DonViThoiGian { get; set; }
+
+    public DateTime? NgayNhapThietBi { get; set; }
+
     public virtual ICollection<ChiTietThietBi> ChiTietThietBis { get; set; } = new List<ChiTietThietBi>();
 }

@@ -11,5 +11,9 @@ public partial class DichVuBaoTri
 
     public double? GiaDichVu { get; set; }
 
+    public int? Value { get; set; }
+
+    public int? Unit { get; set; }
+
     public virtual ICollection<BaoTri> BaoTris { get; set; } = new List<BaoTri>();
 }

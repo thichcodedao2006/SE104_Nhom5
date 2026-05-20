@@ -18,5 +18,7 @@ namespace QLTB.UserControlFolder.DashBoard
         {
             InitializeComponent();
         }
+
+        
     }
 }

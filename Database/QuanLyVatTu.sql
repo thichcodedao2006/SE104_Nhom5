@@ -5,12 +5,18 @@ create table ThietBi
 	TenThietBi nvarchar(100),
 	LoaiThietBi nvarchar(100),
 	BaoHanhDinhKy int, -- tính theo tháng 
-	DonViThoiGian int,
+	DonViThoiGian int, -- 0: Phút 1: Giờ 2: Ngày 3: Tháng 4: Năm 
 	DonViSanXuat nvarchar(100),
 	SoLuong int, -- số lượng tổng (số lượng còn lại hay số lượng đang sử dụng sẽ được tính dựa trên cái này)
 	Gia float -- giá (trên mỗi thiết bị) 
+	NgayNhapThietBi DateTime default GetDate(),
 )
 
+alter table ThietBi
+add NgayNhapThietBi DateTime
+alter table ThietBi
+add constraint DF_Ngay
+Default GetDate() for NgayNhapThietBi
 alter table ThietBi 
 add DonViThoiGian int
 
@@ -22,12 +28,12 @@ create table PhongBan
 	ViTri int, -- tầng mấy 
 )
 
+
 create table ChiTietThietBi 
 (
 	IDThietBi int,
 	SoSeri varchar(10), -- phân biệt giữa các thiết bị cùng loại 
-	TinhTrang nvarchar(50) default 'Tốt', -- có 3 trạng thái là Tốt, Lỗi và Đang bảo trì 
-	NgayNhapThietBi DateTime default GetDate(),
+	TinhTrang nvarchar(50) default 'Tốt', -- có 3 trạng thái là Tốt, Lỗi và Đang bảo trì
 	IDPhongBan int, -- thiết bị đang được sử dụng ở phòng ban nào (mặc định ở phòng kho) 
 
 	Primary key(IDThietBi, SoSeri),
@@ -36,6 +42,10 @@ create table ChiTietThietBi
 	Foreign key (IDPhongBan) references PhongBan(IDPhong)
 )
 
+alter table ChiTietThietBi
+drop constraint DF__ChiTietTh__NgayN__3C69FB99
+alter table ChiTietThietBi
+drop column NgayNhapThietBi
 
 create table NhanVien 
 (
@@ -47,11 +57,6 @@ create table NhanVien
 	TinhTrang nvarchar(50), -- đang rảnh, đang bận, nghỉ việc, ...
 )
 
-insert into NhanVien 
-values
-(
-	'Phạm Đan Trường', '0358002806', '24521898@gm.uit.edu.vn', N'Phần mềm', N'Đang rảnh'
-)
 
 
 
@@ -116,11 +121,33 @@ create table BaoTri
 	IDNhanVien int,
 	NgayBaoTri DateTime,
 	GhiChu nvarchar(100),
+	TinhTrangBaoTri nvarchar(50), 
 
 	foreign key (IDThietBi, SoSeri) references ChiTietThietBi(IDThietBi, SoSeri),
 	foreign key (IDDichVu) references DichVuBaoTri(IDDichVu),
 	foreign key (IDNhanVien) references NhanVien(IDNhanVien)
 )
+
+
+------- Insert -------
+INSERT INTO PhongBan (TenPhong, ViTri) VALUES 
+(N'Phòng Hành chính - Nhân sự', 1), -- Tầng 1 (Tiện cho ứng viên, tiếp tân)
+(N'Phòng Kế toán - Tài chính', 2),  -- Tầng 2
+(N'Phòng Kinh doanh (Sales)', 3),   -- Tầng 3
+(N'Phòng Marketing', 3),            -- Tầng 3 (Chung tầng với Sales để dễ phối hợp)
+(N'Phòng Công nghệ thông tin (IT)', 4), -- Tầng 4
+(N'Phòng Nghiên cứu & Phát triển (R&D)', 5), -- Tầng 5 (Cần yên tĩnh)
+(N'Ban Giám đốc', 6);               -- Tầng 6 (Tầng cao nhất)
+
+insert into NhanVien 
+values
+(
+	'Phạm Đan Trường', '0358002806', '24521898@gm.uit.edu.vn', N'Phần mềm', N'Đang rảnh'
+)
+
+
+alter table BaoTri 
+add TinhTrangBaoTri nvarchar(50)
 
 create table FogetPass 
 (

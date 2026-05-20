@@ -11,8 +11,6 @@ public partial class ChiTietThietBi
 
     public string? TinhTrang { get; set; }
 
-    public DateTime? NgayNhapThietBi { get; set; }
-
     public int? IdphongBan { get; set; }
 
     public virtual ICollection<BaoCaoSuaChua> BaoCaoSuaChuas { get; set; } = new List<BaoCaoSuaChua>();

@@ -162,7 +162,7 @@
 
             <!-- Section title -->
             <TextBlock Grid.Row="4"
-                   Text="Danh sách bảo trì cần làm"
+                   Text="Danh sách bảo trì"
                    FontSize="18"
                    FontWeight="SemiBold"
                    Foreground="#111827"/>
@@ -183,40 +183,53 @@
 
                         <StackPanel Margin="0 0 16 0">
                             <TextBlock Text="Từ ngày" FontWeight="SemiBold" Foreground="#374151" Margin="0 0 0 8"/>
-                            <DatePicker Height="42" Style="{StaticResource ModernDatePicker}"/>
+                            <DatePicker 
+                                SelectedDate="{Binding FromDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Height="42" Style="{StaticResource ModernDatePicker}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="0 0 16 0">
                             <TextBlock Text="Đến ngày" FontWeight="SemiBold" Foreground="#374151" Margin="0 0 0 8"/>
-                            <DatePicker Height="42" Style="{StaticResource ModernDatePicker}"/>
+                            <DatePicker
+                                SelectedDate="{Binding ToDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Height="42" Style="{StaticResource ModernDatePicker}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Margin="0 0 16 0">
                             <TextBlock Text="Phòng ban" FontWeight="SemiBold" Foreground="#374151" Margin="0 0 0 8"/>
-                            <ComboBox Style="{StaticResource ModernComboBox}"
-                            Height="42" SelectedIndex="0">
-                                <ComboBoxItem Content="Tất cả"/>
-                                <ComboBoxItem Content="Sản xuất"/>
-                                <ComboBoxItem Content="Bảo trì"/>
+                            <ComboBox 
+                                Style="{StaticResource ModernComboBox}"
+                            Height="42" 
+                            ItemsSource="{Binding ListPhongBan}"
+                            DisplayMemberPath="TenPhong"
+                            SelectedValuePath="IdPhong"
+                            SelectedValue="{Binding SelectedID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      >
+                                
                             </ComboBox>
                         </StackPanel>
 
                         <StackPanel Grid.Column="3" Margin="0 0 16 0">
                             <TextBlock Text="Nhân viên" FontWeight="SemiBold" Foreground="#374151" Margin="0 0 0 8"/>
                             <ComboBox   Style="{StaticResource ModernComboBox}"
-                                    Height="42" SelectedIndex="0">
-                                <ComboBoxItem Content="Tất cả"/>
-                                <ComboBoxItem Content="Nguyễn Văn A"/>
-                                <ComboBoxItem Content="Trần Văn B"/>
+                                    Height="42" 
+                                    ItemsSource="{Binding ListNhanVien}"
+                                    DisplayMemberPath="HoTen"
+                                    SelectedValuePath="IdnhanVien"
+                                    SelectedValue="{Binding SelectedNVId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        >
+                                
                             </ComboBox>
                         </StackPanel>
 
                         <StackPanel Grid.Column="4">
                             <TextBlock Text="Trạng thái" FontWeight="SemiBold" Foreground="#374151" Margin="0 0 0 8"/>
                             <ComboBox   Style="{StaticResource ModernComboBox}"
-                                    Height="42" SelectedIndex="0">
+                                    Height="42" 
+                                        SelectedValuePath="Content"
+                                        SelectedValue="{Binding SelectedState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ComboBoxItem Content="Tất cả"/>
-                                <ComboBoxItem Content="Đến hạn"/>
+                                <ComboBoxItem Content="Hoàn thành"/>
                                 <ComboBoxItem Content="Quá hạn"/>
                                 <ComboBoxItem Content="Đang xử lý"/>
                             </ComboBox>
@@ -227,7 +240,9 @@
                         <Button Style="{StaticResource BlueButton}"
                 Height="42"
                 Padding="22 0"
-                Margin="0 0 12 0">
+                Margin="0 0 12 0"
+                Command="{Binding FilterCommand}"                
+                                >
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🔍" Margin="0 0 8 0"/>
                                 <TextBlock Text="Tìm kiếm" FontWeight="SemiBold"/>
@@ -239,7 +254,10 @@
                 Padding="22 0"
                 Background="White"
                 BorderBrush="#E5E7EB"
-                BorderThickness="1">
+                BorderThickness="1"
+                Command="{Binding ResetCommand}"                
+                                >
+                            
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="↻" Margin="0 0 8 0" Foreground="#6B7280"/>
                                 <TextBlock Text="Reset" Foreground="#6B7280" FontWeight="SemiBold"/>
@@ -258,41 +276,80 @@
                 ClipToBounds="True"
                 Height="350">
 
-                <DataGrid Style="{StaticResource ModernDataGrid}">
+                <DataGrid Style="{StaticResource ModernDataGrid}"
+                          ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeader}"
+                          RowStyle="{StaticResource ModernDataGridRow}"
+                          ItemsSource="{Binding ListBaoTri}"
+                          AlternationCount="2"
+                          HorizontalScrollBarVisibility="Auto"
+                          >
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.Resources>
 
                     <DataGrid.Columns>
-
-                        <DataGridTextColumn Header="Thiết bị"
-                                        Binding="{Binding DeviceName}"
-                                        Width="2*"/>
-
-                        <DataGridTextColumn Header="Serial / Asset code"
-                                        Binding="{Binding AssetCode}"
-                                        Width="1.5*"/>
-
-                        <DataGridTextColumn Header="Loại công việc"
-                                        Binding="{Binding JobType}"
-                                        Width="1.5*"/>
-
-                        <DataGridTextColumn Header="Ngày đến hạn"
-                                        Binding="{Binding DueDate}"
-                                        Width="1.2*"/>
-
-                        <DataGridTextColumn Header="Nhân viên"
-                                        Binding="{Binding Employee}"
-                                        Width="1.3*"/>
-
-                        <DataGridTextColumn Header="Trạng thái"
-                                        Binding="{Binding Status}"
-                                        Width="1*"/>
-
-                        <DataGridTemplateColumn Header="Hành động" Width="1.2*">
+                        <DataGridTemplateColumn Header="Tên thiết bị" Width="2*" MinWidth="180">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="✓  Xác nhận"
-                                        Style="{StaticResource BlueButton}"
-                                        Height="36"
-                                        Padding="14 0"/>
+                                    <TextBlock Text="{Binding DeviceName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Serial / Asset code" Width="1.5*" MinWidth="140">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding AssetCode}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Loại công việc" Width="2.5*" MinWidth="200">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding JobType}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Ngày bắt đầu" Width="1.2*" MinWidth="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Ngày đến hạn" Width="1.2*" MinWidth="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Nhân viên đảm nhận" Width="1.5*" MinWidth="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding EmployeeName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Tình trạng" Width="1.2*" MinWidth="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource StatusTagStyle}">
+                                        <TextBlock
+                                            
+                                            Text="{Binding Status}"
+                                            FontSize="12"
+                           FontWeight="SemiBold"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                                    </Border>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

@@ -78,6 +78,7 @@ public partial class QuanLyVatTuContext : DbContext
             entity.Property(e => e.SoSeri)
                 .HasMaxLength(10)
                 .IsUnicode(false);
+            entity.Property(e => e.TinhTrangBaoTri).HasMaxLength(50);
 
             entity.HasOne(d => d.IddichVuNavigation).WithMany(p => p.BaoTris)
                 .HasForeignKey(d => d.IddichVu)
@@ -103,9 +104,6 @@ public partial class QuanLyVatTuContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false);
             entity.Property(e => e.IdphongBan).HasColumnName("IDPhongBan");
-            entity.Property(e => e.NgayNhapThietBi)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
             entity.Property(e => e.TinhTrang)
                 .HasMaxLength(50)
                 .HasDefaultValue("T?t");
@@ -129,6 +127,8 @@ public partial class QuanLyVatTuContext : DbContext
             entity.Property(e => e.IddichVu).HasColumnName("IDDichVu");
             entity.Property(e => e.GiaDichVu).HasDefaultValue(0.0);
             entity.Property(e => e.TenDichVu).HasMaxLength(100);
+            entity.Property(e => e.Unit).HasDefaultValue(0);
+            entity.Property(e => e.Value).HasDefaultValue(0);
         });
 
         modelBuilder.Entity<FogetPass>(entity =>
@@ -194,6 +194,9 @@ public partial class QuanLyVatTuContext : DbContext
             entity.Property(e => e.TenTaiKhoan)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.Avatar)
+                .HasMaxLength(100)
+                .IsUnicode(false);
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -211,6 +214,9 @@ public partial class QuanLyVatTuContext : DbContext
             entity.Property(e => e.IdthietBi).HasColumnName("IDThietBi");
             entity.Property(e => e.DonViSanXuat).HasMaxLength(100);
             entity.Property(e => e.LoaiThietBi).HasMaxLength(100);
+            entity.Property(e => e.NgayNhapThietBi)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.TenThietBi).HasMaxLength(100);
         });
 

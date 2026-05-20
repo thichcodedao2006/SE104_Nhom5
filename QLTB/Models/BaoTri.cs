@@ -19,6 +19,8 @@ public partial class BaoTri
 
     public string? GhiChu { get; set; }
 
+    public string? TinhTrangBaoTri { get; set; }
+
     public virtual ChiTietThietBi? ChiTietThietBi { get; set; }
 
     public virtual DichVuBaoTri? IddichVuNavigation { get; set; }
