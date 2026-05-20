@@ -8,8 +8,8 @@ create table ThietBi
 	DonViThoiGian int, -- 0: Phút 1: Giờ 2: Ngày 3: Tháng 4: Năm 
 	DonViSanXuat nvarchar(100),
 	SoLuong int, -- số lượng tổng (số lượng còn lại hay số lượng đang sử dụng sẽ được tính dựa trên cái này)
-	Gia float -- giá (trên mỗi thiết bị) 
-	NgayNhapThietBi DateTime default GetDate(),
+	Gia float, -- giá (trên mỗi thiết bị) 
+	NgayNhapThietBi DateTime default GetDate()
 )
 
 alter table ThietBi
@@ -35,7 +35,7 @@ create table ChiTietThietBi
 	SoSeri varchar(10), -- phân biệt giữa các thiết bị cùng loại 
 	TinhTrang nvarchar(50) default 'Tốt', -- có 3 trạng thái là Tốt, Lỗi và Đang bảo trì
 	IDPhongBan int, -- thiết bị đang được sử dụng ở phòng ban nào (mặc định ở phòng kho) 
-
+	-- hình ảnh thiết bị
 	Primary key(IDThietBi, SoSeri),
 
 	Foreign key (IDThietBi) references ThietBi(IDThietBi),
@@ -115,13 +115,13 @@ create table BaoCaoSuaChua
 create table BaoTri 
 (
 	IDBaoTri int primary key identity,
-	IDThietBi int,
+	IDThietBi int ,
 	SoSeri varchar(10),
 	IDDichVu int,
 	IDNhanVien int,
 	NgayBaoTri DateTime,
 	GhiChu nvarchar(100),
-	TinhTrangBaoTri nvarchar(50), 
+	TinhTrangBaoTri nvarchar(50), -- 3 tình trạng: Hoàn thành, Quá hạn, Đang xử lý
 
 	foreign key (IDThietBi, SoSeri) references ChiTietThietBi(IDThietBi, SoSeri),
 	foreign key (IDDichVu) references DichVuBaoTri(IDDichVu),
@@ -145,6 +145,78 @@ values
 	'Phạm Đan Trường', '0358002806', '24521898@gm.uit.edu.vn', N'Phần mềm', N'Đang rảnh'
 )
 
+-- ========================================================
+-- 2. CHÈN DỮ LIỆU MẪU CHO BẢNG: ThietBi
+-- ========================================================
+-- Lưu ý: Sửa lại lỗi thiếu dấu phẩy trước trường NgayNhapThietBi trong cấu trúc gốc của bạn
+SET IDENTITY_INSERT ThietBi ON;
+
+INSERT INTO ThietBi (IDThietBi, TenThietBi, LoaiThietBi, BaoHanhDinhKy, DonViThoiGian, DonViSanXuat, SoLuong, Gia, NgayNhapThietBi) VALUES
+(1, N'Máy tính Dell OptiPlex', N'Thiết bị điện tử', 12, 3, N'Dell Global', 15, 15000000, '2025-01-15 08:00:00'),
+(2, N'Máy in Canon LBP2900', N'Thiết bị văn phòng', 6, 3, N'Canon Việt Nam', 5, 4500000, '2025-03-10 09:30:00'),
+(3, N'Điều hòa Daikin 12000 BTU', N'Thiết bị điện lạnh', 2, 4, N'Daikin Thailand', 8, 12500000, '2024-06-01 14:00:00'),
+(4, N'Router Cisco ISR 1100', N'Thiết bị mạng', 24, 3, N'Cisco Systems', 3, 22000000, '2025-02-20 10:15:00'),
+(5, N'Ghế xoay văn phòng Hòa Phát', N'Nội thất', 1, 4, N'Hòa Phát', 30, 850000, '2025-05-01 11:00:00');
+
+SET IDENTITY_INSERT ThietBi OFF;
+
+-- ========================================================
+-- 3. CHÈN DỮ LIỆU MẪU CHO BẢNG: ChiTietThietBi (Mỗi dòng là 1 máy)
+-- ========================================================
+INSERT INTO ChiTietThietBi (IDThietBi, SoSeri, TinhTrang, IDPhongBan) VALUES
+-- Máy tính Dell (IDThietBi = 1)
+(1, 'DELL0001', N'Tốt', 2),
+(1, 'DELL0002', N'Tốt', 2),
+(1, 'DELL0003', N'Lỗi', 3),         -- Đang bị lỗi ở phòng kế toán
+(1, 'DELL0004', N'Tốt',  1), -- Đang bảo trì, đem về kho vật tư
+(1, 'DELL0005', N'Tốt', 4),
+-- Máy in Canon (IDThietBi = 2)
+(2, 'CANO0001', N'Tốt', 3),
+(2, 'CANO0002', N'Tốt', 4),
+(2, 'CANO0003', N'Tốt', 1),
+-- Điều hòa Daikin (IDThietBi = 3)
+(3, 'DAIK0001', N'Tốt', 2),
+(3, 'DAIK0002', N'Tốt', 3),
+(3, 'DAIK0003', N'Tốt', 5),         -- Điều hòa phòng họp bị lỗi
+-- Router Cisco (IDThietBi = 4)
+(4, 'CISC0001', N'Tốt', 2),
+-- Ghế Hòa Phát (IDThietBi = 5)
+(5, 'HOAP0001', N'Tốt', 2),
+(5, 'HOAP0002', N'Tốt', 3),
+(5, 'HOAP0003', N'Tốt', 4);
+
+-- ========================================================
+-- 4. CHÈN DỮ LIỆU MẪU CHO BẢNG: NhanVien
+-- ========================================================
+SET IDENTITY_INSERT NhanVien ON;
+
+INSERT INTO NhanVien ( HoTen, SDT, Email, ChuyenMon, TinhTrang) VALUES
+(N'Hà Gia Bảo', '0912345678', 'thang.nv@company.com', N'Quản lý', N'Đang rảnh'),
+(N'Bùi Bá Bổng', '0987654321', 'tung.tt@company.com', N'Sửa chữa máy tính', N'Đang bận'),
+(N'Hà Tuấn Hùng', '0933445566', 'mai.lt@company.com', N'Bảo trì điện lạnh', N'Đang rảnh'),
+(N'Phạm Hồng Sơn', '0944556677', 'son.ph@company.com', N'Quản trị mạng Cisco', N'Đang bận'),
+(N'Vũ Hoàng Long', '0955667788', 'long.vh@company.com', N'Sửa chữa thiết bị VP', N'Nghỉ việc');
+
+SET IDENTITY_INSERT NhanVien OFF;
+
+-- ========================================================
+-- 5. CHÈN DỮ LIỆU MẪU CHO BẢNG: DichVuBaoTri
+-- ========================================================
+SET IDENTITY_INSERT DichVuBaoTri ON;
+
+INSERT INTO DichVuBaoTri (IDDichVu, TenDichVu, GiaDichVu, Value, Unit) VALUES
+(1, N'Cài hệ điều hành & Phần mềm văn phòng', 150000, 2, 1), -- Hạn 2 Giờ (Unit = 1)
+(2, N'Vệ sinh & Tra keo tản nhiệt máy tính', 100000, 6, 3),  -- Định kỳ 6 Tháng (Unit = 3)
+(3, N'Bơm gas & Vệ sinh lưới lọc điều hòa', 450000, 1, 4),  -- Định kỳ 1 Năm (Unit = 4)
+(4, N'Sửa kẹt giấy & Thay trống mực máy in', 250000, 3, 2),  -- Hạn xử lý trong 3 Ngày (Unit = 2)
+(5, N'Cấu hình VLAN & Khắc phục sự cố mạng', 500000, 30, 0); -- Hạn xử lý khẩn cấp trong 30 Phút (Unit = 0);
+
+SET IDENTITY_INSERT DichVuBaoTri OFF;
+
+INSERT INTO BaoTri (IDThietBi, SoSeri, IDNhanVien, IDDichVu, NgayBaoTri, TinhTrangBaoTri) VALUES
+(1, 'DELL0004', 6, 1, '2026-05-20 14:00:00', N'Đang xử lý'), -- Sửa máy tính Dell
+(2, 'CANO0003', 7, 4, '2026-05-19 09:00:00', N'Đang xử lý'), -- Sửa máy in Canon
+(3, 'DAIK0003', 8, 3, '2026-05-15 08:30:00', N'Hoàn thành');
 
 alter table BaoTri 
 add TinhTrangBaoTri nvarchar(50)
@@ -175,3 +247,5 @@ where TenTaiKhoan = 'admin'
 select * from TaiKhoan
 select * from NhanVien
 select * from FogetPass
+select * from ChiTietThietBi
+select * from BaoTri
