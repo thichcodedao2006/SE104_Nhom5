@@ -82,7 +82,7 @@ namespace QLTB.ViewModel
                 var NewAccount = new TaiKhoan()
                 {
                     TenTaiKhoan = Username,
-                    LoaiTaiKhoan = 1,
+                    LoaiTaiKhoan = 2,
                     MatKhau = HashPass,
                     DuocXacThuc = 0,
                     Email = Email

@@ -241,8 +241,9 @@ Delete from TaiKhoan
 where TenTaiKhoan = 'TruongPham123'
 
 update TaiKhoan 
-set Email ='24521898@gm.uit.edu.vn'
-where TenTaiKhoan = 'admin'
+set DuocXacThuc = 1
+where DuocXacThuc = 0
+
 
 select * from TaiKhoan
 select * from NhanVien
