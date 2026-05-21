@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="Resource/DatePickerStyles.xaml"/>
                 <ResourceDictionary Source="Resource/DataGridStyles.xaml"/>
                 <ResourceDictionary Source="Resource/SidebarRadioButtonStyle.xaml"/>
+                <ResourceDictionary Source="Resource/ToggleSwitchStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

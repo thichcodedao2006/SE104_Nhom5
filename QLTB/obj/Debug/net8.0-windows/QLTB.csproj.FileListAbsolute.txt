@@ -725,3 +725,8 @@ D:\SE104_Nhom5\QLTB\bin\Debug\net8.0-windows\MailKit.dll
 D:\SE104_Nhom5\QLTB\bin\Debug\net8.0-windows\MimeKit.dll
 D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Setting\SettingSecurityView.baml
 D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Setting\SettingSecurityView.g.cs
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Setting\SettingNotificationView.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Setting\SettingNotificationView.g.cs
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\Resource\ToggleSwitchStyle.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Setting\SettingSystemView.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Setting\SettingSystemView.g.cs

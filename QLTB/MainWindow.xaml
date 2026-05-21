@@ -304,55 +304,134 @@
 
                     <!-- Right user area -->
                     <StackPanel Grid.Column="1"
-                             Orientation="Horizontal"
-                             VerticalAlignment="Center">
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
 
-                        <Grid Width="36" Height="36" Margin="0 0 18 0">
-                            <fa:ImageAwesome Icon="BellOutline"
-                                          Width="18"
-                                          Height="18"
-                                          Foreground="#6B7280"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                        <!-- NOTIFICATION BUTTON -->
+                        <Button Width="40"
+                                Height="40"
+                                Margin="0 0 14 0"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Cursor="Hand">
 
-                            <Ellipse Width="7"
-                                  Height="7"
-                                  Fill="#EF4444"
-                                  HorizontalAlignment="Right"
-                                  VerticalAlignment="Top"
-                                  Margin="0 7 6 0"/>
-                        </Grid>
+                            <Grid Width="36" Height="36">
 
-                        <Border Width="34"
-                             Height="34"
-                             Background="#2563EB"
-                             CornerRadius="17"
-                             Margin="0 0 10 0">
-                            <TextBlock Text="NV"
-                                    Foreground="White"
-                                    FontWeight="Bold"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Bottom" Margin="0,0,0,9"/>
-                        </Border>
+                                <Border Background="#F9FAFB"
+                                        CornerRadius="18">
+                                    <fa:ImageAwesome Icon="BellOutline"
+                                                     Width="18"
+                                                     Height="18"
+                                                     Foreground="#6B7280"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center"/>
+                                </Border>
 
-                        <StackPanel VerticalAlignment="Center">
-                            <TextBlock 
-                                    Text="{Binding UserDetail.HoTen}"
-                                    FontWeight="SemiBold"
-                                    Foreground="#111827"
-                                />
-                            <TextBlock 
-                                Text="{Binding UserAccount.LoaiTaiKhoan, Converter={StaticResource RoleConverter}}"
-                                    FontSize="12"
-                                    Foreground="#6B7280"/>
-                        </StackPanel>
+                                <Ellipse Width="7"
+                                         Height="7"
+                                         Fill="#EF4444"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Top"
+                                         Margin="0 7 6 0"/>
 
-                        <fa:ImageAwesome Icon="AngleDown"
-                                      Width="12"
-                                      Height="12"
-                                      Foreground="#6B7280"
-                                      Margin="14 0 0 0"
-                                      VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+
+                        <!-- USER BUTTON -->
+                        <ToggleButton x:Name="UserMenuButton"
+                                      Background="White"
+                                      BorderThickness="0"
+                                      Cursor="Hand"
+                                      Padding="10,6">
+
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+
+                                <Border Width="36"
+                                        Height="36"
+                                        Background="#2563EB"
+                                        CornerRadius="18"
+                                        Margin="0,0,10,0">
+                                    <TextBlock Text="NV"
+                                               Foreground="White"
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding UserDetail.HoTen}"
+                                               FontWeight="SemiBold"
+                                               Foreground="#111827"/>
+                                    <TextBlock Text="{Binding UserAccount.LoaiTaiKhoan, Converter={StaticResource RoleConverter}}"
+                                               FontSize="12"
+                                               Foreground="#6B7280"/>
+                                </StackPanel>
+
+                                <fa:ImageAwesome Icon="AngleDown"
+                                                 Width="12"
+                                                 Height="12"
+                                                 Foreground="#6B7280"
+                                                 Margin="14,0,0,0"
+                                                 VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ToggleButton>
+
+                        <!-- DROPDOWN MENU -->
+                        <Popup IsOpen="{Binding IsChecked, ElementName=UserMenuButton}"
+                               PlacementTarget="{Binding ElementName=UserMenuButton}"
+                               Placement="Bottom"
+                               AllowsTransparency="True"
+                               StaysOpen="False"
+                               PopupAnimation="Fade">
+
+                            <Border Width="200"
+                                    Background="White"
+                                    CornerRadius="10"
+                                    BorderBrush="#E5E7EB"
+                                    BorderThickness="1"
+                                    Padding="10"
+                                    Margin="0,8,0,0">
+
+                                <StackPanel>
+                                    <Button Style="{StaticResource BorderButton}"
+                                            Background="#F1F5F9"
+                                            BorderThickness="0"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding OpenSettingCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:ImageAwesome Icon="Cog"
+                                         Width="14"
+                                         Height="14"
+                                         Foreground="#111827"
+                                         Margin="0,0,12,0"/>
+                                            <TextBlock Text="Cài đặt"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <Border Height="1"
+                                            Background="#E5E7EB"
+                                            Margin="0,8"/>
+
+                                    <Button Style="{StaticResource BorderButton}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            HorizontalContentAlignment="Left"
+                                            Command="{Binding LogoutCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:ImageAwesome Icon="SignOut"
+                                         Width="14"
+                                         Height="14"
+                                         Foreground="#EF4444"
+                                         Margin="0,0,12,0"/>
+                                            <TextBlock Text="Đăng xuất"
+                                                        Foreground="#EF4444"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+
                     </StackPanel>
                 </Grid>
             </Border>

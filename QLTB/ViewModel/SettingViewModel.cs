@@ -25,16 +25,20 @@ namespace QLTB.ViewModel
         public ICommand ShowProfileCommand { get; }
         public ICommand ShowSecurityCommand { get; }
 
+        public ICommand ShowNotificationCommand { get; }
+
+        public ICommand ShowSystemCommand { get; }
+
         public SettingViewModel()
         {
             CurrentView = new SettingProfileViewModel();
 
             ShowProfileCommand = new RelayCommand<object>(
-             (p) => true,
-             (p) =>
-             {
-                 CurrentView = new SettingProfileViewModel();
-             });
+                 (p) => true,
+                 (p) =>
+                 {
+                     CurrentView = new SettingProfileViewModel();
+                 });
             
             ShowSecurityCommand = new RelayCommand<object>(
                 (p) => true,
@@ -42,7 +46,20 @@ namespace QLTB.ViewModel
                 {
                     CurrentView = new SettingSecurityViewModel();
                 });
+            
+            ShowNotificationCommand = new RelayCommand<object>(
+                (p) => true,
+                (p) =>
+                {
+                    CurrentView = new SettingNotificationViewModel();
+                });
 
+            ShowSystemCommand = new RelayCommand<object>(
+                (p) => true,
+                (p) =>
+                {
+                    CurrentView = new SettingSystemViewModel();
+                });
         }
     }
 }

@@ -68,4 +68,74 @@
 
     </Style>
 
+    <!-- Simple Border Button -->
+    <Style x:Key="BorderButton" TargetType="Button">
+
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="MinWidth" Value="120"/>
+        <Setter Property="Padding" Value="20,0"/>
+
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="#111827"/>
+
+        <Setter Property="BorderBrush" Value="#D1D5DB"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="14">
+
+                        <ContentPresenter Margin="{TemplateBinding Padding}"/>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <!-- Hover -->
+                        <Trigger Property="IsMouseOver" Value="True">
+
+                            <Setter TargetName="border"
+                                Property="Background"
+                                Value="#F9FAFB"/>
+
+                        </Trigger>
+
+                        <!-- Click -->
+                        <Trigger Property="IsPressed" Value="True">
+
+                            <Setter TargetName="border"
+                                Property="Background"
+                                Value="#F3F4F6"/>
+
+                        </Trigger>
+
+                        <!-- Disable -->
+                        <Trigger Property="IsEnabled" Value="False">
+
+                            <Setter TargetName="border"
+                                Property="Opacity"
+                                Value="0.55"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
 </ResourceDictionary>

@@ -17,6 +17,7 @@
     <None Remove="MainWindow.xaml" />
     <None Remove="Resource\MainResource.xaml" />
     <None Remove="Resource\SidebarRadioButtonStyle.xaml" />
+    <None Remove="Resource\ToggleSwitchStyle.xaml" />
     <None Remove="UserControlFolder\DashBoard\DashBoardView.xaml" />
     <None Remove="UserControlFolder\Device\DeviceFormView.xaml" />
     <None Remove="UserControlFolder\Device\DeviceView.xaml" />
@@ -34,8 +35,10 @@
     <None Remove="UserControlFolder\Material\MaterialFormView.xaml" />
     <None Remove="UserControlFolder\Material\MaterialView.xaml" />
     <None Remove="UserControlFolder\Setting\SettingMainView.xaml" />
+    <None Remove="UserControlFolder\Setting\SettingNotificationView.xaml" />
     <None Remove="UserControlFolder\Setting\SettingProfileView.xaml" />
     <None Remove="UserControlFolder\Setting\SettingSecurityView.xaml" />
+    <None Remove="UserControlFolder\Setting\SettingSystemView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,6 +77,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resource\SidebarRadioButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\ToggleSwitchStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\DashBoard\DashBoardView.xaml">
@@ -127,10 +133,16 @@
     <Page Include="UserControlFolder\Setting\SettingMainView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControlFolder\Setting\SettingNotificationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControlFolder\Setting\SettingProfileView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\Setting\SettingSecurityView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Setting\SettingSystemView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Update="fmDangNhap.xaml.cs">

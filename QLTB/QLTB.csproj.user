@@ -65,10 +65,16 @@
     <Compile Update="UserControlFolder\Setting\SettingMainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\Setting\SettingNotificationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControlFolder\Setting\SettingProfileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControlFolder\Setting\SettingSecurityView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlFolder\Setting\SettingSystemView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -97,6 +103,15 @@
     <None Update="Resource\SBButton.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UserControlFolder\Setting\SettingSystemView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resource\ToggleSwitchStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlFolder\Setting\SettingNotificationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\Setting\SettingSecurityView.xaml">
       <SubType>Designer</SubType>
     </Page>

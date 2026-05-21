@@ -17,7 +17,15 @@
 
         <DataTemplate DataType="{x:Type vm:SettingSecurityViewModel}">
             <view:SettingSecurityView/>
-            </DataTemplate>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:SettingNotificationViewModel}">
+            <view:SettingNotificationView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:SettingSystemViewModel}">
+            <view:SettingSystemView/>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid Margin="28">
@@ -61,7 +69,7 @@
                          FontSize="18"
                          GroupName="SettingTabs"
                          Style="{StaticResource SidebarRadioButton}"
-                         Command="{Binding ShowNotificationsCommand}"
+                         Command="{Binding ShowNotificationCommand}"
                          Margin="24,0,0,0"/>
                 <RadioButton Content="Hệ thống" 
                          FontSize="18"
