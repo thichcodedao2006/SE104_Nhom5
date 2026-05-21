@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QLTB.Data;
+using QLTB.Helpers;
 using QLTB.Models;
+using QLTB.UserControlFolder.IncidentReport;
+using QLTB.UserControlFolder.Maintenance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +43,7 @@ namespace QLTB.ViewModel
         private int selectedID;
         private int selectedNVId;
         private string selectedState;
+        private bool canShow;
         
 
         // SỬA: Đổi selectedID thành kiểu nullable (int?) để dễ quản lý trạng thái null/"Tất cả"
@@ -97,20 +101,34 @@ namespace QLTB.ViewModel
                 listBaoTri = value; OnPropertyChanged(nameof (ListBaoTri));
             }
                 }
+
+        public bool CanShow { get => canShow; set
+            {
+                canShow = value;
+                OnPropertyChanged(nameof(CanShow));
+            }
+                }
         #endregion
 
         // CONSTRUCTOR
-        public DashBoardViewModel()
+        public DashBoardViewModel(TaiKhoan t)
         {
+            CanShow = t.LoaiTaiKhoan == 2 ? false : true;
+            Reset();
             // SỬA CỐT LÕI: Không gọi trực tiếp các hàm async tại đây nữa, tránh xung đột luồng
             _ = LoadAllDataAsync();
             LoadCommand();
+
         }
 
         #region Command 
         public ICommand ResetCommand { get; set; }
         public ICommand FilterCommand { get; set; }
- 
+
+        public ICommand OpenBaoTriFormCommand {  get; set; }
+
+        public ICommand OpenIncidentFormCommand { get; set; }
+
         #endregion
 
         #region Function
@@ -230,6 +248,14 @@ namespace QLTB.ViewModel
                 (
                     (p) => true, (p) => Reset()
                     );
+            OpenBaoTriFormCommand = new RelayCommand<object>
+                (
+                    (p) => true, (p) => OpenBaoTriForm()
+                );
+            OpenIncidentFormCommand = new RelayCommand<object>
+                (
+                    (p) => true, (p) => OpenIncidentForm()
+                );
         }
 
         private async Task Filter()
@@ -343,6 +369,18 @@ namespace QLTB.ViewModel
                 4 => ngayBaoTri.Value.AddYears(valInt), // Năm
                 _ => ngayBaoTri.Value // Mặc định giữ nguyên nếu lỗi unit
             };
+        }
+
+        private void OpenBaoTriForm()
+        {
+            MaintenancePlanFormView plan = new MaintenancePlanFormView();
+            PopUpService.ShowPopUp(plan);
+        }
+
+        private void OpenIncidentForm()
+        {
+            IncidentReportFormView incident = new IncidentReportFormView();
+            PopUpService.ShowPopUp(incident);
         }
         #endregion
     }
