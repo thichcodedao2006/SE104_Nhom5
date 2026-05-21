@@ -50,7 +50,7 @@
 
                             <Setter TargetName="Border"
                                     Property="BorderBrush"
-                                    Value="#D1D5DB"/>
+                                    Value="#2563EB"/>
 
                             <Setter TargetName="Border"
                                     Property="BorderThickness"

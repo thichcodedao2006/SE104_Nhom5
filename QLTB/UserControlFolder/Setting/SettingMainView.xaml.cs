@@ -23,6 +23,7 @@ namespace QLTB.UserControlFolder.Setting
         public SettingMainView()
         {
             InitializeComponent();
+            DataContext = new ViewModel.SettingViewModel();
         }
     }
 }

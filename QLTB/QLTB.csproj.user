@@ -68,6 +68,9 @@
     <Compile Update="UserControlFolder\Setting\SettingProfileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\Setting\SettingSecurityView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Update="Resource\Button.xaml">
@@ -94,6 +97,9 @@
     <None Update="Resource\SBButton.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UserControlFolder\Setting\SettingSecurityView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\Setting\SettingProfileView.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -720,3 +720,8 @@ D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\Q
 D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
 D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\bin\Debug\net8.0-windows\MailKit.dll
 D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\bin\Debug\net8.0-windows\MimeKit.dll
+D:\SE104_Nhom5\QLTB\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
+D:\SE104_Nhom5\QLTB\bin\Debug\net8.0-windows\MailKit.dll
+D:\SE104_Nhom5\QLTB\bin\Debug\net8.0-windows\MimeKit.dll
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Setting\SettingSecurityView.baml
+D:\SE104_Nhom5\QLTB\obj\Debug\net8.0-windows\UserControlFolder\Setting\SettingSecurityView.g.cs

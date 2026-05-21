@@ -21,8 +21,9 @@
             <TextBlock Text="Tạo kế hoạch bảo trì" 
                        FontSize="22" 
                        FontWeight="Bold" 
-                       Foreground="#111827" 
-                       Margin="0,0,0,25"/>
+                       Foreground="Black" 
+                       Margin="0,0,0,25"
+                       HorizontalAlignment="Center"/>
 
             <StackPanel Margin="0,0,0,20">
                 <TextBlock Text="Tên kế hoạch" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
@@ -30,7 +31,8 @@
                          Height="45" 
                          Padding="12,0" 
                          VerticalContentAlignment="Center" 
-                         BorderBrush="#2563EB"
+                          BorderBrush="#D1D5DB" 
+                         Foreground="Black"
                          Tag="Nhập tên kế hoạch bảo trì" 
                          Text="{Binding PlanName}"/>
             </StackPanel>
@@ -45,31 +47,41 @@
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Loại bảo trì" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
-                              ItemsSource="{Binding MaintenanceTypes}" SelectedItem="{Binding SelectedType}">
+                               BorderBrush="#D1D5DB" 
+                              ItemsSource="{Binding TenDichVu}" SelectedItem="{Binding SelectedType}">
                         <ComboBoxItem Content="Phòng ngừa"/>
                         <ComboBoxItem Content="Sửa chữa"/>
                     </ComboBox>
 
                     <TextBlock Text="Thiết bị" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
-                              ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}">
+                               BorderBrush="#D1D5DB" 
+                              ItemsSource="{Binding TenThietBi}" SelectedItem="{Binding SelectedDevice}">
                         <ComboBoxItem Content="Máy CNC A"/>
                         <ComboBoxItem Content="Máy Phay B"/>
                     </ComboBox>
 
-                    <TextBlock Text="Chu kỳ thực hiện" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    <TextBlock Text="Số Serial" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
-                              ItemsSource="{Binding Cycles}" SelectedItem="{Binding SelectedCycle}">
-                        <ComboBoxItem Content="Hàng tuần"/>
-                        <ComboBoxItem Content="Hàng tháng"/>
-                        <ComboBoxItem Content="Hàng quý"/>
+                               BorderBrush="#D1D5DB" 
+                              ItemsSource="{Binding SoSeri}" SelectedItem="{Binding SelectedCycle}">
+                        <ComboBoxItem Content="1123"/>
+                        <ComboBoxItem Content="2344"/>
+                        <ComboBoxItem Content="4445"/>
                     </ComboBox>
+
+                    <TextBlock Text="Chu kì bảo hành" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" Height="45" Padding="12,0" 
+                              BorderBrush="#D1D5DB" 
+                              VerticalContentAlignment="Center" Tag="Chu kì theo tháng" 
+                              Text="{Binding BaoHanhDinhKi}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2">
                     <TextBlock Text="Mức độ ưu tiên" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
-                              ItemsSource="{Binding Priorities}" SelectedItem="{Binding SelectedPriority}">
+                               BorderBrush="#D1D5DB" 
+                              ItemsSource="{Binding DoUuTien}" SelectedItem="{Binding SelectedPriority}">
                         <ComboBoxItem Content="Cao"/>
                         <ComboBoxItem Content="Trung bình"/>
                         <ComboBoxItem Content="Thấp"/>
@@ -77,21 +89,30 @@
 
                     <TextBlock Text="Người thực hiện" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
-                              ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
+                               BorderBrush="#D1D5DB" 
+                              ItemsSource="{Binding HoTen}" SelectedItem="{Binding SelectedEmployee}">
                         <ComboBoxItem Content="Nguyễn Văn A"/>
                         <ComboBoxItem Content="Trần Thị B"/>
                     </ComboBox>
 
                     <TextBlock Text="Chi phí ước tính ($)" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
                     <TextBox Style="{StaticResource RoundedTextBox}" Height="45" Padding="12,0" 
+                              BorderBrush="#D1D5DB" 
                              VerticalContentAlignment="Center" Tag="Nhập chi phí dự kiến" 
-                             Text="{Binding EstimatedCost}"/>
+                             Text="{Binding GiaDichVu}"/>
+
+                    <TextBlock Text="Ngày bảo trì" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" Height="45" Padding="12,0" 
+                              BorderBrush="#D1D5DB" 
+                              VerticalContentAlignment="Center" Tag="Ngày dự kiến sẽ được tự tính" 
+                              Text="{Binding NgayBaoTri}"/>  
                 </StackPanel>
             </Grid>
 
             <StackPanel Margin="0,20,0,0">
                 <TextBlock Text="Ghi chú" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                 <TextBox Style="{StaticResource RoundedTextBox}" 
+                          BorderBrush="#D1D5DB" 
                          Height="120" 
                          Padding="12" 
                          VerticalContentAlignment="Top"
@@ -102,8 +123,10 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,30,0,0">
-                <Button Content="Hủy bỏ" Width="110" Height="45" Background="White" 
-                        BorderBrush="#D1D5DB" BorderThickness="1" Margin="0,0,15,0" 
+                <Button Content="Hủy bỏ" Width="110" Height="45" Background="White"  
+                        BorderBrush="#D1D5DB"
+                        Foreground="#374151"
+                        BorderThickness="1" Margin="0,0,15,0" 
                         Cursor="Hand" Command="{Binding CancelCommand}"/>
 
                 <Button Content="Tạo kế hoạch" Width="150" Height="45" Background="#2563EB" 

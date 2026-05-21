@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:QLTB.UserControlFolder.Employee"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:vm="clr-namespace:QLTB.ViewModel"
-         Background="#F3F4F6">
+         Background="#F8FAFC">
 
     <UserControl.DataContext>
         <vm:EmployeeViewModel/>
@@ -117,19 +117,93 @@
         </Grid>
 
         <!-- Hàng 3: Filter/Search -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 0 0 24">
-            <TextBox Width="400" Height="36" Padding="12" FontSize="14"
-                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                 BorderBrush="#D1D5DB"
-                 Background="White"/>
-            <Button Content="Filter"
-                Command="{Binding FilterCommand}"
-                Width="100"
-                Height="36"
-                Margin="12 0 0 0"
-                Background="#F3F4F6"
-                BorderBrush="#D1D5DB" />
-        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Height="44"
+         Background="White"
+         BorderBrush="#D1D5DB"
+         BorderThickness="1"
+         CornerRadius="12">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="44"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <fa:ImageAwesome Icon="Search"
+                          Width="15"
+                          Height="15"
+                          Foreground="#6B7280"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+
+                    <TextBox Grid.Column="1"
+                  BorderThickness="0"
+                  Background="Transparent"
+                  VerticalContentAlignment="Center"
+                  FontSize="14"
+                  Foreground="#111827"
+                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Column="1"
+                    Text="Tìm kiếm theo tên"
+                    Foreground="#9CA3AF"
+                    FontSize="14"
+                    VerticalAlignment="Center"
+                    IsHitTestVisible="False">
+
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility"
+                             Value="Collapsed"/>
+
+                                <Style.Triggers>
+
+                                    <DataTrigger Binding="{Binding SearchText}"
+                                      Value="">
+                                        <Setter Property="Visibility"
+                                     Value="Visible"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding SearchText}"
+                                      Value="{x:Null}">
+                                        <Setter Property="Visibility"
+                                     Value="Visible"/>
+                                    </DataTrigger>
+
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+
+                    </TextBlock>
+                </Grid>
+            </Border>
+
+            <Button Grid.Column="2"
+         Style="{StaticResource BeautyButton}"
+         Height="44"
+         Padding="18 0"
+         Background="White"
+         BorderBrush="#D1D5DB"
+         BorderThickness="1"
+         FontWeight="SemiBold"
+         Cursor="Hand">
+
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="Filter"
+                          Width="14"
+                          Height="14"
+                          Margin="0 0 8 0"/>
+                    <TextBlock Text="Bộ lọc"/>
+                </StackPanel>
+            </Button>
+        </Grid>
 
         <!-- Hàng 4: Employee Cards -->
         <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">

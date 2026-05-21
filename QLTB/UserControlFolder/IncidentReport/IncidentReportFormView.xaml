@@ -23,7 +23,8 @@
                        FontSize="22" 
                        FontWeight="Bold" 
                        Foreground="#111827" 
-                       Margin="0,0,0,20"/>
+                       Margin="0,0,0,20"
+                       HorizontalAlignment="Center"/>
 
             <StackPanel Margin="0,0,0,15">
                 <TextBlock Text="Thiết bị/Trang thiết bị" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
@@ -33,6 +34,17 @@
                           ItemsSource="{Binding Devices}"
                           SelectedItem="{Binding SelectedDevice}">
                     <ComboBoxItem Content="Chọn một thiết bị"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,15">
+                <TextBlock Text="Vị trí/ phòng ban" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                <ComboBox Style="{StaticResource ModernComboBox}" 
+                          Height="42" 
+                          SelectedIndex="0"
+                          ItemsSource="{Binding Departments}"
+                          SelectedItem="{Binding SelectedDepartment}">
+                    <ComboBoxItem Content="Chọn một phòng ban"/>
                 </ComboBox>
             </StackPanel>
 
@@ -58,7 +70,7 @@
                          VerticalContentAlignment="Top"
                          AcceptsReturn="True" 
                          TextWrapping="Wrap"
-                         BorderBrush="#2563EB"
+                         
                          Tag="Mô tả chi tiết vấn đề đang gặp phải..." 
                          Text="{Binding ProblemDescription}"/>
             </StackPanel>

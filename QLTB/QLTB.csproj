@@ -35,6 +35,7 @@
     <None Remove="UserControlFolder\Material\MaterialView.xaml" />
     <None Remove="UserControlFolder\Setting\SettingMainView.xaml" />
     <None Remove="UserControlFolder\Setting\SettingProfileView.xaml" />
+    <None Remove="UserControlFolder\Setting\SettingSecurityView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -127,6 +128,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\Setting\SettingProfileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Setting\SettingSecurityView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Update="fmDangNhap.xaml.cs">
