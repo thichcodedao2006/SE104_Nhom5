@@ -50,14 +50,14 @@ namespace QLTB.ViewModel
         {
             SetUpUser(t);
 
-            _dashboardVM = new DashBoardViewModel();
+            _dashboardVM = new DashBoardViewModel(t);
             CurrentViewModel = _dashboardVM;
 
             OpenDashboardCommand = new RelayCommand(o =>
             {
                 if (_dashboardVM == null)
                 {
-                    _dashboardVM = new DashBoardViewModel();
+                    _dashboardVM = new DashBoardViewModel(t);
                 }
                 CurrentViewModel = _dashboardVM;
                 _dashboardVM.Reload();

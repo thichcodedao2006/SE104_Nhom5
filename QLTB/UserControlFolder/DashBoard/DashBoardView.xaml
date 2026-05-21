@@ -52,7 +52,12 @@
                 <StackPanel Grid.Column="1"
                         Orientation="Horizontal">
 
-                    <Button Style="{StaticResource BlueButton}" Margin="0 0 12 0">
+                    <Button
+                        
+                        Style="{StaticResource BlueButton}" Margin="0 0 12 0"
+                            Command="{Binding OpenBaoTriFormCommand}"
+                        Visibility="{Binding CanShow, Converter={StaticResource BoolToVisibilityConverter}}"
+                            >
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="Plus"
                      Width="14"
@@ -68,7 +73,9 @@
                     
 
                     <Button Style="{StaticResource RedButton}"
-                        Content="⚠  Báo cáo sự cố"/>
+                        Content="⚠  Báo cáo sự cố"
+                            Command="{Binding OpenIncidentFormCommand}"
+                            />
                 </StackPanel>
             </Grid>
 
