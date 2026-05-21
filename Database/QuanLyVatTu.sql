@@ -67,11 +67,10 @@ create table TaiKhoan
 	Email varchar(50), -- không được sử dụng trùng email 
 	LoaiTaiKhoan int, --0: Giam doc, 1: Quan ly kho, 2: Nhan vien binh thuong 
 	DuocXacThuc int, --0: chua duoc, 1: duoc 
-	Avatar varchar(100)
 )
 
 alter table TaiKhoan 
-add Avatar varchar(100)
+drop column Avatar
 
 select * from TaiKhoan
 
@@ -238,7 +237,7 @@ set MatKhau = '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225'
 where TenTaiKhoan = 'admin'
 
 Delete from TaiKhoan 
-where TenTaiKhoan = 'TruongPham123'
+where TenTaiKhoan = 'TruongPham'
 
 update TaiKhoan 
 set DuocXacThuc = 1

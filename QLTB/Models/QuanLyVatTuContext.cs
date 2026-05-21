@@ -194,9 +194,6 @@ public partial class QuanLyVatTuContext : DbContext
             entity.Property(e => e.TenTaiKhoan)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Avatar)
-                .HasMaxLength(100)
-                .IsUnicode(false);
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);

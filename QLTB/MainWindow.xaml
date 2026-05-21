@@ -154,17 +154,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}"
-                         Command="{Binding OpenMaterialCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="Cube"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
-                            <TextBlock Text="Vật tư"/>
-                        </StackPanel>
-                    </Button>
+                    
 
                     <Button Style="{StaticResource SidebarButton}"
                             Command="{Binding OpenMaintenancePlanCommand}">
@@ -349,15 +339,23 @@
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
 
                                 <Border Width="36"
-                                        Height="36"
-                                        Background="#2563EB"
-                                        CornerRadius="18"
-                                        Margin="0,0,10,0">
-                                    <TextBlock Text="NV"
-                                               Foreground="White"
-                                               FontWeight="Bold"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/>
+                                Height="36"
+                                CornerRadius="18"
+                                Margin="0,0,10,0"
+                                Background="#2563EB">
+                                                            <Grid>
+                                                            <TextBlock Text="NV"
+                                           Foreground="White"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>     
+
+                                        <Border CornerRadius="18">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{Binding CurrentAvatar}" Stretch="UniformToFill"/>
+                                            </Border.Background>
+                                        </Border>
+                                    </Grid>
                                 </Border>
 
                                 <StackPanel VerticalAlignment="Center">
@@ -406,7 +404,8 @@
                                          Height="14"
                                          Foreground="#111827"
                                          Margin="0,0,12,0"/>
-                                            <TextBlock Text="Cài đặt"/>
+                                            <TextBlock Text="Cài đặt"
+                                                       VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
 
@@ -418,7 +417,9 @@
                                             Background="Transparent"
                                             BorderThickness="0"
                                             HorizontalContentAlignment="Left"
-                                            Command="{Binding LogoutCommand}">
+                                            Command="{Binding SignOutCommand}"
+                                            CommandParameter="{Binding ElementName=thisWindow}"
+                                            >
                                         <StackPanel Orientation="Horizontal">
                                             <fa:ImageAwesome Icon="SignOut"
                                          Width="14"
@@ -426,6 +427,7 @@
                                          Foreground="#EF4444"
                                          Margin="0,0,12,0"/>
                                             <TextBlock Text="Đăng xuất"
+                                                       VerticalAlignment="Center"
                                                         Foreground="#EF4444"/>
                                         </StackPanel>
                                     </Button>
@@ -439,10 +441,37 @@
             </Border>
 
             <!-- CONTENT -->
-            <ScrollViewer Grid.Row="1"
-                       VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <ContentControl Margin="24"
-                             Content="{Binding CurrentViewModel}"/>
+                  Content="{Binding CurrentViewModel, NotifyOnTargetUpdated=True}">
+
+                    <ContentControl.RenderTransform>
+                        <TranslateTransform />
+                    </ContentControl.RenderTransform>
+
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="0" To="1" Duration="0:0:0.3"/>
+
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                                 From="30" To="0" Duration="0:0:0.3">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuadraticEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+
+                </ContentControl>
             </ScrollViewer>
         </Grid>
     </Grid>

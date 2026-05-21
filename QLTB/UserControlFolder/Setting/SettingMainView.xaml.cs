@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using QLTB.ViewModel;
 namespace QLTB.UserControlFolder.Setting
 {
     /// <summary>
@@ -23,7 +23,6 @@ namespace QLTB.UserControlFolder.Setting
         public SettingMainView()
         {
             InitializeComponent();
-            DataContext = new ViewModel.SettingViewModel();
         }
     }
 }

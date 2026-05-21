@@ -15,7 +15,5 @@ public partial class TaiKhoan
 
     public int? DuocXacThuc { get; set; }
 
-    public string? Avatar { get; set; }
-
     public virtual ICollection<FogetPass> FogetPasses { get; set; } = new List<FogetPass>();
 }

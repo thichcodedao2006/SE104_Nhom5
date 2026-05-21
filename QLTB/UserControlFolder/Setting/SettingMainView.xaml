@@ -37,18 +37,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="Cài đặt"
-                   FontSize="30"
-                   FontWeight="Bold"
-                   Foreground="#111827"/>
-            <TextBlock Text="Quản lý tài khoản và tùy chỉnh cấu hình hệ thống"
-                   Margin="0,6,0,0"
-                   FontSize="14"
-                   Foreground="#6B7280"/>
-        </StackPanel>
+        
 
-        <Border Grid.Row="2" 
+        <Border  
             BorderBrush="#E5E7EB" 
             BorderThickness="0,0,0,1"
             >
@@ -80,13 +71,42 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="4"
-            Background="White"
-            BorderBrush="#E5E7EB"
-            BorderThickness="1"
-            CornerRadius="14"
-            Padding="32">
-            <ContentControl Content="{Binding CurrentView}"/>
+        <Border Grid.Row="2"
+        Background="White"
+        BorderBrush="#E5E7EB"
+        BorderThickness="1"
+        CornerRadius="14"
+        Padding="32">
+
+            <ContentControl Content="{Binding CurrentView, NotifyOnTargetUpdated=True}">
+
+                <ContentControl.RenderTransform>
+                    <TranslateTransform />
+                </ContentControl.RenderTransform>
+
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="0" To="1" Duration="0:0:0.3"/>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                                 From="30" To="0" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+
+            </ContentControl>
         </Border>
     </Grid>
 </UserControl>

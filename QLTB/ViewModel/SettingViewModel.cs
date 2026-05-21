@@ -1,4 +1,5 @@
 ﻿using QLTB.Helpers;
+using QLTB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,10 @@ namespace QLTB.ViewModel
                 OnPropertyChanged();
             }
         }
+        private SettingProfileViewModel _profile;
+        private SettingSecurityViewModel _security;
+        private SettingNotificationViewModel _notification;
+        private SettingSystemViewModel _system;
 
         public ICommand ShowProfileCommand { get; }
         public ICommand ShowSecurityCommand { get; }
@@ -29,36 +34,53 @@ namespace QLTB.ViewModel
 
         public ICommand ShowSystemCommand { get; }
 
-        public SettingViewModel()
+        public SettingViewModel(TaiKhoan t, NhanVien n)
         {
-            CurrentView = new SettingProfileViewModel();
+            _profile = new SettingProfileViewModel(t, n);
+            CurrentView = _profile;
 
             ShowProfileCommand = new RelayCommand<object>(
                  (p) => true,
                  (p) =>
                  {
-                     CurrentView = new SettingProfileViewModel();
+                     if (_profile == null)
+                     {
+                         _profile = new SettingProfileViewModel(t, n);
+                     }
+                     CurrentView = _profile;
                  });
             
             ShowSecurityCommand = new RelayCommand<object>(
                 (p) => true,
                 (p) =>
                 {
-                    CurrentView = new SettingSecurityViewModel();
+                    if (_security == null)
+                    {
+                        _security = new SettingSecurityViewModel(t);
+                    }
+                    CurrentView = _security;
                 });
             
             ShowNotificationCommand = new RelayCommand<object>(
                 (p) => true,
                 (p) =>
                 {
-                    CurrentView = new SettingNotificationViewModel();
+                    if (_notification == null)
+                    {
+                        _notification = new SettingNotificationViewModel();
+                    }
+                    CurrentView = _notification;
                 });
 
             ShowSystemCommand = new RelayCommand<object>(
                 (p) => true,
                 (p) =>
                 {
-                    CurrentView = new SettingSystemViewModel();
+                    if (_system  == null)
+                    {
+                        _system = new SettingSystemViewModel();
+                    }
+                    CurrentView = _system;
                 });
         }
     }

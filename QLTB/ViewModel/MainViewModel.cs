@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using QLTB.Data;
 using QLTB.Helpers;
@@ -13,8 +14,10 @@ namespace QLTB.ViewModel
     {
         #region Declare
         private object _currentViewModel;
-        public TaiKhoan UserAccount { get; set; }
-        public NhanVien UserDetail { get; set; }
+
+        private string _currentAvatar;
+        private TaiKhoan userAccount;
+        private NhanVien userDetail;
 
         public object CurrentViewModel
         {
@@ -25,6 +28,7 @@ namespace QLTB.ViewModel
                 OnPropertyChanged(nameof(CurrentViewModel));
             }
         }
+
 
         private DashBoardViewModel _dashboardVM;
         private MaterialViewModel _materialVM;
@@ -46,8 +50,34 @@ namespace QLTB.ViewModel
         public ICommand OpenMaintenanceHistoryCommand { get; set; }
         public ICommand OpenIncidentReportCommand { get; set; }
         public ICommand OpenSettingCommand { get; set; }
+
+        public ICommand SignOutCommand { get; set; }
+        public string CurrentAvatar { get => _currentAvatar; set
+            {
+                _currentAvatar = value;
+                OnPropertyChanged(nameof(CurrentAvatar));
+            }
+                }
+
+        public TaiKhoan UserAccount { get => userAccount; set
+            {
+                userAccount = value;
+                OnPropertyChanged(nameof(UserAccount));
+            }
+                }
+        public NhanVien UserDetail { get => userDetail; set
+            {
+                userDetail = value;
+                OnPropertyChanged(nameof(UserDetail));  
+            }
+                }
+
+
+
         public MainViewModel(TaiKhoan t)
         {
+            EventSystem.AvatarChange += ImageChange;
+
             SetUpUser(t);
 
             _dashboardVM = new DashBoardViewModel(t);
@@ -131,10 +161,20 @@ namespace QLTB.ViewModel
             {
                 if (_settingVM == null)
                 {
-                    _settingVM = new SettingViewModel();
+                    _settingVM = new SettingViewModel(t, UserDetail);
                 }
                 CurrentViewModel = _settingVM;
             });
+            SignOutCommand = new RelayCommand<Window>
+                (
+                    (p) => true, (p) => LogOut(p)
+                );
+
+        }
+
+        public void Dispose()
+        {
+            EventSystem.AvatarChange -= ImageChange;
         }
 
         private void SetUpUser(TaiKhoan t)
@@ -145,6 +185,29 @@ namespace QLTB.ViewModel
             {
                 UserDetail = nv;
             }
+            ChangeUserAvatar();
         }
+
+        private void LogOut(Window p)
+        {
+            
+            fmDangNhap dn = new fmDangNhap();
+            dn.Show();
+            if (p != null)
+            {
+                p.Close();
+            }
+        }
+
+        private void ChangeUserAvatar()
+        {
+            CurrentAvatar = CloudinaryService.GetImageUrl(KeyData.AvatarFolder, KeyData.NhanVienTag + UserDetail.IdnhanVien); // thay đổi Avatar;
+        }
+
+        private void ImageChange(string newLink)
+        {
+            CurrentAvatar = newLink;
+        }
+        
     }
 }
