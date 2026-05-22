@@ -47,15 +47,46 @@ drop constraint DF__ChiTietTh__NgayN__3C69FB99
 alter table ChiTietThietBi
 drop column NgayNhapThietBi
 
+create table BoPhan
+(
+	ID int primary key identity,
+	TenBoPhan nvarchar(50),
+)
+
+create table ChucDanh
+(
+	ID int primary key identity,
+	TenChucDanh nvarchar(50),
+)
+
 create table NhanVien 
 (
 	IDNhanVien int primary key identity,
 	HoTen nvarchar(50),
 	SDT varchar(10),
 	Email varchar(50),
-	ChuyenMon nvarchar(100) -- Quan ly la chuyen mon rieng ,
+	ChuyenMon nvarchar(100), -- Quan ly la chuyen mon rieng ,
 	TinhTrang nvarchar(50), -- đang rảnh, đang bận, nghỉ việc, ...
+	IDBoPhan int,
+	IDChucDanh int,
+
+	foreign key (IDBoPhan) references BoPhan(ID),
+	foreign key (IDChucDanh) references ChucDanh(ID),
 )
+
+alter table NhanVien
+add IDBoPhan int 
+
+alter table NhanVien 
+add IDChucDanh int
+
+alter table NhanVien
+add constraint FK_BoPhan
+foreign key (IDBoPhan) references BoPhan(ID)
+
+alter table NhanVien
+add constraint FK_ChucDanh
+foreign key (IDChucDanh) references ChucDanh(ID)
 
 
 
@@ -138,11 +169,7 @@ INSERT INTO PhongBan (TenPhong, ViTri) VALUES
 (N'Phòng Nghiên cứu & Phát triển (R&D)', 5), -- Tầng 5 (Cần yên tĩnh)
 (N'Ban Giám đốc', 6);               -- Tầng 6 (Tầng cao nhất)
 
-insert into NhanVien 
-values
-(
-	'Phạm Đan Trường', '0358002806', '24521898@gm.uit.edu.vn', N'Phần mềm', N'Đang rảnh'
-)
+
 
 -- ========================================================
 -- 2. CHÈN DỮ LIỆU MẪU CHO BẢNG: ThietBi
@@ -189,12 +216,15 @@ INSERT INTO ChiTietThietBi (IDThietBi, SoSeri, TinhTrang, IDPhongBan) VALUES
 -- ========================================================
 SET IDENTITY_INSERT NhanVien ON;
 
-INSERT INTO NhanVien ( HoTen, SDT, Email, ChuyenMon, TinhTrang) VALUES
-(N'Hà Gia Bảo', '0912345678', 'thang.nv@company.com', N'Quản lý', N'Đang rảnh'),
-(N'Bùi Bá Bổng', '0987654321', 'tung.tt@company.com', N'Sửa chữa máy tính', N'Đang bận'),
-(N'Hà Tuấn Hùng', '0933445566', 'mai.lt@company.com', N'Bảo trì điện lạnh', N'Đang rảnh'),
-(N'Phạm Hồng Sơn', '0944556677', 'son.ph@company.com', N'Quản trị mạng Cisco', N'Đang bận'),
-(N'Vũ Hoàng Long', '0955667788', 'long.vh@company.com', N'Sửa chữa thiết bị VP', N'Nghỉ việc');
+INSERT INTO NhanVien (HoTen, SDT, Email, ChuyenMon, TinhTrang, IDBoPhan, IDChucDanh) 
+VALUES
+(N'Phạm Đan Trường', '0358002806', '24521898@gm.uit.edu.vn', N'Phần mềm', N'Đang rảnh', 2, 3), -- Phòng Kỹ thuật & Bảo trì | KT viên bậc cao
+(N'Hà Gia Bảo', '0912345678', 'thang.nv@company.com', N'Quản lý', N'Đang rảnh', 1, 1),        -- Phòng QL Thiết bị | Trưởng phòng
+(N'Bùi Bá Bổng', '0987654321', 'tung.tt@company.com', N'Sửa chữa máy tính', N'Đang bận', 2, 4), -- Phòng Kỹ thuật & Bảo trì | KT viên (Junior)
+(N'Hà Tuấn Hùng', '0933445566', 'mai.lt@company.com', N'Bảo trì điện lạnh', N'Đang rảnh', 2, 6), -- Phòng Kỹ thuật & Bảo trì | Kỹ sư cơ điện
+(N'Phạm Hồng Sơn', '0944556677', 'son.ph@company.com', N'Quản trị mạng Cisco', N'Đang bận', 2, 3),-- Phòng Kỹ thuật & Bảo trì | KT viên bậc cao
+(N'Vũ Hoàng Long', '0955667788', 'long.vh@company.com', N'Sửa chữa thiết bị VP', N'Nghỉ việc', 2, 4);-- Phòng Kỹ thuật & Bảo trì | KT viên (Junior)
+
 
 SET IDENTITY_INSERT NhanVien OFF;
 
@@ -213,9 +243,35 @@ INSERT INTO DichVuBaoTri (IDDichVu, TenDichVu, GiaDichVu, Value, Unit) VALUES
 SET IDENTITY_INSERT DichVuBaoTri OFF;
 
 INSERT INTO BaoTri (IDThietBi, SoSeri, IDNhanVien, IDDichVu, NgayBaoTri, TinhTrangBaoTri) VALUES
-(1, 'DELL0004', 6, 1, '2026-05-20 14:00:00', N'Đang xử lý'), -- Sửa máy tính Dell
-(2, 'CANO0003', 7, 4, '2026-05-19 09:00:00', N'Đang xử lý'), -- Sửa máy in Canon
-(3, 'DAIK0003', 8, 3, '2026-05-15 08:30:00', N'Hoàn thành');
+(1, 'DELL0004', 2, 1, '2026-05-20 14:00:00', N'Đang xử lý'), -- Sửa máy tính Dell
+(2, 'CANO0003', 3, 4, '2026-05-19 09:00:00', N'Đang xử lý'), -- Sửa máy in Canon
+(3, 'DAIK0003', 4, 3, '2026-05-15 08:30:00', N'Hoàn thành');
+
+delete from BaoTri
+SET IDENTITY_INSERT BoPhan ON;
+INSERT INTO BoPhan (ID, TenBoPhan) VALUES
+(1, N'Phòng Quản lý Thiết bị & Vật tư'),
+(2, N'Phòng Kỹ thuật & Bảo trì'),
+(3, N'Phòng Hành chính - Nhân sự'),
+(4, N'Phòng Kế toán - Tài chính'),
+(5, N'Phân xưởng Sản xuất');
+SET IDENTITY_INSERT BoPhan OFF;
+
+
+SET IDENTITY_INSERT ChucDanh ON;
+
+INSERT INTO ChucDanh (ID, TenChucDanh) VALUES
+(1, N'Trưởng phòng'),
+(2, N'Phó phòng'),
+(3, N'Kỹ thuật viên bảo trì bậc cao (Senior)'),
+(4, N'Kỹ thuật viên bảo trì (Junior)'),
+(5, N'Chuyên viên kiểm kê vật tư'),
+(6, N'Kỹ sư cơ điện (M&E)'),
+(7, N'Nhân viên hành chính'),
+(8, N'Quản đốc phân xưởng');
+
+SET IDENTITY_INSERT ChucDanh OFF;
+
 
 alter table BaoTri 
 add TinhTrangBaoTri nvarchar(50)
@@ -249,3 +305,10 @@ select * from NhanVien
 select * from FogetPass
 select * from ChiTietThietBi
 select * from BaoTri
+select * from BoPhan
+select * from ChucDanh
+
+delete from BaoTri
+delete from NhanVien
+drop table NhanVien
+drop table BaoTri

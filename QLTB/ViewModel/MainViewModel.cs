@@ -119,6 +119,7 @@ namespace QLTB.ViewModel
                     _employeeVM = new EmployeeViewModel();
                 }
                 CurrentViewModel = _employeeVM;
+                _employeeVM.Reload();
             });
 
             OpenMaintenancePlanCommand = new RelayCommand(o =>

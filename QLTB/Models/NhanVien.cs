@@ -17,5 +17,13 @@ public partial class NhanVien
 
     public string? TinhTrang { get; set; }
 
+    public int? IdboPhan { get; set; }
+
+    public int? IdchucDanh { get; set; }
+
     public virtual ICollection<BaoTri> BaoTris { get; set; } = new List<BaoTri>();
+
+    public virtual BoPhan? IdboPhanNavigation { get; set; }
+
+    public virtual ChucDanh? IdchucDanhNavigation { get; set; }
 }

@@ -19,7 +19,11 @@ public partial class QuanLyVatTuContext : DbContext
 
     public virtual DbSet<BaoTri> BaoTris { get; set; }
 
+    public virtual DbSet<BoPhan> BoPhans { get; set; }
+
     public virtual DbSet<ChiTietThietBi> ChiTietThietBis { get; set; }
+
+    public virtual DbSet<ChucDanh> ChucDanhs { get; set; }
 
     public virtual DbSet<DichVuBaoTri> DichVuBaoTris { get; set; }
 
@@ -65,7 +69,7 @@ public partial class QuanLyVatTuContext : DbContext
 
         modelBuilder.Entity<BaoTri>(entity =>
         {
-            entity.HasKey(e => e.IdbaoTri).HasName("PK__BaoTri__BBE08E2921FD3004");
+            entity.HasKey(e => e.IdbaoTri).HasName("PK__BaoTri__BBE08E29462CDAFE");
 
             entity.ToTable("BaoTri");
 
@@ -82,15 +86,25 @@ public partial class QuanLyVatTuContext : DbContext
 
             entity.HasOne(d => d.IddichVuNavigation).WithMany(p => p.BaoTris)
                 .HasForeignKey(d => d.IddichVu)
-                .HasConstraintName("FK__BaoTri__IDDichVu__4BAC3F29");
+                .HasConstraintName("FK__BaoTri__IDDichVu__619B8048");
 
             entity.HasOne(d => d.IdnhanVienNavigation).WithMany(p => p.BaoTris)
                 .HasForeignKey(d => d.IdnhanVien)
-                .HasConstraintName("FK__BaoTri__IDNhanVi__4CA06362");
+                .HasConstraintName("FK__BaoTri__IDNhanVi__628FA481");
 
             entity.HasOne(d => d.ChiTietThietBi).WithMany(p => p.BaoTris)
                 .HasForeignKey(d => new { d.IdthietBi, d.SoSeri })
-                .HasConstraintName("FK__BaoTri__4AB81AF0");
+                .HasConstraintName("FK__BaoTri__60A75C0F");
+        });
+
+        modelBuilder.Entity<BoPhan>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__BoPhan__3214EC27020524A3");
+
+            entity.ToTable("BoPhan");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.TenBoPhan).HasMaxLength(50);
         });
 
         modelBuilder.Entity<ChiTietThietBi>(entity =>
@@ -116,6 +130,16 @@ public partial class QuanLyVatTuContext : DbContext
                 .HasForeignKey(d => d.IdthietBi)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__ChiTietTh__IDThi__3D5E1FD2");
+        });
+
+        modelBuilder.Entity<ChucDanh>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__ChucDanh__3214EC27B8BA1EA6");
+
+            entity.ToTable("ChucDanh");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.TenChucDanh).HasMaxLength(50);
         });
 
         modelBuilder.Entity<DichVuBaoTri>(entity =>
@@ -156,7 +180,7 @@ public partial class QuanLyVatTuContext : DbContext
 
         modelBuilder.Entity<NhanVien>(entity =>
         {
-            entity.HasKey(e => e.IdnhanVien).HasName("PK__NhanVien__7AC2D9F7DA19FDF2");
+            entity.HasKey(e => e.IdnhanVien).HasName("PK__NhanVien__7AC2D9F78D7F890F");
 
             entity.ToTable("NhanVien");
 
@@ -166,13 +190,21 @@ public partial class QuanLyVatTuContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.HoTen).HasMaxLength(50);
+            entity.Property(e => e.IdboPhan).HasColumnName("IDBoPhan");
+            entity.Property(e => e.IdchucDanh).HasColumnName("IDChucDanh");
             entity.Property(e => e.Sdt)
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("SDT");
-            entity.Property(e => e.TinhTrang)
-                .HasMaxLength(50)
-                .HasDefaultValue("Đang rảnh");
+            entity.Property(e => e.TinhTrang).HasMaxLength(50);
+
+            entity.HasOne(d => d.IdboPhanNavigation).WithMany(p => p.NhanViens)
+                .HasForeignKey(d => d.IdboPhan)
+                .HasConstraintName("FK__NhanVien__IDBoPh__5CD6CB2B");
+
+            entity.HasOne(d => d.IdchucDanhNavigation).WithMany(p => p.NhanViens)
+                .HasForeignKey(d => d.IdchucDanh)
+                .HasConstraintName("FK__NhanVien__IDChuc__5DCAEF64");
         });
 
         modelBuilder.Entity<PhongBan>(entity =>

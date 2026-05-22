@@ -9,7 +9,7 @@
              Background="Transparent">
 
     <Border Width="600"
-            Background="White"
+            Background="{StaticResource MainBackgroundBrush}"
             CornerRadius="16"
             Padding="25"
             VerticalAlignment="Center"

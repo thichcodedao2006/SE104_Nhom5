@@ -36,7 +36,9 @@
                 <TextBlock Text="Quản lý kỹ thuật và nhân viên bảo trì" FontSize="14" Foreground="#6B7280" Margin="0 6 0 0"/>
             </StackPanel>
 
-            <Button Grid.Column="1" Style="{StaticResource BlueButton}" Height="42" Padding="22 0" Command="{Binding AddEmployeeCommand}">
+            <Button 
+                
+                Grid.Column="1" Style="{StaticResource BlueButton}" Height="42" Padding="22 0" Command="{Binding AddEmployeeCommand}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="➕" Margin="0 0 8 0"/>
                     <TextBlock Text="Thêm nhân viên"/>
@@ -58,7 +60,7 @@
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Số nhân viên" FontSize="15" Foreground="#374151"/>
-                        <TextBlock Text="{Binding TotalEmployees}" FontSize="24" FontWeight="Bold" Foreground="#2563EB" Margin="0 12 0 0"/>
+                        <TextBlock Text="{Binding TotalEmployees, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold" Foreground="#2563EB" Margin="0 12 0 0"/>
                     </StackPanel>
                     <Border Width="48" Height="48" Background="#DBEAFE" CornerRadius="8"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -75,7 +77,7 @@
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Hoạt động" FontSize="15" Foreground="#374151"/>
-                        <TextBlock Text="{Binding ActiveEmployees}" FontSize="24" FontWeight="Bold" Foreground="#16A34A" Margin="0 12 0 0"/>
+                        <TextBlock Text="{Binding ActiveEmployees, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold" Foreground="#16A34A" Margin="0 12 0 0"/>
                     </StackPanel>
                     <Border Width="48" Height="48" Background="#DCFCE7" CornerRadius="8"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -90,7 +92,7 @@
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Bộ phận" FontSize="15" Foreground="#374151"/>
-                        <TextBlock Text="{Binding DepartmentsCount}" FontSize="24" FontWeight="Bold" Foreground="#2563EB" Margin="0 12 0 0"/>
+                        <TextBlock Text="{Binding DepartmentsCount, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold" Foreground="#2563EB" Margin="0 12 0 0"/>
                     </StackPanel>
                     <Border Width="48" Height="48" Background="#DBEAFE" CornerRadius="8"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -104,8 +106,8 @@
             <Border Style="{StaticResource CardStyle}" Grid.Column="3">
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Vai trò" FontSize="15" Foreground="#374151"/>
-                        <TextBlock Text="{Binding RolesCount}" FontSize="24" FontWeight="Bold" Foreground="#2563EB" Margin="0 12 0 0"/>
+                        <TextBlock Text="Chức danh" FontSize="15" Foreground="#374151"/>
+                        <TextBlock Text="{Binding RolesCount, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold" Foreground="#2563EB" Margin="0 12 0 0"/>
                     </StackPanel>
                     <Border Width="48" Height="48" Background="#DBEAFE" CornerRadius="8"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -119,17 +121,24 @@
         <!-- Hàng 3: Filter/Search -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
+                <!-- Thanh tìm kiếm (giãn theo không gian còn lại) -->
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="16"/>
+
+                <!-- ComboBox chọn tiêu chí lọc -->
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="16"/>
+
+                <!-- Button Bộ lọc -->
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
+            <!-- 1. THANH TÌM KIẾM (Grid.Column mặc định là 0) -->
             <Border Height="44"
-         Background="White"
-         BorderBrush="#D1D5DB"
-         BorderThickness="1"
-         CornerRadius="12">
-
+            Background="White"
+            BorderBrush="#D1D5DB"
+            BorderThickness="1"
+            CornerRadius="12">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="44"/>
@@ -137,69 +146,82 @@
                     </Grid.ColumnDefinitions>
 
                     <fa:ImageAwesome Icon="Search"
-                          Width="15"
-                          Height="15"
-                          Foreground="#6B7280"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"/>
+                             Width="15"
+                             Height="15"
+                             Foreground="#6B7280"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"/>
 
                     <TextBox Grid.Column="1"
-                  BorderThickness="0"
-                  Background="Transparent"
-                  VerticalContentAlignment="Center"
-                  FontSize="14"
-                  Foreground="#111827"
-                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                     BorderThickness="0"
+                     Background="Transparent"
+                     VerticalContentAlignment="Center"
+                     FontSize="14"
+                     Foreground="#111827"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Grid.Column="1"
-                    Text="Tìm kiếm theo tên"
-                    Foreground="#9CA3AF"
-                    FontSize="14"
-                    VerticalAlignment="Center"
-                    IsHitTestVisible="False">
-
+                       Text="Tìm kiếm..."
+                       Foreground="#9CA3AF"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       IsHitTestVisible="False">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
-                                <Setter Property="Visibility"
-                             Value="Collapsed"/>
-
+                                <Setter Property="Visibility" Value="Collapsed"/>
                                 <Style.Triggers>
-
-                                    <DataTrigger Binding="{Binding SearchText}"
-                                      Value="">
-                                        <Setter Property="Visibility"
-                                     Value="Visible"/>
+                                    <DataTrigger Binding="{Binding SearchText}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding SearchText}"
-                                      Value="{x:Null}">
-                                        <Setter Property="Visibility"
-                                     Value="Visible"/>
+                                    <DataTrigger Binding="{Binding SearchText}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
-
                                 </Style.Triggers>
                             </Style>
                         </TextBlock.Style>
-
                     </TextBlock>
                 </Grid>
             </Border>
 
-            <Button Grid.Column="2"
-         Style="{StaticResource BeautyButton}"
-         Height="44"
-         Padding="18 0"
-         Background="White"
-         BorderBrush="#D1D5DB"
-         BorderThickness="1"
-         FontWeight="SemiBold"
-         Cursor="Hand">
+            <!-- 2. COMBOBOX CHỌN TIÊU CHÍ (Grid.Column="2") -->
+            <ComboBox 
+                Style="{StaticResource ModernComboBox}"
+                SelectedValuePath="Content"
+                Grid.Column="2"
+              Height="44"
+              FontSize="14"
+              Background="White"
+              BorderBrush="#D1D5DB"
+              VerticalContentAlignment="Center"
+              Padding="10 0"
+              Cursor="Hand"
+              SelectedIndex="0"
+                SelectedValue="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <!-- SelectedIndex="0" để chọn sẵn item đầu tiên -->
 
+                <!-- Các lựa chọn mẫu, bạn có thể Bind dữ liệu từ ViewModel vào -->
+                <ComboBoxItem Content="Tên nhân viên"/>
+                <ComboBoxItem Content="Tình trạng"/>
+                <ComboBoxItem Content="Bộ phận"/>
+                <ComboBoxItem Content="Chức vụ"/>
+                <ComboBoxItem Content="Xác thực của tài khoản"/>
+            </ComboBox>
+
+            <!-- 3. BUTTON BỘ LỌC (Grid.Column="4") -->
+            <Button Grid.Column="4"
+            Style="{StaticResource BeautyButton}"
+            Height="44"
+            Padding="18 0"
+            Background="White"
+            BorderBrush="#D1D5DB"
+            BorderThickness="1"
+            FontWeight="SemiBold"
+            Cursor="Hand">
                 <StackPanel Orientation="Horizontal">
                     <fa:ImageAwesome Icon="Filter"
-                          Width="14"
-                          Height="14"
-                          Margin="0 0 8 0"/>
+                             Width="14"
+                             Height="14"
+                             Margin="0 0 8 0"/>
                     <TextBlock Text="Bộ lọc"/>
                 </StackPanel>
             </Button>
@@ -219,20 +241,29 @@
                         <Border Style="{StaticResource CardStyle}" Width="280" Height="220" Margin="8">
                             <StackPanel Margin="12">
 
-                                <!-- Header: Avatar + Name + Position + Status -->
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" >
-                                    <Ellipse Width="36" Height="36" Fill="#E0E7FF"/>
-                                    <StackPanel Margin="8 0 10 0">
-                                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding Position}" FontSize="12" Foreground="#6B7280"/>
-                                    </StackPanel>
-                                    <TextBlock Text="{Binding Status}" FontSize="12"
-                                           Foreground="{Binding StatusColor}"
-                                           HorizontalAlignment="Right"
-                                           Margin="0 0 0 0"/>
-                                </StackPanel>
+                                <Grid VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <!-- Contact + Department -->
+                                    <Ellipse Grid.Column="0" Width="36" Height="36" Fill="#E0E7FF"/>
+
+                                    <StackPanel Grid.Column="1" Margin="8 0 10 0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding HoTen}" FontWeight="Bold" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding ChucDanh}" FontSize="12" Foreground="#6B7280" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Column="2" 
+                       Text="{Binding TinhTrang}" 
+                       FontSize="12"
+                       FontWeight="SemiBold"
+                       Foreground="{Binding StatusColor}"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Margin="0 4 0 0"/>
+                                </Grid>
                                 <StackPanel Margin="0 12 0 0">
                                     <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
                                         <TextBlock Text="✉ " FontSize="12" Foreground="#6B7280"/>
@@ -240,22 +271,21 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
                                         <TextBlock Text="📞 " FontSize="12" Foreground="#6B7280"/>
-                                        <TextBlock Text="{Binding Phone}" FontSize="12" Foreground="#6B7280"/>
+                                        <TextBlock Text="{Binding Sdt}" FontSize="12" Foreground="#6B7280"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
                                         <TextBlock Text="📁 " FontSize="12" Foreground="#FBBF24"/>
-                                        <TextBlock Text="{Binding Department}" FontSize="12" Foreground="#FBBF24"/>
+                                        <TextBlock Text="{Binding BoPhan}" FontSize="12" Foreground="#FBBF24"/>
                                     </StackPanel>
                                 </StackPanel>
 
-                                <!-- Action Buttons -->
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 12 0 0">
                                     <Button Content="Chỉnh sửa" Style="{StaticResource BlueButton}" Width="160" Height="32"
-                                        Command="{Binding DataContext.EditEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                        CommandParameter="{Binding}"/>
+                Command="{Binding DataContext.EditEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CommandParameter="{Binding}"/>
                                     <Button Content="🗑" Background="#FEE2E2" Foreground="#B91C1C" Width="32" Height="32" Margin="8 0 0 0"
-                                        Command="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                        CommandParameter="{Binding}"/>
+                Command="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CommandParameter="{Binding}"/>
                                 </StackPanel>
 
                             </StackPanel>
