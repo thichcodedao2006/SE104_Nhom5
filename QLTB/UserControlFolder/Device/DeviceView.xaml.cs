@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using QLTB.ViewModel;
 namespace QLTB.UserControlFolder.Device
 {
     /// <summary>
@@ -23,6 +23,7 @@ namespace QLTB.UserControlFolder.Device
         public DeviceView()
         {
             InitializeComponent();
+            this.DataContext = new QLTB.ViewModel.DeviceViewModel();
         }
     }
 }

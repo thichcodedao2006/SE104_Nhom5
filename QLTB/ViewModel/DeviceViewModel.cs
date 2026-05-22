@@ -1,13 +1,15 @@
-﻿using QLTB.Helpers;
+﻿using Microsoft.Win32;
+using QLTB.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
-
 namespace QLTB.ViewModel
 {
     // Device Model Class
@@ -50,18 +52,33 @@ namespace QLTB.ViewModel
                 OnPropertyChanged(nameof(SearchText));
             }
         }
-
-        public int TotalDevices => Devices.Count;
-        public int ActiveDevices => Devices.Count(d => d.Status == "Hoạt động");
-        public int MaintenanceDevices => Devices.Count(d => d.Status == "Bảo trì");
-        public int InactiveDevices => Devices.Count(d => d.Status == "Ngừng hoạt động");
+        private bool _isGridView;
+        public bool IsGridView
+        {
+            get => _isGridView;
+            set
+            {
+                _isGridView = value;
+                OnPropertyChanged(nameof(IsGridView));
+            }
+        }
+        public int TotalDevices => Devices?.Count ?? 0;
+        public int ActiveDevices => Devices?.Count(d => d.Status == "Hoạt động") ?? 0;
+        public int MaintenanceDevices => Devices?.Count(d => d.Status == "Bảo trì") ?? 0;
+        public int InactiveDevices => Devices?.Count(d => d.Status == "Ngừng hoạt động") ?? 0;
 
         public ICommand AddDeviceCommand { get; set; }
         public ICommand EditDeviceCommand { get; set; }
         public ICommand DeleteDeviceCommand { get; set; }
+        public ICommand ExportCommand { get; set; } // Lệnh Xuất file
+        public ICommand ImportCommand { get; set; } // Lệnh Nhập file
+        public ICommand SwitchToListViewCommand { get; set; }
+        public ICommand SwitchToGridViewCommand { get; set; }
 
         public DeviceViewModel()
         {
+            
+
             // Khởi tạo dữ liệu mẫu
             Devices = new ObservableCollection<Device>
             {
@@ -235,11 +252,105 @@ namespace QLTB.ViewModel
             FilteredDevices = new ObservableCollection<Device>(Devices);
 
             // Khởi tạo commands
-            AddDeviceCommand = new RelayCommand(o => { /* implement add */ });
-            EditDeviceCommand = new RelayCommand(o => { /* implement edit */ });
-            DeleteDeviceCommand = new RelayCommand(o => { /* implement delete */ });
-        }
+            AddDeviceCommand = new RelayCommand(o => {
+                var formViewModel = new DeviceFormViewModel();
+                var deviceForm = new QLTB.UserControlFolder.Device.DeviceFormView();
+                deviceForm.DataContext = formViewModel;
+                System.Windows.Window window = new System.Windows.Window
+                {
+                    Title = "Thêm thiết bị mới",
+                    Content = deviceForm, 
+                    SizeToContent = System.Windows.SizeToContent.WidthAndHeight,
+                    WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen,
+                    ResizeMode = System.Windows.ResizeMode.NoResize
+                };
 
+                
+                window.ShowDialog();
+                if (formViewModel.IsSaved)
+                {
+                    Devices.Add(new Device
+                    {
+                        Name = formViewModel.Name,
+                        Model = formViewModel.Model,
+                        Serial = formViewModel.Serial,
+                        Manufacturer = formViewModel.Manufacturer,
+                        Department = formViewModel.Department,
+                        Location = formViewModel.Location,
+                        Status = formViewModel.Status,
+                        WarrantyDate = formViewModel.WarrantyDate
+                    });
+                    LoadData();
+                    MessageBox.Show("Thêm thiết bị mới thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            });
+
+            EditDeviceCommand = new RelayCommand(o =>
+            {
+                if (SelectedDevice == null)
+                {
+                    MessageBox.Show("Vui lòng chọn một thiết bị để sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                var formViewModel = new DeviceFormViewModel(SelectedDevice);
+                var deviceForm = new QLTB.UserControlFolder.Device.DeviceFormView();
+                deviceForm.DataContext = formViewModel;
+
+                System.Windows.Window window = new System.Windows.Window
+                {
+                    Title = "Chỉnh sửa thiết bị",
+                    Content = deviceForm,
+                    SizeToContent = System.Windows.SizeToContent.WidthAndHeight,
+                    WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen,
+                    ResizeMode = System.Windows.ResizeMode.NoResize
+                };
+
+                window.ShowDialog();
+
+                if (formViewModel.IsSaved)
+                {
+                    SelectedDevice.Name = formViewModel.Name;
+                    SelectedDevice.Model = formViewModel.Model;
+                    SelectedDevice.Serial = formViewModel.Serial;
+                    SelectedDevice.Manufacturer = formViewModel.Manufacturer;
+                    SelectedDevice.Department = formViewModel.Department;
+                    SelectedDevice.Location = formViewModel.Location;
+                    SelectedDevice.Status = formViewModel.Status;
+                    SelectedDevice.WarrantyDate = formViewModel.WarrantyDate;
+
+                    LoadData(); 
+                    MessageBox.Show("Cập nhật thông tin thiết bị thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            });
+            DeleteDeviceCommand = new RelayCommand(o => {
+                if (SelectedDevice != null)
+                {
+                    var result = MessageBox.Show($"Bạn có chắc muốn xóa {SelectedDevice.Name}?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Devices.Remove(SelectedDevice);
+                        FilterDevices();
+                        RefreshStats();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn một thiết bị để xóa!", "Thông báo");
+                }
+            });
+            ExportCommand = new RelayCommand(o => ExportToCsv());
+            ImportCommand = new RelayCommand(o => ImportFromCsv());
+            SwitchToListViewCommand = new RelayCommand(o => IsGridView = false);
+            SwitchToGridViewCommand = new RelayCommand(o => IsGridView = true);
+        }
+        private void LoadData()
+        {
+            if (Devices != null)
+            {
+                FilterDevices();
+                RefreshStats();
+            }
+        }
         private void FilterDevices()
         {
             if (string.IsNullOrEmpty(SearchText))
@@ -256,7 +367,69 @@ namespace QLTB.ViewModel
             }
             OnPropertyChanged(nameof(FilteredDevices));
         }
+        private void RefreshStats()
+        {
+            OnPropertyChanged(nameof(TotalDevices));
+            OnPropertyChanged(nameof(ActiveDevices));
+            OnPropertyChanged(nameof(MaintenanceDevices));
+            OnPropertyChanged(nameof(InactiveDevices));
+        }
+        private void ExportToCsv()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog { Filter = "CSV Files|*.csv", FileName = "DanhSachThietBi.csv" };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("Ten,Model,Serial,Manufacturer,Department,Location,Status,WarrantyDate"); // Header
 
+                    foreach (var d in FilteredDevices)
+                    {
+                        sb.AppendLine($"{d.Name},{d.Model},{d.Serial},{d.Manufacturer},{d.Department},{d.Location},{d.Status},{d.WarrantyDate}");
+                    }
+                    File.WriteAllText(saveFileDialog.FileName, sb.ToString(), Encoding.UTF8);
+                    MessageBox.Show("Xuất file CSV thành công!");
+                }
+                catch (Exception ex) { MessageBox.Show("Lỗi xuất file: " + ex.Message); }
+            }
+        }
+
+        // HÀM NHẬP CSV
+        private void ImportFromCsv()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "CSV Files|*.csv" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    var lines = File.ReadAllLines(openFileDialog.FileName);
+                    // Bỏ qua dòng header (i = 1)
+                    for (int i = 1; i < lines.Length; i++)
+                    {
+                        var cols = lines[i].Split(',');
+                        if (cols.Length >= 8)
+                        {
+                            Devices.Add(new Device
+                            {
+                                Name = cols[0],
+                                Model = cols[1],
+                                Serial = cols[2],
+                                Manufacturer = cols[3],
+                                Department = cols[4],
+                                Location = cols[5],
+                                Status = cols[6],
+                                WarrantyDate = cols[7]
+                            });
+                        }
+                    }
+                    FilterDevices();
+                    RefreshStats();
+                    MessageBox.Show("Nhập file thành công!");
+                }
+                catch (Exception ex) { MessageBox.Show("Lỗi nhập file: " + ex.Message); }
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propName)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
