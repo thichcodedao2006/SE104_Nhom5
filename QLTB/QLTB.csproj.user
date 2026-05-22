@@ -77,6 +77,9 @@
     <Compile Update="UserControlFolder\Setting\SettingSystemView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\Statistic\StatisticView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Update="Resource\Button.xaml">
@@ -103,6 +106,9 @@
     <None Update="Resource\SBButton.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UserControlFolder\Statistic\StatisticView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\Setting\SettingSystemView.xaml">
       <SubType>Designer</SubType>
     </Page>

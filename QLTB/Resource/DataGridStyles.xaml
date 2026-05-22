@@ -95,6 +95,8 @@
     <Style x:Key="CenterTextStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="#111827"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="TextWrapping" Value="NoWrap"/>
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
     </Style>

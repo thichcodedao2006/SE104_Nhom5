@@ -39,6 +39,7 @@
     <None Remove="UserControlFolder\Setting\SettingProfileView.xaml" />
     <None Remove="UserControlFolder\Setting\SettingSecurityView.xaml" />
     <None Remove="UserControlFolder\Setting\SettingSystemView.xaml" />
+    <None Remove="UserControlFolder\Statistic\StatisticView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +50,7 @@
     <PackageReference Include="CloudinaryDotNet" Version="1.29.1" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="FontAwesome5.WPF" Version="1.0.5" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.4" />
     <PackageReference Include="MailKit" Version="4.16.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.26">
@@ -61,6 +63,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
+    <PackageReference Include="SkiaSharp.Views.WPF" Version="3.119.2" />
     <Page Include="fmDangKy.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +147,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\Setting\SettingSystemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Statistic\StatisticView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Update="fmDangNhap.xaml.cs">

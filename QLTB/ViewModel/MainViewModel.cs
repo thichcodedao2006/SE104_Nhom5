@@ -50,6 +50,7 @@ namespace QLTB.ViewModel
         public ICommand OpenMaintenanceHistoryCommand { get; set; }
         public ICommand OpenIncidentReportCommand { get; set; }
         public ICommand OpenSettingCommand { get; set; }
+        public ICommand OpenStatisticCommand { get; set; }
 
         public ICommand SignOutCommand { get; set; }
         public string CurrentAvatar { get => _currentAvatar; set
@@ -165,6 +166,11 @@ namespace QLTB.ViewModel
                     _settingVM = new SettingViewModel(t, UserDetail);
                 }
                 CurrentViewModel = _settingVM;
+            });
+
+            OpenStatisticCommand = new RelayCommand(o =>
+            {
+                CurrentViewModel = new StatisticViewModel();
             });
             SignOutCommand = new RelayCommand<Window>
                 (

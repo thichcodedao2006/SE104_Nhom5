@@ -14,6 +14,7 @@
         xmlns:maintenance="clr-namespace:QLTB.UserControlFolder.Maintenance"
         xmlns:Incident="clr-namespace:QLTB.UserControlFolder.IncidentReport"
         xmlns:Setting="clr-namespace:QLTB.UserControlFolder.Setting"
+        xmlns:Statistic="clr-namespace:QLTB.UserControlFolder.Statistic"
         xmlns:converter ="clr-namespace:QLTB.Helpers"
          Height="900"
          Width="1280"
@@ -60,7 +61,11 @@
         <DataTemplate DataType="{x:Type vm:SettingViewModel}">
             <Setting:SettingMainView/>
             </DataTemplate>
-            <!-- Active Sidebar Button -->
+
+        <DataTemplate DataType="{x:Type vm:StatisticViewModel}">
+            <Statistic:StatisticView/>
+        </DataTemplate>
+        <!-- Active Sidebar Button -->
     <Style x:Key="SidebarButtonActive"
             TargetType="Button"
             BasedOn="{StaticResource SidebarButton}">
@@ -205,7 +210,8 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}">
+                    <Button Style="{StaticResource SidebarButton}"
+                            Command="{Binding OpenStatisticCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="BarChart"
                                           Width="16"

@@ -47,83 +47,178 @@
 
             <!-- Total Records -->
             <Border Grid.Column="0"
-                Background="White"
-                BorderBrush="#E5E7EB"
-                BorderThickness="1"
-                CornerRadius="14"
-                Padding="20">
-                <StackPanel>
-                    <TextBlock Text="Tổng số bản ghi"
+            Background="White"
+            BorderBrush="#E5E7EB"
+            BorderThickness="1"
+            CornerRadius="16"
+            Padding="22">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="Tổng số bản ghi"
                            FontSize="13"
                            Foreground="#6B7280"
-                           Margin="0 0 0 8"/>
-                    <TextBlock Text="{Binding TotalRecords}"
-                           FontSize="32"
+                           Margin="0 0 0 10"/>
+
+                        <TextBlock Text="{Binding TotalRecords}"
+                           FontSize="34"
                            FontWeight="Bold"
                            Foreground="#111827"/>
-                </StackPanel>
+                    </StackPanel>
+
+                    <Border Grid.Column="1"
+                    Width="54"
+                    Height="54"
+                    Background="#DBEAFE"
+                    CornerRadius="12">
+
+                        <fa:ImageAwesome Icon="Database"
+                                 Width="24"
+                                 Height="24"
+                                 Foreground="#2563EB"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
             </Border>
 
-            <!-- This Month -->
+            <!-- THIS MONTH -->
             <Border Grid.Column="2"
-                Background="White"
-                BorderBrush="#E5E7EB"
-                BorderThickness="1"
-                CornerRadius="14"
-                Padding="20">
-                <StackPanel>
-                    <TextBlock Text="Tháng này"
+            Background="White"
+            BorderBrush="#E5E7EB"
+            BorderThickness="1"
+            CornerRadius="16"
+            Padding="22">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="Tháng này"
                            FontSize="13"
                            Foreground="#6B7280"
-                           Margin="0 0 0 8"/>
-                    <TextBlock Text="{Binding ThisMonth}"
-                           FontSize="32"
+                           Margin="0 0 0 10"/>
+
+                        <TextBlock Text="{Binding ThisMonth}"
+                           FontSize="34"
                            FontWeight="Bold"
-                           Foreground="#2563EB"/>
-                </StackPanel>
+                           Foreground="#16A34A"/>
+                    </StackPanel>
+
+                    <Border Grid.Column="1"
+                    Width="54"
+                    Height="54"
+                    Background="#DCFCE7"
+                    CornerRadius="12">
+
+                        <fa:ImageAwesome Icon="Calendar"
+                                 Width="24"
+                                 Height="24"
+                                 Foreground="#16A34A"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
             </Border>
 
-            <!-- Total Cost (YTD) -->
+            <!-- TOTAL COST -->
             <Border Grid.Column="4"
-                Background="White"
-                BorderBrush="#E5E7EB"
-                BorderThickness="1"
-                CornerRadius="14"
-                Padding="20">
-                <StackPanel>
-                    <TextBlock Text="Tổng chi phí"
+            Background="White"
+            BorderBrush="#E5E7EB"
+            BorderThickness="1"
+            CornerRadius="16"
+            Padding="22">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="Tổng chi phí"
                            FontSize="13"
                            Foreground="#6B7280"
-                           Margin="0 0 0 8"/>
-                    <TextBlock FontSize="32"
+                           Margin="0 0 0 10"/>
+
+                        <TextBlock FontSize="34"
                            FontWeight="Bold"
-                           Foreground="#111827">
-                        <Run Text="$"/>
-                        <Run Text="{Binding TotalCost}"/>
-                    </TextBlock>
-                </StackPanel>
+                           Foreground="#D97706">
+
+                    <Run Text="$"/>
+                    <Run Text="{Binding TotalCost}"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <Border Grid.Column="1"
+                    Width="54"
+                    Height="54"
+                    Background="#FEF3C7"
+                    CornerRadius="12">
+
+                        <fa:ImageAwesome Icon="Dollar"
+                                 Width="24"
+                                 Height="24"
+                                 Foreground="#D97706"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
             </Border>
 
-            <!-- Avg Cost per Task -->
+            <!-- AVG COST -->
             <Border Grid.Column="6"
-                Background="White"
-                BorderBrush="#E5E7EB"
-                BorderThickness="1"
-                CornerRadius="14"
-                Padding="20">
-                <StackPanel>
-                    <TextBlock Text="Trung bình mỗi nhiệm vụ"
+            Background="White"
+            BorderBrush="#E5E7EB"
+            BorderThickness="1"
+            CornerRadius="16"
+            Padding="22">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="Trung bình mỗi nhiệm vụ"
                            FontSize="13"
                            Foreground="#6B7280"
-                           Margin="0 0 0 8"/>
-                    <TextBlock FontSize="32"
+                           Margin="0 0 0 10"/>
+
+                        <TextBlock FontSize="34"
                            FontWeight="Bold"
-                           Foreground="#111827">
-                        <Run Text="$"/>
-                        <Run Text="{Binding AvgCost}"/>
-                    </TextBlock>
-                </StackPanel>
+                           Foreground="#9333EA">
+
+                    <Run Text="$"/>
+                    <Run Text="{Binding AvgCost}"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <Border Grid.Column="1"
+                    Width="54"
+                    Height="54"
+                    Background="#F3E8FF"
+                    CornerRadius="12">
+
+                        <fa:ImageAwesome Icon="BarChart"
+                                 Width="24"
+                                 Height="24"
+                                 Foreground="#9333EA"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
             </Border>
+
         </Grid>
 
         <!-- SEARCH AND FILTERS -->
@@ -243,7 +338,10 @@
                   BorderThickness="0"
                   GridLinesVisibility="Horizontal"
                   RowHeight="64"
-                  Background="White">
+                  Background="White"
+                  ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeader}"
+                  RowStyle="{StaticResource ModernDataGridRow}"
+                  CellStyle="{StaticResource ModernDataGridCell}">
 
                 <DataGrid.Columns>
 
@@ -256,27 +354,20 @@
                                    />
 
                     <!-- TYPE -->
-                    <DataGridTemplateColumn Header="Type"
-                                        Width="1.8*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Type}"
-                                       Foreground="#6B7280"
-                                       VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    
 
                     <!-- COMPLETED DATE -->
                     <DataGridTextColumn Header="Ngày hoàn thành"
                                     Binding="{Binding CompletedDate}"
                                     Width="1.3*"
+                                    ElementStyle="{StaticResource CenterTextStyle}"
                                    />
 
                     <!-- TECHNICIAN -->
                     <DataGridTextColumn Header="Kỹ thuật viên"
                                     Binding="{Binding Technician}"
                                     Width="1.2*"
+                                    ElementStyle="{StaticResource CenterTextStyle}"
                                    />
 
                     <!-- COST -->
@@ -285,7 +376,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock FontWeight="SemiBold"
-                                       VerticalAlignment="Center">
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center">
                                     <Run Text="$"/>
                                     <Run Text="{Binding Cost}"/>
                                 </TextBlock>

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\NMCNPM\\SE104_Nhom5\\QLTB\\QLTB.csproj": {}
+    "D:\\SE104_Nhom5\\QLTB\\QLTB.csproj": {}
   },
   "projects": {
-    "D:\\NMCNPM\\SE104_Nhom5\\QLTB\\QLTB.csproj": {
+    "D:\\SE104_Nhom5\\QLTB\\QLTB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NMCNPM\\SE104_Nhom5\\QLTB\\QLTB.csproj",
+        "projectUniqueName": "D:\\SE104_Nhom5\\QLTB\\QLTB.csproj",
         "projectName": "QLTB",
-        "projectPath": "D:\\NMCNPM\\SE104_Nhom5\\QLTB\\QLTB.csproj",
-        "packagesPath": "C:\\Users\\DenisVilleneuve\\.nuget\\packages\\",
-        "outputPath": "D:\\NMCNPM\\SE104_Nhom5\\QLTB\\obj\\",
+        "projectPath": "D:\\SE104_Nhom5\\QLTB\\QLTB.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "D:\\SE104_Nhom5\\QLTB\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files\\Visual\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\DenisVilleneuve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,8 +29,7 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0-windows": {
-            "framework": "net8.0-windows7.0",
+          "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {}
           }
@@ -41,11 +44,10 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net8.0-windows": {
-          "framework": "net8.0-windows7.0",
+        "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "dependencies": {
             "CloudinaryDotNet": {
@@ -59,6 +61,10 @@
             "FontAwesome5.WPF": {
               "target": "Package",
               "version": "[1.0.5, )"
+            },
+            "LiveChartsCore.SkiaSharpView.WPF": {
+              "target": "Package",
+              "version": "[2.0.4, )"
             },
             "MailKit": {
               "target": "Package",
@@ -87,6 +93,10 @@
             "Microsoft.Xaml.Behaviors.Wpf": {
               "target": "Package",
               "version": "[1.1.142, )"
+            },
+            "SkiaSharp.Views.WPF": {
+              "target": "Package",
+              "version": "[3.119.2, )"
             }
           },
           "imports": [
@@ -108,7 +118,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
