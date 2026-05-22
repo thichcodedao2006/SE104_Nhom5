@@ -1,45 +1,61 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\SE104_Nhom5\\QLTB\\",
+  "WorkspaceRootPath": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\incidentreport\\incidentreportview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\viewmodel\\employeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\employeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\helpers\\keydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:helpers\\keydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\viewmodel\\deviceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\deviceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\usercontrolfolder\\device\\deviceformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\device\\deviceformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\usercontrolfolder\\incidentreport\\incidentreportview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\incidentreport\\incidentreportview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenancetask.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenancetask.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenancetask.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceplan.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceplan.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenanceplan.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenancehistoryview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenancehistoryview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenancehistoryview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\resource\\datagridstyles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\resource\\datagridstyles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:resource\\datagridstyles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\dashboard\\dashboardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\usercontrolfolder\\dashboard\\dashboardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\dashboard\\dashboardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\statistic\\statisticview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\usercontrolfolder\\statistic\\statisticview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\statistic\\statisticview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\statistic\\statisticview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\usercontrolfolder\\statistic\\statisticview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\statistic\\statisticview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\viewmodel\\statisticviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\viewmodel\\statisticviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\statisticviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\truongpham-code\\hk2_2025_2026\\nhap_mon_cong_nghe_phan_mem\\do_an\\se104_nhom5\\qltb\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -54,11 +70,11 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "App.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\App.xaml",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\App.xaml",
               "RelativeDocumentMoniker": "App.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\App.xaml",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\App.xaml",
               "RelativeToolTip": "App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-05-13T03:43:42.969Z",
@@ -67,24 +83,74 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "StatisticView.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Statistic\\StatisticView.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml",
               "RelativeToolTip": "UserControlFolder\\Statistic\\StatisticView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-05-22T14:19:28.665Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "EmployeeViewModel.cs",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\EmployeeViewModel.cs",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeViewModel.cs",
+              "RelativeToolTip": "ViewModel\\EmployeeViewModel.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-22T16:35:40.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "KeyData.cs",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\Helpers\\KeyData.cs",
+              "RelativeDocumentMoniker": "Helpers\\KeyData.cs",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\Helpers\\KeyData.cs",
+              "RelativeToolTip": "Helpers\\KeyData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-22T16:34:48.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DeviceViewModel.cs",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\ViewModel\\DeviceViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\DeviceViewModel.cs",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\ViewModel\\DeviceViewModel.cs",
+              "RelativeToolTip": "ViewModel\\DeviceViewModel.cs",
+              "ViewState": "AgIAAA4BAAAAAAAAAAAIwBoBAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-22T16:30:43.387Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DeviceFormView.xaml",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceFormView.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Device\\DeviceFormView.xaml",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceFormView.xaml",
+              "RelativeToolTip": "UserControlFolder\\Device\\DeviceFormView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-22T16:30:02.623Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "IncidentReportView.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\IncidentReport\\IncidentReportView.xaml",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\IncidentReport\\IncidentReportView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\IncidentReport\\IncidentReportView.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\IncidentReport\\IncidentReportView.xaml",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\IncidentReport\\IncidentReportView.xaml",
               "RelativeToolTip": "UserControlFolder\\IncidentReport\\IncidentReportView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-05-22T15:45:48.171Z",
@@ -92,59 +158,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "MaintenanceTask.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
               "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-22T15:33:37.928Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-22T15:33:37.928Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "DashBoardView.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\DashBoard\\DashBoardView.xaml",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\DashBoard\\DashBoardView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\DashBoard\\DashBoardView.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\DashBoard\\DashBoardView.xaml",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\DashBoard\\DashBoardView.xaml",
               "RelativeToolTip": "UserControlFolder\\DashBoard\\DashBoardView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-22T15:26:51.269Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-22T15:26:51.269Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "MaintenanceHistoryView.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceHistoryView.xaml",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceHistoryView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceHistoryView.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceHistoryView.xaml",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceHistoryView.xaml",
               "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenanceHistoryView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-22T15:15:02.351Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-22T15:15:02.351Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "MaintenancePlan.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
               "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-22T15:14:55.744Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-22T15:14:55.744Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "DataGridStyles.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\Resource\\DataGridStyles.xaml",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\Resource\\DataGridStyles.xaml",
               "RelativeDocumentMoniker": "Resource\\DataGridStyles.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\Resource\\DataGridStyles.xaml",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\Resource\\DataGridStyles.xaml",
               "RelativeToolTip": "Resource\\DataGridStyles.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-05-22T15:06:20.743Z",
@@ -152,43 +214,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "StatisticView.xaml.cs",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml.cs",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\Statistic\\StatisticView.xaml.cs",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml.cs",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml.cs",
               "RelativeToolTip": "UserControlFolder\\Statistic\\StatisticView.xaml.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-22T14:47:34.877Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-22T14:47:34.877Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "StatisticViewModel.cs",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\StatisticViewModel.cs",
+              "DocumentMoniker": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\ViewModel\\StatisticViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\StatisticViewModel.cs",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\StatisticViewModel.cs",
+              "ToolTip": "D:\\Truongpham-code\\HK2_2025_2026\\Nhap_mon_cong_nghe_phan_mem\\Do_an\\SE104_Nhom5\\QLTB\\ViewModel\\StatisticViewModel.cs",
               "RelativeToolTip": "ViewModel\\StatisticViewModel.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAwwHQAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-22T14:43:31.28Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 1265,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+              "WhenOpened": "2026-05-22T14:43:31.28Z"
             }
           ]
         }

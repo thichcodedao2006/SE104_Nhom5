@@ -259,10 +259,11 @@ namespace QLTB.ViewModel
                 System.Windows.Window window = new System.Windows.Window
                 {
                     Title = "Thêm thiết bị mới",
-                    Content = deviceForm, 
+                    Content = deviceForm,
                     SizeToContent = System.Windows.SizeToContent.WidthAndHeight,
                     WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen,
-                    ResizeMode = System.Windows.ResizeMode.NoResize
+                    ResizeMode = System.Windows.ResizeMode.NoResize,
+                    WindowStyle = WindowStyle.None
                 };
 
                 

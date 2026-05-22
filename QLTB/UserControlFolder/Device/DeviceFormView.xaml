@@ -5,12 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QLTB.UserControlFolder.Device"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
-             Background="Transparent">
+             Background="Transparent"
+             
+             >
+    
     <UserControl.Resources>
         <BoolToVisibilityConverter xmlns="clr-namespace:QLTB.Helpers" x:Key="BoolToVisibility"/>
     </UserControl.Resources>
     <Border Width="650"
-            Background="White"
+            Background="{StaticResource MainBackgroundBrush}"
             CornerRadius="12"
             Padding="25">
         <Border.Effect>

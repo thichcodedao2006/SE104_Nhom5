@@ -1,5 +1,5 @@
 ﻿QLTB
-
+1.0.0.0
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR
 D:\Truongpham-code\HK2_2025_2026\Nhap_mon_cong_nghe_phan_mem\Do_an\SE104_Nhom5\QLTB\App.xaml
 39-1304738594
 
-79516719449
+81570256868
 242-1099163625
 fmDangKy.xaml;fmDangNhap.xaml;fmQuenMatKhau.xaml;MainWindow.xaml;Resource\MainResource.xaml;Resource\SidebarRadioButtonStyle.xaml;Resource\ToggleSwitchStyle.xaml;UserControlFolder\DashBoard\DashBoardView.xaml;UserControlFolder\Device\DeviceFormView.xaml;UserControlFolder\Device\DeviceView.xaml;UserControlFolder\Employee\EmployeeFormView.xaml;UserControlFolder\Employee\EmployeeView.xaml;UserControlFolder\ForgetPass1.xaml;UserControlFolder\ForgetPass2.xaml;UserControlFolder\ForgetPass3.xaml;UserControlFolder\IncidentReport\IncidentReportFormView.xaml;UserControlFolder\IncidentReport\IncidentReportView.xaml;UserControlFolder\Maintenance\MaintenanceHistoryView.xaml;UserControlFolder\Maintenance\MaintenancePlan.xaml;UserControlFolder\Maintenance\MaintenancePlanFormView.xaml;UserControlFolder\Maintenance\MaintenanceTask.xaml;UserControlFolder\Material\MaterialFormView.xaml;UserControlFolder\Material\MaterialView.xaml;UserControlFolder\Setting\SettingMainView.xaml;UserControlFolder\Setting\SettingNotificationView.xaml;UserControlFolder\Setting\SettingProfileView.xaml;UserControlFolder\Setting\SettingSecurityView.xaml;UserControlFolder\Setting\SettingSystemView.xaml;UserControlFolder\Statistic\StatisticView.xaml;Resource\Button.xaml;Resource\ButtonStyles.xaml;Resource\CardStyles.xaml;Resource\ComboBoxStyles.xaml;Resource\DataGridStyles.xaml;Resource\DatePickerStyles.xaml;Resource\InputStyles.xaml;Resource\SBButton.xaml;Resource\TextBox.xaml;Resource\TextBoxStyles.xaml;
 
-False
+True
 

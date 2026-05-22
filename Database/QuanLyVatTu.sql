@@ -137,10 +137,14 @@ create table BaoCaoSuaChua
 	TenNguoiBaoCao nvarchar(50),
 	SDT varchar(10),
 	NgayBaoCao DateTime, 
+	MucDoNghiemTrong nvarchar(50), -- 4 mức độ: Nghiêm trọng, Cao, Trung bình, thấp
 	GhiChu nvarchar(100),
 
 	foreign key (IDThietBi, SoSeri) references ChiTietThietBi(IDThietBi, SoSeri)
 )
+
+alter table BaoCaoSuaChua
+add MucDoNghiemTrong nvarchar(50)
 
 create table BaoTri 
 (
@@ -151,12 +155,15 @@ create table BaoTri
 	IDNhanVien int,
 	NgayBaoTri DateTime,
 	GhiChu nvarchar(100),
+	DoUuTien nvarchar(20), -- Độ ưu tiên cần thực hiện công việc: Cao, Thấp, Trung bình
 	TinhTrangBaoTri nvarchar(50), -- 3 tình trạng: Hoàn thành, Quá hạn, Đang xử lý
 
 	foreign key (IDThietBi, SoSeri) references ChiTietThietBi(IDThietBi, SoSeri),
 	foreign key (IDDichVu) references DichVuBaoTri(IDDichVu),
 	foreign key (IDNhanVien) references NhanVien(IDNhanVien)
 )
+alter table BaoTri 
+add DoUuTien nvarchar(20)
 
 
 ------- Insert -------
