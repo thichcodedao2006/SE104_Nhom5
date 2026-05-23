@@ -5,7 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QLTB.UserControlFolder.IncidentReport"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:con="clr-namespace:QLTB.Condition"
              mc:Ignorable="d" 
+             x:Name="thisUC"
              Background="Transparent">
 
     <Border Width="600"
@@ -26,28 +29,77 @@
                        Margin="0,0,0,20"
                        HorizontalAlignment="Center"/>
 
-            <StackPanel Margin="0,0,0,15">
-                <TextBlock Text="Thiết bị/Trang thiết bị" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
-                <ComboBox Style="{StaticResource ModernComboBox}" 
-                          Height="42" 
-                          SelectedIndex="0"
-                          ItemsSource="{Binding Devices}"
-                          SelectedItem="{Binding SelectedDevice}">
-                    <ComboBoxItem Content="Chọn một thiết bị"/>
-                </ComboBox>
-            </StackPanel>
+            <!-- Hàng 1: Thiết bị & Số Seri -->
+            <Grid Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <!-- Khoảng cách giữa 2 cột -->
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <StackPanel Margin="0,0,0,15">
-                <TextBlock Text="Vị trí/ phòng ban" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
-                <ComboBox Style="{StaticResource ModernComboBox}" 
-                          Height="42" 
-                          SelectedIndex="0"
-                          ItemsSource="{Binding Departments}"
-                          SelectedItem="{Binding SelectedDepartment}">
-                    <ComboBoxItem Content="Chọn một phòng ban"/>
-                </ComboBox>
-            </StackPanel>
+                <!-- Thiết bị -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Thiết bị/Trang thiết bị" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                    <ComboBox Style="{StaticResource ModernComboBox}" 
+                              Height="42" 
+                              ItemsSource="{Binding Devices}"
+                              DisplayMemberPath="TenThietBi"
+                              SelectedValuePath="IdthietBi"
+                              SelectedValue="{Binding SelectedDevice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Số Seri -->
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Số Seri" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" 
+                             Height="42" 
+                             Padding="12,0" 
+                             VerticalContentAlignment="Center"
+                             Text="{Binding SeriNumber}"
+                             Tag="Nhập số seri..."/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Hàng 2: Tên người báo cáo & Số điện thoại -->
+            <Grid Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Tên người báo cáo -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Tên người báo cáo" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" 
+                             Height="42" 
+                             Padding="12,0" 
+                             VerticalContentAlignment="Center"
+                             Text="{Binding ReportedName}"
+                             Tag="Nhập tên người báo cáo..."/>
+                </StackPanel>
+
+                <!-- Số điện thoại -->
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Số điện thoại" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" 
+                             Height="42" 
+                             Padding="12,0" 
+                             VerticalContentAlignment="Center"
+                             Text="{Binding PhoneNumber}"
+                             Tag="Nhập số điện thoại...">
+                        <i:Interaction.Behaviors>
+                            <con:PhoneCondition></con:PhoneCondition>
+                        </i:Interaction.Behaviors>
+
+                    </TextBox>
+                </StackPanel>
+            </Grid>
+
+            <!-- Hàng 3: Mức độ ưu tiên --><!--
             <StackPanel Margin="0,0,0,15">
                 <TextBlock Text="Mức độ ưu tiên" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                 <ComboBox Style="{StaticResource ModernComboBox}" 
@@ -60,8 +112,9 @@
                     <ComboBoxItem Content="Cao"/>
                     <ComboBoxItem Content="Khẩn cấp"/>
                 </ComboBox>
-            </StackPanel>
+            </StackPanel>-->
 
+            <!-- Hàng 4: Mô tả vấn đề -->
             <StackPanel Margin="0,0,0,15">
                 <TextBlock Text="Mô tả vấn đề" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                 <TextBox Style="{StaticResource RoundedTextBox}" 
@@ -70,32 +123,97 @@
                          VerticalContentAlignment="Top"
                          AcceptsReturn="True" 
                          TextWrapping="Wrap"
-                         
                          Tag="Mô tả chi tiết vấn đề đang gặp phải..." 
                          Text="{Binding ProblemDescription}"/>
             </StackPanel>
 
+            <!-- Hàng 5: Tải ảnh lên -->
             <StackPanel Margin="0,0,0,20">
                 <TextBlock Text="Tải ảnh lên" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+
+                <!-- Thêm ClipToBounds="True" để ảnh không bị tràn ra khỏi góc bo tròn -->
                 <Border Height="140" 
-                        BorderBrush="#D1D5DB" 
-                        BorderThickness="1.5" 
-                        CornerRadius="10" 
-                        Background="#F9FAFB">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <fa:ImageAwesome Icon="Image" Width="32" Height="32" Foreground="#6B7280" Margin="0,0,0,10"/>
-                        <TextBlock Text="Tải lên hình ảnh của sự cố" Foreground="#6B7280" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                        <Button Content="Chọn tệp" 
-                                Width="110" 
-                                Height="35" 
-                                Background="#F3F4F6" 
-                                BorderBrush="#D1D5DB"
-                                Cursor="Hand"
-                                Command="{Binding SelectPhotosCommand}"/>
-                    </StackPanel>
+            BorderBrush="#D1D5DB" 
+            BorderThickness="1.5" 
+            CornerRadius="10" 
+            Background="#F9FAFB"
+            ClipToBounds="True">
+                    <Grid>
+
+                        <!-- 1. GIAO DIỆN KHI CHƯA CÓ ẢNH (Sẽ tự ẩn khi CurrentPath có dữ liệu) -->
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <!-- Mặc định là ẩn -->
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <!-- Nếu CurrentPath rỗng hoặc null thì mới hiện lên -->
+                                        <DataTrigger Binding="{Binding CurrentPath}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CurrentPath}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+
+                            <fa:ImageAwesome Icon="Image" Width="32" Height="32" Foreground="#6B7280" Margin="0,0,0,10"/>
+                            <TextBlock Text="Tải lên hình ảnh của sự cố" Foreground="#6B7280" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                            <Button Content="Chọn tệp" 
+                        Width="110" 
+                        Height="35" 
+                        Background="#F3F4F6" 
+                        BorderBrush="#D1D5DB"
+                        Cursor="Hand"
+                        Command="{Binding SelectPhotosCommand}"/>
+                        </StackPanel>
+
+                        <!-- 2. GIAO DIỆN KHI ĐÃ CÓ ẢNH (Sẽ tự hiện khi CurrentPath có dữ liệu) -->
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <!-- Mặc định là hiện -->
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <!-- Nếu CurrentPath rỗng hoặc null thì ẩn nguyên cục này đi -->
+                                        <DataTrigger Binding="{Binding CurrentPath}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CurrentPath}" Value="">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
+                            <!-- Hiển thị ảnh -->
+                            <Image Source="{Binding CurrentPath, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
+
+                            <!-- Nút Đổi ảnh đè lên góc phải trên cùng -->
+                            <Button Content="Đổi ảnh" 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Top" 
+                        Margin="8" 
+                        Padding="12,5"
+                        Background="#99000000" 
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Command="{Binding SelectPhotosCommand}">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="4"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </Grid>
+
+                    </Grid>
                 </Border>
             </StackPanel>
 
+            <!-- Hàng 6: Các nút hành động -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                 <Button Content="Hủy bỏ" 
                         Width="100" 
@@ -105,7 +223,9 @@
                         BorderThickness="1" 
                         Margin="0,0,12,0" 
                         Cursor="Hand" 
-                        Command="{Binding CancelCommand}"/>
+                        Command="{Binding CloseForm}"
+                        CommandParameter="{Binding ElementName=thisUC}"
+                        />
 
                 <Button Content="Gửi báo cáo" 
                         Width="140" 
@@ -115,7 +235,9 @@
                         FontWeight="Bold" 
                         BorderThickness="0" 
                         Cursor="Hand" 
-                        Command="{Binding SubmitReportCommand}">
+                        Command="{Binding ConfirmReportCommand}"
+                        CommandParameter="{Binding ElementName=thisUC}"
+                        >
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="8"/>

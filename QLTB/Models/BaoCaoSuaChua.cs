@@ -19,5 +19,9 @@ public partial class BaoCaoSuaChua
 
     public string? GhiChu { get; set; }
 
+    public string? MucDoNghiemTrong { get; set; }
+
+    public string? TrangThai { get; set; }
+
     public virtual ChiTietThietBi? ChiTietThietBi { get; set; }
 }

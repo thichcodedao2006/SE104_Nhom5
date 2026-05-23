@@ -52,6 +52,7 @@ public partial class QuanLyVatTuContext : DbContext
             entity.Property(e => e.IdbaoCao).HasColumnName("IDBaoCao");
             entity.Property(e => e.GhiChu).HasMaxLength(100);
             entity.Property(e => e.IdthietBi).HasColumnName("IDThietBi");
+            entity.Property(e => e.MucDoNghiemTrong).HasMaxLength(50);
             entity.Property(e => e.NgayBaoCao).HasColumnType("datetime");
             entity.Property(e => e.Sdt)
                 .HasMaxLength(10)
@@ -61,6 +62,9 @@ public partial class QuanLyVatTuContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false);
             entity.Property(e => e.TenNguoiBaoCao).HasMaxLength(50);
+            entity.Property(e => e.TrangThai)
+                .HasMaxLength(20)
+                .HasDefaultValue("Vừa cập nhật");
 
             entity.HasOne(d => d.ChiTietThietBi).WithMany(p => p.BaoCaoSuaChuas)
                 .HasForeignKey(d => new { d.IdthietBi, d.SoSeri })
@@ -74,6 +78,7 @@ public partial class QuanLyVatTuContext : DbContext
             entity.ToTable("BaoTri");
 
             entity.Property(e => e.IdbaoTri).HasColumnName("IDBaoTri");
+            entity.Property(e => e.DoUuTien).HasMaxLength(20);
             entity.Property(e => e.GhiChu).HasMaxLength(100);
             entity.Property(e => e.IddichVu).HasColumnName("IDDichVu");
             entity.Property(e => e.IdnhanVien).HasColumnName("IDNhanVien");

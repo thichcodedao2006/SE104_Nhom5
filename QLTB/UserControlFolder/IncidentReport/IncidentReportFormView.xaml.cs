@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QLTB.ViewModel;
 
 namespace QLTB.UserControlFolder.IncidentReport
 {
@@ -23,6 +24,7 @@ namespace QLTB.UserControlFolder.IncidentReport
         public IncidentReportFormView()
         {
             InitializeComponent();
+            this.DataContext = new IncidentReportFormVM();
         }
     }
 }

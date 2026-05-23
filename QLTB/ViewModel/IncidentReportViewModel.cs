@@ -1,4 +1,6 @@
-﻿using QLTB.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using QLTB.Helpers;
+using QLTB.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +26,11 @@ namespace QLTB.ViewModel
 
     public class IncidentReportViewModel : BaseViewModel
     {
+        private ObservableCollection<BaoCaoSuaChua> listBaoCao;
         public ObservableCollection<IncidentReport> Incidents { get; set; }
+
+        private string selectedState;
+        private string selectedWarning;
 
         // Statistics
         private int _totalIncidents;
@@ -78,56 +84,67 @@ namespace QLTB.ViewModel
             set
             {
                 _searchText = value;
+                FilterReport();
                 OnPropertyChanged(nameof(SearchText));
             }
         }
 
         public ICommand ReportIncidentCommand { get; set; }
         public ICommand ViewDetailsCommand { get; set; }
+        public string SelectedState { get => selectedState; set
+            {
+                selectedState = value;
+                OnPropertyChanged(nameof(SelectedState));
+            }
+                }
+        public string SelectedWarning { get => selectedWarning; set
+            {
+                selectedWarning = value;
+                OnPropertyChanged(nameof(SelectedWarning));
+            }
+                }
 
         public IncidentReportViewModel()
         {
-            // Sample data
-            Incidents = new ObservableCollection<IncidentReport>
-            {
-                new IncidentReport
-                {
-                    DeviceName = "Máy nén khí",
-                    Description = "Tiếng ồn bất thường và áp suất dao động được phát hiện",
-                    Priority = "Cao",
-                    Status = "Đang xử lý",
-                    ReportedBy = "Nhân viên Mike",
-                    ReportedAt = "2026-05-10 14:30",
-                    AssignedTo = "John Doe",
-                    HasAssignee = true
-                },
-                new IncidentReport
-                {
-                    DeviceName = "Máy CNC B",
-                    Description = "Quá nhiệt trong quá trình vận hành, tự động tắt máy được kích hoạt",
-                    Priority = "Nghiêm trọng",
-                    Status = "Mới mở",
-                    ReportedBy = "Giám sát viên Tom",
-                    ReportedAt = "2026-05-11 09:15",
-                    AssignedTo = "",
-                    HasAssignee = false
-                },
-                new IncidentReport
-                {
-                    DeviceName = "Hệ thống làm mát",
-                    Description = "Nhiệt độ vượt quá giới hạn hoạt động bình thường",
-                    Priority = "Cao",
-                    Status = "Đã giải quyết",
-                    ReportedBy = "Kỹ thuật viên Sarah",
-                    ReportedAt = "2026-05-08 11:20",
-                    AssignedTo = "Alice Brown",
-                    HasAssignee = true
-                }
-            };
+            //Incidents = new ObservableCollection<IncidentReport>
+            //{
+            //    new IncidentReport
+            //    {
+            //        DeviceName = "Máy nén khí",
+            //        Description = "Tiếng ồn bất thường và áp suất dao động được phát hiện",
+            //        Priority = "Cao",
+            //        Status = "Đang xử lý",
+            //        ReportedBy = "Nhân viên Mike",
+            //        ReportedAt = "2026-05-10 14:30",
+            //        AssignedTo = "John Doe",
+            //        HasAssignee = true
+            //    },
+            //    new IncidentReport
+            //    {
+            //        DeviceName = "Máy CNC B",
+            //        Description = "Quá nhiệt trong quá trình vận hành, tự động tắt máy được kích hoạt",
+            //        Priority = "Nghiêm trọng",
+            //        Status = "Mới mở",
+            //        ReportedBy = "Giám sát viên Tom",
+            //        ReportedAt = "2026-05-11 09:15",
+            //        AssignedTo = "",
+            //        HasAssignee = false
+            //    },
+            //    new IncidentReport
+            //    {
+            //        DeviceName = "Hệ thống làm mát",
+            //        Description = "Nhiệt độ vượt quá giới hạn hoạt động bình thường",
+            //        Priority = "Cao",
+            //        Status = "Đã giải quyết",
+            //        ReportedBy = "Kỹ thuật viên Sarah",
+            //        ReportedAt = "2026-05-08 11:20",
+            //        AssignedTo = "Alice Brown",
+            //        HasAssignee = true
+            //    }
+            //};
 
-            // Calculate statistics
-            UpdateStatistics();
-
+            _ = Reload();
+            
             // Commands
             ReportIncidentCommand = new RelayCommand(o =>
             {
@@ -143,12 +160,29 @@ namespace QLTB.ViewModel
             });
         }
 
-        private void UpdateStatistics()
+        private async Task Reload()
         {
-            TotalIncidents = Incidents.Count;
-            OpenIncidents = Incidents.Count(i => i.Status == "Mới mở");
-            InProgressIncidents = Incidents.Count(i => i.Status == "Đang xử lý");
-            ResolvedIncidents = Incidents.Count(i => i.Status == "Đã giải quyết");
+            try
+            {
+                using (var context = new QuanLyVatTuContext())
+                {
+                    var list = await context.BaoCaoSuaChuas.ToListAsync();
+                    listBaoCao = new ObservableCollection<BaoCaoSuaChua>(list);
+                    TotalIncidents = list.Count;
+                    OpenIncidents = list.Count(x => x.TrangThai == "Vừa cập nhật");
+                    InProgressIncidents = list.Count(x => x.TrangThai == "Đang xử lý");
+                    ResolvedIncidents = list.Count(x => x.TrangThai == "Đã giải quyết");
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        
+        private void FilterReport()
+        {
+
         }
     }
 }

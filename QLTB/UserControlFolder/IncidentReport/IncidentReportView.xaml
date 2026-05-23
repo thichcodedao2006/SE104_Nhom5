@@ -32,25 +32,7 @@
                        Foreground="#6B7280"/>
             </StackPanel>
 
-            <Button Style="{StaticResource BlueButton}"
-                Command="{Binding ReportIncidentCommand}"
-                Height="42"
-                Padding="20 0"
-                HorizontalAlignment="Right"
-                Background="#2563EB"
-                Foreground="White"
-                BorderThickness="0"
-                FontWeight="SemiBold"
-                Cursor="Hand">
-                <StackPanel Orientation="Horizontal">
-                    <fa:ImageAwesome Icon="Plus"
-                                 Width="14"
-                                 Height="14"
-                                 Foreground="White"
-                                 Margin="0 0 8 0"/>
-                    <TextBlock Text="Báo cáo sự cố"/>
-                </StackPanel>
-            </Button>
+            
         </Grid>
 
         <!-- STATISTICS CARDS -->
@@ -122,7 +104,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel>
-                        <TextBlock Text="Mới mở"
+                        <TextBlock Text="Vừa cập nhật"
                            FontSize="13"
                            Foreground="#6B7280"
                            Margin="0 0 0 10"/>
@@ -305,10 +287,11 @@
                 <ComboBox Grid.Column="2"
                       Width="150"
                       Height="42"
-                      SelectedIndex="0"
+                          SelectedValuePath="Content"
+                          SelectedValue="{Binding SelectedState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Style="{StaticResource ModernComboBox}">
                     <ComboBoxItem Content="Tất cả trạng thái"/>
-                    <ComboBoxItem Content="Mới mở"/>
+                    <ComboBoxItem Content="Vừa cập nhật"/>
                     <ComboBoxItem Content="Đang xử lý"/>
                     <ComboBoxItem Content="Đã giải quyết"/>
                 </ComboBox>
@@ -317,13 +300,15 @@
                 <ComboBox Grid.Column="4"
                       Width="150"
                       Height="42"
-                      SelectedIndex="0"
+                          SelectedValuePath="Content"
+                          SelectedValue="{Binding SelectedWarning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Style="{StaticResource ModernComboBox}">
                     <ComboBoxItem Content="Tất cả mức độ"/>
                     <ComboBoxItem Content="Nghiêm trọng"/>
                     <ComboBoxItem Content="Cao"/>
                     <ComboBoxItem Content="Trung bình"/>
                     <ComboBoxItem Content="Thấp"/>
+                    <ComboBoxItem Content="Chưa xác định"/>
                 </ComboBox>
             </Grid>
         </Border>
@@ -365,7 +350,7 @@
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Priority}" Value="Nghiêm trọng">
+                                                        <DataTrigger Binding="{Binding Priority }" Value="Nghiêm trọng">
                                                             <Setter Property="Background" Value="#FEE2E2"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Priority}" Value="Cao">
@@ -373,6 +358,12 @@
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Priority}" Value="Trung bình">
                                                             <Setter Property="Background" Value="#FEF3C7"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Priority}" Value="Thấp">
+                                                            <Setter Property="Background" Value="#9FFFCB"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Priority}" Value="Chưa xác định">
+                                                            <Setter Property="Background" Value="Gray"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -392,6 +383,12 @@
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding Priority}" Value="Trung bình">
                                                                 <Setter Property="Foreground" Value="#D97706"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Priority}" Value="Thấp">
+                                                                <Setter Property="Background" Value="#00A5CF"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Priority}" Value="Chưa xác định">
+                                                                <Setter Property="Background" Value="Black"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -483,13 +480,13 @@
                                         <TextBlock Foreground="#6B7280"
                                                FontSize="13"
                                                Margin="24 0 0 0">
-                                        <Run Text="Lúc:"/>
+                                        <Run Text="Thời gian:"/>
                                         <Run Text="{Binding ReportedAt}"
                                              FontWeight="SemiBold"
                                              Foreground="#111827"/>
                                         </TextBlock>
 
-                                        <TextBlock Foreground="#6B7280"
+                                        <!--<TextBlock Foreground="#6B7280"
                                                FontSize="13"
                                                Margin="24 0 0 0"
                                                Visibility="{Binding HasAssignee, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -497,7 +494,7 @@
                                         <Run Text="{Binding AssignedTo}"
                                              FontWeight="SemiBold"
                                              Foreground="#111827"/>
-                                        </TextBlock>
+                                        </TextBlock>-->
                                     </StackPanel>
                                 </Grid>
                             </Grid>

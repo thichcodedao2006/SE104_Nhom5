@@ -138,11 +138,17 @@ create table BaoCaoSuaChua
 	SDT varchar(10),
 	NgayBaoCao DateTime, 
 	MucDoNghiemTrong nvarchar(50), -- 4 mức độ: Nghiêm trọng, Cao, Trung bình, thấp
+	TrangThai nvarchar(20) default N'Vừa cập nhật' , -- 3 trạng thái: Vừa cập nhật, đang xử lý, đã giải quyết.
 	GhiChu nvarchar(100),
 
 	foreign key (IDThietBi, SoSeri) references ChiTietThietBi(IDThietBi, SoSeri)
 )
 
+alter table BaoCaoSuaChua 
+add TrangThai nvarchar(20)
+alter table BaoCaoSuaChua
+add constraint DF_State
+default N'Vừa cập nhật' for TrangThai
 alter table BaoCaoSuaChua
 add MucDoNghiemTrong nvarchar(50)
 
@@ -314,6 +320,8 @@ select * from ChiTietThietBi
 select * from BaoTri
 select * from BoPhan
 select * from ChucDanh
+select * from ThietBi
+select * from BaoCaoSuaChua
 
 delete from BaoTri
 delete from NhanVien
