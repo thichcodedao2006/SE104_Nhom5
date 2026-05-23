@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="QLTB.UserControlFolder.Maintenance.MaintenanceDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QLTB.UserControlFolder.Maintenance"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d" 
+             Width="500" Height="580" Background="Transparent">
+
+    <Border Background="#F8FAFC" CornerRadius="16" BorderBrush="#E2E8F0" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="15" Direction="270" ShadowDepth="3" Opacity="0.15"/>
+        </Border.Effect>
+
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <StackPanel>
+                    <TextBlock Text="Chi tiết lịch sử bảo trì" FontSize="20" FontWeight="Bold" Foreground="#0F172A"/>
+                    <TextBlock Text="{Binding IDBaoTri}" FontSize="12" Foreground="#64748B" Margin="0 2 0 0" FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="32" Height="32" Background="Transparent" BorderThickness="0" Cursor="Hand"
+                        Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+                    <fa:ImageAwesome Icon="Times" Width="14" Height="14" Foreground="#64748B"/>
+                </Button>
+            </Grid>
+
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="THIẾT BỊ BẢO TRÌ" FontSize="11" FontWeight="Bold" Foreground="#94A3B8" Margin="0 0 0 6"/>
+                        <Border Background="White" CornerRadius="8" Padding="12" BorderBrush="#E2E8F0" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="{Binding TenThietBi}" FontSize="14" FontWeight="SemiBold" Foreground="#1E293B"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
+                                    <TextBlock Text="Số Seri: " FontSize="12" Foreground="#64748B"/>
+                                    <TextBlock Text="{Binding SoSeri}" FontSize="12" Foreground="#334155" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,12,0,0">
+                        <TextBlock Text="CHI TIẾT DỊCH VỤ &amp; CHI PHÍ" FontSize="11" FontWeight="Bold" Foreground="#94A3B8" Margin="0 0 0 6"/>
+                        <Border Background="White" CornerRadius="8" Padding="12" BorderBrush="#E2E8F0" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding TenDichVu}" FontSize="13" FontWeight="Medium" Foreground="#1E293B" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding NgayHoanThanh}" FontSize="12" Foreground="#64748B" Margin="0 4 0 0"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1" Text="{Binding ChiPhi}" FontSize="16" FontWeight="Bold" Foreground="#D97706" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="KỸ THUẬT VIÊN" FontSize="11" FontWeight="Bold" Foreground="#94A3B8" Margin="0 0 0 6"/>
+                            <Border Background="White" CornerRadius="8" Padding="12" BorderBrush="#E2E8F0" BorderThickness="1" Height="50">
+                                <TextBlock Text="{Binding KyThuatVien}" FontSize="13" FontWeight="Medium" Foreground="#1E293B" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="ĐỘ ƯU TIÊN" FontSize="11" FontWeight="Bold" Foreground="#94A3B8" Margin="0 0 0 6"/>
+                            <Border Background="White" CornerRadius="8" Padding="12" BorderBrush="#E2E8F0" BorderThickness="1" Height="50">
+                                <TextBlock Text="{Binding DoUuTien}" FontSize="13" FontWeight="SemiBold" Foreground="#2563EB" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Margin="0,12,0,0">
+                        <TextBlock Text="GHI CHÚ HỆ THỐNG" FontSize="11" FontWeight="Bold" Foreground="#94A3B8" Margin="0 0 0 6"/>
+                        <Border Background="White" CornerRadius="8" Padding="12" BorderBrush="#E2E8F0" BorderThickness="1" MinHeight="80">
+                            <TextBlock Text="{Binding GhiChu}" FontSize="13" Foreground="#334155" TextWrapping="Wrap" LineHeight="18"/>
+                        </Border>
+                    </StackPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+
+            <Button Grid.Row="4" Style="{StaticResource BlueButton}" Content="Đóng cửa sổ" Height="42" Background="#64748B" Foreground="White" BorderThickness="0" FontWeight="SemiBold" FontSize="14" Cursor="Hand"
+                    Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+        </Grid>
+    </Border>
+</UserControl>

@@ -44,6 +44,9 @@
     <Compile Update="UserControlFolder\IncidentReport\IncidentReportView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\Maintenance\MaintenanceDetailView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControlFolder\Maintenance\MaintenanceHistoryView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,6 +109,9 @@
     <None Update="Resource\SBButton.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UserControlFolder\Maintenance\MaintenanceDetailView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\Statistic\StatisticView.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
+using QLTB.Models; // BẮT BUỘC THÊM DÒNG NÀY để nhận diện lớp ThietBi từ Database
 
 namespace QLTB.ViewModel
 {
@@ -31,6 +32,7 @@ namespace QLTB.ViewModel
 
         private string _warrantyDate = DateTime.Now.AddYears(2).ToString("dd/MM/yyyy"); // Mặc định 2 năm bảo hành
         public string WarrantyDate { get => _warrantyDate; set { _warrantyDate = value; OnPropertyChanged(); } }
+
         private string _imagePath;
         public string ImagePath
         {
@@ -50,23 +52,27 @@ namespace QLTB.ViewModel
         public ICommand CancelCommand { get; set; }
         public ICommand SelectImageCommand { get; set; }
 
-        // Hàm khởi tạo dùng khi THÊM MỚI
+        // Hàm khởi tạo dùng khi THÊM MỚI (Giữ nguyên)
         public DeviceFormViewModel()
         {
             InitCommands();
         }
 
-        // Hàm khởi tạo dùng khi SỬA (Nạp lại dữ liệu cũ)
-        public DeviceFormViewModel(Device existingDevice)
+        // ĐÃ SỬA: Đổi kiểu dữ liệu tham số nhận vào từ 'Device' cũ thành 'ThietBi' mới từ Database
+        public DeviceFormViewModel(ThietBi existingDevice)
         {
-            Name = existingDevice.Name;
-            Model = existingDevice.Model;
-            Serial = existingDevice.Serial;
-            Manufacturer = existingDevice.Manufacturer;
-            Department = existingDevice.Department;
-            Location = existingDevice.Location;
-            Status = existingDevice.Status;
-            WarrantyDate = existingDevice.WarrantyDate;
+            // Đồng bộ ánh xạ dữ liệu từ các cột của bảng ThietBi trong SQL Server ra Form
+            Name = existingDevice.TenThietBi;
+            Status = existingDevice.LoaiThietBi;
+            Manufacturer = existingDevice.DonViSanXuat;
+
+            // Vì bảng ThietBi trên DB Somee hiện tại của bạn không có các cột Model, Serial, Department, Location 
+            // nên ta sẽ tạm thời gán chuỗi rỗng để không bị lỗi giao diện UI, hoặc bạn có thể Scaffold lại nếu DB đã cập nhật cột.
+            Model = string.Empty;
+            Serial = string.Empty;
+            Department = string.Empty;
+            Location = string.Empty;
+            WarrantyDate = existingDevice.NgayNhapThietBi?.ToString("dd/MM/yyyy") ?? DateTime.Now.ToString("dd/MM/yyyy");
 
             InitCommands();
         }
@@ -76,9 +82,9 @@ namespace QLTB.ViewModel
             // Logic khi nhấn nút Lưu
             SaveCommand = new RelayCommand(o =>
             {
-                if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Serial))
+                if (string.IsNullOrWhiteSpace(Name))
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ Tên thiết bị và Số Serial!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Vui lòng nhập đầy đủ Tên thiết bị!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
@@ -90,6 +96,7 @@ namespace QLTB.ViewModel
                     currentWindow.Close();
                 }
             });
+
             SelectImageCommand = new RelayCommand(o =>
             {
                 Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
@@ -104,6 +111,7 @@ namespace QLTB.ViewModel
                     MessageBox.Show("Đã chọn ảnh thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             });
+
             // Logic khi nhấn nút Hủy
             CancelCommand = new RelayCommand(o =>
             {

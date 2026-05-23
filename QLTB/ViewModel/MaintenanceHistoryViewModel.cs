@@ -2,70 +2,55 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
+using QLTB.Models;
 
 namespace QLTB.ViewModel
 {
-    // Model class for Maintenance History Record
-    public class MaintenanceHistoryRecord
-    {
-        public string Device { get; set; }
-        public string Type { get; set; }
-        public string CompletedDate { get; set; }
-        public string Technician { get; set; }
-        public int Cost { get; set; }
-    }
-
     public class MaintenanceHistoryViewModel : BaseViewModel
     {
-        public ObservableCollection<MaintenanceHistoryRecord> HistoryRecords { get; set; }
+        private readonly QuanLyVatTuContext _context;
+        private List<BaoTri> _allDbRecords;
 
-        // Statistics
+        private ObservableCollection<BaoTri> _historyRecords;
+        public ObservableCollection<BaoTri> HistoryRecords
+        {
+            get => _historyRecords;
+            set { _historyRecords = value; OnPropertyChanged(nameof(HistoryRecords)); }
+        }
+
         private int _totalRecords;
         public int TotalRecords
         {
             get => _totalRecords;
-            set
-            {
-                _totalRecords = value;
-                OnPropertyChanged(nameof(TotalRecords));
-            }
+            set { _totalRecords = value; OnPropertyChanged(nameof(TotalRecords)); }
         }
 
         private int _thisMonth;
         public int ThisMonth
         {
             get => _thisMonth;
-            set
-            {
-                _thisMonth = value;
-                OnPropertyChanged(nameof(ThisMonth));
-            }
+            set { _thisMonth = value; OnPropertyChanged(nameof(ThisMonth)); }
         }
 
-        private int _totalCost;
-        public int TotalCost
+        private double _totalCost;
+        public double TotalCost
         {
             get => _totalCost;
-            set
-            {
-                _totalCost = value;
-                OnPropertyChanged(nameof(TotalCost));
-            }
+            set { _totalCost = value; OnPropertyChanged(nameof(TotalCost)); }
         }
 
-        private int _avgCost;
-        public int AvgCost
+        private double _avgCost;
+        public double AvgCost
         {
             get => _avgCost;
-            set
-            {
-                _avgCost = value;
-                OnPropertyChanged(nameof(AvgCost));
-            }
+            set { _avgCost = value; OnPropertyChanged(nameof(AvgCost)); }
         }
 
         private string _searchText;
@@ -75,6 +60,7 @@ namespace QLTB.ViewModel
             set
             {
                 _searchText = value;
+                FilterHistory();
                 OnPropertyChanged(nameof(SearchText));
             }
         }
@@ -83,76 +69,86 @@ namespace QLTB.ViewModel
 
         public MaintenanceHistoryViewModel()
         {
-            // Sample data
-            HistoryRecords = new ObservableCollection<MaintenanceHistoryRecord>
-            {
-                new MaintenanceHistoryRecord
-                {
-                    Device = "CNC Machine A",
-                    Type = "Preventive Maintenance",
-                    CompletedDate = "2026-04-15",
-                    Technician = "John Doe",
-                    Cost = 450
-                },
-                new MaintenanceHistoryRecord
-                {
-                    Device = "Hydraulic Press B",
-                    Type = "Repair",
-                    CompletedDate = "2026-04-10",
-                    Technician = "Jane Smith",
-                    Cost = 1200
-                },
-                new MaintenanceHistoryRecord
-                {
-                    Device = "Conveyor System",
-                    Type = "Inspection",
-                    CompletedDate = "2026-04-05",
-                    Technician = "Bob Johnson",
-                    Cost = 150
-                },
-                new MaintenanceHistoryRecord
-                {
-                    Device = "Welding Robot",
-                    Type = "Preventive Maintenance",
-                    CompletedDate = "2026-03-28",
-                    Technician = "Alice Brown",
-                    Cost = 680
-                },
-                new MaintenanceHistoryRecord
-                {
-                    Device = "Air Compressor",
-                    Type = "Emergency Repair",
-                    CompletedDate = "2026-03-20",
-                    Technician = "John Doe",
-                    Cost = 850
-                }
-            };
+            _context = new QuanLyVatTuContext();
+            _allDbRecords = new List<BaoTri>();
+            HistoryRecords = new ObservableCollection<BaoTri>();
 
-            // Calculate statistics
-            UpdateStatistics();
+            LoadHistoryFromDatabase();
 
-            // Commands
             ViewDetailsCommand = new RelayCommand(o =>
             {
-                if (o is MaintenanceHistoryRecord record)
+                if (o is BaoTri record)
                 {
-                    // Open details view
+                    var detailViewModel = new MaintenanceDetailViewModel(record);
+
+                    var detailForm = new QLTB.UserControlFolder.Maintenance.MaintenanceDetailView { DataContext = detailViewModel };
+
+                    Window window = new Window
+                    {
+                        Title = "Chi tiết lịch sử bảo trì",
+                        Content = detailForm,
+                        SizeToContent = SizeToContent.WidthAndHeight,
+                        WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                        ResizeMode = ResizeMode.NoResize,
+                        WindowStyle = WindowStyle.None, 
+                        AllowsTransparency = true       
+                    };
+
+                    window.ShowDialog();
                 }
             });
         }
 
+        private void LoadHistoryFromDatabase()
+        {
+            try
+            {
+                // ĐÃ SỬA: Đổi điều kiện thành "Hoàn thành" để khớp chính xác dữ liệu trong SSMS của bạn
+                _allDbRecords = _context.BaoTris
+                    .Include(b => b.IddichVuNavigation)
+                    .Include(b => b.IdnhanVienNavigation)
+                    .Include(b => b.ChiTietThietBi)
+                        .ThenInclude(ct => ct.IdthietBiNavigation)
+                    .Where(b => b.TinhTrangBaoTri == "Hoàn thành")
+                    .OrderByDescending(b => b.NgayBaoTri)
+                    .ToList();
+
+                FilterHistory();
+                UpdateStatistics();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tải lịch sử bảo trì: {ex.Message}", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void FilterHistory()
+        {
+            if (string.IsNullOrEmpty(SearchText))
+            {
+                HistoryRecords = new ObservableCollection<BaoTri>(_allDbRecords);
+            }
+            else
+            {
+                HistoryRecords = new ObservableCollection<BaoTri>(
+                    _allDbRecords.Where(b =>
+                        (b.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi != null && b.ChiTietThietBi.IdthietBiNavigation.TenThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                        (b.IddichVuNavigation?.TenDichVu != null && b.IddichVuNavigation.TenDichVu.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                        (b.IdnhanVienNavigation?.HoTen != null && b.IdnhanVienNavigation.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                        (b.SoSeri != null && b.SoSeri.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    ));
+            }
+        }
+
         private void UpdateStatistics()
         {
-            TotalRecords = HistoryRecords.Count;
-            
-            // Count records from this month (May 2026)
-            ThisMonth = HistoryRecords.Count(r => 
-            {
-                var date = DateTime.Parse(r.CompletedDate);
-                return date.Month == 5 && date.Year == 2026;
-            });
-            
-            TotalCost = HistoryRecords.Sum(r => r.Cost);
+            TotalRecords = _allDbRecords.Count;
+
+            ThisMonth = _allDbRecords.Count(b => b.NgayBaoTri.HasValue &&
+                                                b.NgayBaoTri.Value.Month == 5 &&
+                                                b.NgayBaoTri.Value.Year == 2026);
+
+            TotalCost = _allDbRecords.Sum(b => b.IddichVuNavigation?.GiaDichVu ?? 0);
             AvgCost = TotalRecords > 0 ? TotalCost / TotalRecords : 0;
         }
     }
