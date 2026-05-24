@@ -29,7 +29,8 @@
                         Foreground="White"
                         FontWeight="Bold"
                         BorderThickness="0"
-                        Style="{StaticResource BlueButton}"/>
+                        Style="{StaticResource BlueButton}"
+                        Command="{Binding ExportReportCommand}"/>
             </Grid>
 
             <!-- SUMMARY CARDS -->
@@ -39,7 +40,7 @@
                     <Grid>
                         <StackPanel>
                             <TextBlock Text="Tổng thiết bị" Foreground="#6B7280" FontSize="14"/>
-                            <TextBlock Text="24" FontSize="32" FontWeight="Bold" Margin="0,12,0,0"/>
+                            <TextBlock Text="{Binding TotalDevices, UpdateSourceTrigger=PropertyChanged}" FontSize="32" FontWeight="Bold" Margin="0,12,0,0"/>
                         </StackPanel>
                         <fa:ImageAwesome Icon="Desktop" Width="32" Height="32"
                                          Foreground="#2563EB"
@@ -51,7 +52,7 @@
                     <Grid>
                         <StackPanel>
                             <TextBlock Text="Đang hoạt động" Foreground="#6B7280" FontSize="14"/>
-                            <TextBlock Text="18" FontSize="32" FontWeight="Bold" Foreground="#10B981" Margin="0,12,0,0"/>
+                            <TextBlock Text="{Binding ActiveDevices, UpdateSourceTrigger=PropertyChanged}" FontSize="32" FontWeight="Bold" Foreground="#10B981" Margin="0,12,0,0"/>
                         </StackPanel>
                         <fa:ImageAwesome Icon="CheckCircle" Width="32" Height="32"
                                          Foreground="#10B981"
@@ -63,7 +64,7 @@
                     <Grid>
                         <StackPanel>
                             <TextBlock Text="Bảo trì trong tháng" Foreground="#6B7280" FontSize="14"/>
-                            <TextBlock Text="7" FontSize="32" FontWeight="Bold" Foreground="#F59E0B" Margin="0,12,0,0"/>
+                            <TextBlock Text="{Binding MaintenanceThisMonthCount, UpdateSourceTrigger=PropertyChanged}" FontSize="32" FontWeight="Bold" Foreground="#F59E0B" Margin="0,12,0,0"/>
                         </StackPanel>
                         <fa:ImageAwesome Icon="Calendar" Width="32" Height="32"
                                          Foreground="#F59E0B"
@@ -75,7 +76,7 @@
                     <Grid>
                         <StackPanel>
                             <TextBlock Text="Sự cố chưa xử lý" Foreground="#6B7280" FontSize="14"/>
-                            <TextBlock Text="3" FontSize="32" FontWeight="Bold" Foreground="#EF4444" Margin="0,12,0,0"/>
+                            <TextBlock Text="{Binding UnresolvedIncidents, UpdateSourceTrigger=PropertyChanged}" FontSize="32" FontWeight="Bold" Foreground="#EF4444" Margin="0,12,0,0"/>
                         </StackPanel>
                         <fa:ImageAwesome Icon="ExclamationTriangle" Width="32" Height="32"
                                          Foreground="#EF4444"
