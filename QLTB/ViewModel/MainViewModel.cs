@@ -161,6 +161,7 @@ namespace QLTB.ViewModel
                     _incidentReportVm = new IncidentReportViewModel();
                 }
                 CurrentViewModel = _incidentReportVm;
+                _incidentReportVm.Reload();
             });
 
             OpenSettingCommand = new RelayCommand(o =>

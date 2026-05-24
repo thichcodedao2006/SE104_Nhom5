@@ -26,6 +26,7 @@
     <None Remove="UserControlFolder\ForgetPass1.xaml" />
     <None Remove="UserControlFolder\ForgetPass2.xaml" />
     <None Remove="UserControlFolder\ForgetPass3.xaml" />
+    <None Remove="UserControlFolder\IncidentReport\IncidentDetailView.xaml" />
     <None Remove="UserControlFolder\IncidentReport\IncidentReportFormView.xaml" />
     <None Remove="UserControlFolder\IncidentReport\IncidentReportView.xaml" />
     <None Remove="UserControlFolder\Maintenance\MaintenanceDetailView.xaml" />
@@ -110,6 +111,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\ForgetPass3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\IncidentReport\IncidentDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\IncidentReport\IncidentReportFormView.xaml">
