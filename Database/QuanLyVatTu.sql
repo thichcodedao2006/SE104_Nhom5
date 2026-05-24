@@ -140,9 +140,11 @@ create table BaoCaoSuaChua
 	MucDoNghiemTrong nvarchar(50), -- 4 mức độ: Nghiêm trọng, Cao, Trung bình, thấp
 	TrangThai nvarchar(20) default N'Vừa cập nhật' , -- 3 trạng thái: Vừa cập nhật, đang xử lý, đã giải quyết.
 	GhiChu nvarchar(100),
+	IdBaoTri int default -1, -- mặc định là không có bảo trì nào cả 
 
 	foreign key (IDThietBi, SoSeri) references ChiTietThietBi(IDThietBi, SoSeri)
 )
+
 
 alter table BaoCaoSuaChua 
 add TrangThai nvarchar(20)
@@ -322,8 +324,11 @@ select * from BoPhan
 select * from ChucDanh
 select * from ThietBi
 select * from BaoCaoSuaChua
+select * from DichVuBaoTri
 
+delete from BaoCaoSuaChua
 delete from BaoTri
+where IDBaoTri = 4
 delete from NhanVien
 drop table NhanVien
 drop table BaoTri

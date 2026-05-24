@@ -23,5 +23,7 @@ public partial class BaoCaoSuaChua
 
     public string? TrangThai { get; set; }
 
+    public int? IdBaoTri { get; set; }
+
     public virtual ChiTietThietBi? ChiTietThietBi { get; set; }
 }

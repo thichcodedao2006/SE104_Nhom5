@@ -51,6 +51,7 @@ public partial class QuanLyVatTuContext : DbContext
 
             entity.Property(e => e.IdbaoCao).HasColumnName("IDBaoCao");
             entity.Property(e => e.GhiChu).HasMaxLength(100);
+            entity.Property(e => e.IdBaoTri).HasDefaultValue(-1);
             entity.Property(e => e.IdthietBi).HasColumnName("IDThietBi");
             entity.Property(e => e.MucDoNghiemTrong).HasMaxLength(50);
             entity.Property(e => e.NgayBaoCao).HasColumnType("datetime");

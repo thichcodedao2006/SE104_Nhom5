@@ -38,6 +38,9 @@
     <Compile Update="UserControlFolder\ForgetPass3.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\IncidentReport\IncidentDetailView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControlFolder\IncidentReport\IncidentReportFormView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -112,7 +115,11 @@
     <None Update="Resource\SBButton.xaml">
       <SubType>Designer</SubType>
     </None>
+<<<<<<< Updated upstream
     <Page Update="UserControlFolder\Maintenance\MaintenanceEditFormView.xaml">
+=======
+    <Page Update="UserControlFolder\IncidentReport\IncidentDetailView.xaml">
+>>>>>>> Stashed changes
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControlFolder\Maintenance\MaintenanceDetailView.xaml">
