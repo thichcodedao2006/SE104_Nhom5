@@ -21,10 +21,10 @@ namespace QLTB.UserControlFolder.Employee
     /// </summary>
     public partial class EmployeeDetailView : UserControl
     {
-        public EmployeeDetailView()
+        public EmployeeDetailView(ViewModel.Employee e)
         {
             InitializeComponent();
-            this.DataContext = new EmployeeDetailVM();
+            this.DataContext = new EmployeeDetailVM(e);
         }
     }
 }

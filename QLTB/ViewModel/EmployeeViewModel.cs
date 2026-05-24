@@ -316,6 +316,18 @@ namespace QLTB.ViewModel
                         }
                     }
                 );
+
+            EditEmployeeCommand = new RelayCommand
+                (
+                p =>
+                {
+                    if (p is Employee e)
+                    {
+                        EmployeeDetailView detail = new EmployeeDetailView(e);
+                        PopUpService.ShowPopUp(detail);
+                    }
+                }
+                );
         }
 
         private void OpenAddNV()

@@ -36,33 +36,33 @@
 
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Ảnh đại diện" 
-                               HorizontalAlignment="Center"
-                               FontWeight="SemiBold" 
-                               Margin="0,0,0,8" 
-                               Foreground="#374151"/>
+               HorizontalAlignment="Center"
+               FontWeight="SemiBold" 
+               Margin="0,0,0,8" 
+               Foreground="#374151"/>
 
                     <Border Height="250" 
-                            BorderBrush="#D1D5DB" 
-                            BorderThickness="1.5" 
-                            CornerRadius="10" 
-                            Background="#F9FAFB"
-                            ClipToBounds="True">
+            BorderBrush="#D1D5DB" 
+            BorderThickness="1.5" 
+            CornerRadius="10" 
+            Background="#F9FAFB"
+            ClipToBounds="True">
                         <Grid>
                             <TextBlock Text="Chưa cập nhật ảnh" 
-                                       Foreground="#9CA3AF" 
-                                       HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center"
-                                       TextWrapping="Wrap"
-                                       TextAlignment="Center"
-                                       Padding="10">
+                       Foreground="#9CA3AF" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       Padding="10">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding AvatarPath}" Value="{x:Null}">
+                                            <DataTrigger Binding="{Binding Data.CurrentAvatar}" Value="{x:Null}">
                                                 <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding AvatarPath}" Value="">
+                                            <DataTrigger Binding="{Binding Data.CurrentAvatar}" Value="">
                                                 <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -70,15 +70,15 @@
                                 </TextBlock.Style>
                             </TextBlock>
 
-                            <Image Source="{Binding AvatarPath, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill">
+                            <Image Source="{Binding Data.CurrentAvatar, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Stretch="Fill">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Visible"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding AvatarPath}" Value="{x:Null}">
+                                            <DataTrigger Binding="{Binding Data.CurrentAvatar}" Value="{x:Null}">
                                                 <Setter Property="Visibility" Value="Collapsed"/>
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding AvatarPath}" Value="">
+                                            <DataTrigger Binding="{Binding Data.CurrentAvatar}" Value="">
                                                 <Setter Property="Visibility" Value="Collapsed"/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -87,6 +87,36 @@
                             </Image>
                         </Grid>
                     </Border>
+
+                    <Button Content="Xác thực tài khoản" 
+            Margin="0,16,0,0" 
+            Height="42" 
+            Foreground="White" 
+            FontWeight="SemiBold" 
+            Cursor="Hand"
+            Command="{Binding XacThucTaiKhoanCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#EF4444"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                    CornerRadius="8">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#DC2626"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2">
@@ -101,7 +131,7 @@
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Mã nhân viên" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                             <TextBox IsReadOnly="True"
-                 Text="{Binding MaNV, Mode=OneWay}"
+                 Text="{Binding Data.Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Background="#F3F4F6" 
                  Foreground="#6B7280"
                  BorderBrush="#E5E7EB"
@@ -114,7 +144,7 @@
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Họ và tên" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                             <TextBox IsReadOnly="True"
-                 Text="{Binding HoTen, Mode=OneWay}"
+                 Text="{Binding Data.HoTen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Background="#F3F4F6" 
                  Foreground="#6B7280"
                  BorderBrush="#E5E7EB"
@@ -135,14 +165,14 @@
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Số điện thoại" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                             <TextBox Style="{StaticResource RoundedTextBox}" 
-                 Text="{Binding Sdt, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding Data.Sdt, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  Height="42" Padding="12,0" VerticalContentAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Email" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                             <TextBox IsReadOnly="True"
-                 Text="{Binding Email, Mode=OneWay}"
+                 Text="{Binding Data.Email, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Background="#F3F4F6" 
                  Foreground="#6B7280"
                  BorderBrush="#E5E7EB"
@@ -166,8 +196,8 @@
                                       Height="42" 
                                       ItemsSource="{Binding ListBoPhan}"
                                       DisplayMemberPath="TenBoPhan"
-                                      SelectedValuePath="IdboPhan"
-                                      SelectedValue="{Binding SelectedBoPhan, UpdateSourceTrigger=PropertyChanged}">
+                                      SelectedValuePath="Id"
+                                      SelectedValue="{Binding SelectedBoPhan, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                             </ComboBox>
                         </StackPanel>
 
@@ -177,8 +207,8 @@
                                       Height="42" 
                                       ItemsSource="{Binding ListChucDanh}"
                                       DisplayMemberPath="TenChucDanh"
-                                      SelectedValuePath="IdChucDanh"
-                                      SelectedValue="{Binding SelectedChucDanh, UpdateSourceTrigger=PropertyChanged}">
+                                      SelectedValuePath="Id"
+                                      SelectedValue="{Binding SelectedChucDanh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                             </ComboBox>
                         </StackPanel>
                     </Grid>
@@ -195,7 +225,7 @@
                             <TextBox 
                                 IsReadOnly="true"
                                 Style="{StaticResource RoundedTextBox}" 
-                                     Text="{Binding ChuyenMon, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding ChuyenMon, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                      Height="42" Padding="12,0" VerticalContentAlignment="Center"/>
                         </StackPanel>
 
@@ -205,8 +235,8 @@
                                       Height="42" 
                                       ItemsSource="{Binding ListLoaiTaiKhoan}"
                                       DisplayMemberPath="TenLoaiTaiKhoan"
-                                      SelectedValuePath="IdLoaiTaiKhoan"
-                                      SelectedValue="{Binding SelectedLoaiTaiKhoan, UpdateSourceTrigger=PropertyChanged}">
+                                      SelectedValuePath="LoaiTaiKhoan"
+                                      SelectedValue="{Binding SelectedLoaiTaiKhoan, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                             </ComboBox>
                         </StackPanel>
                     </Grid>
@@ -241,7 +271,7 @@
                         FontWeight="Bold" 
                         BorderThickness="0" 
                         Cursor="Hand" 
-                        Command="{Binding SaveEmployeeCommand}"
+                        Command="{Binding SaveInfoCommand}"
                         CommandParameter="{Binding ElementName=thisUC}">
                     <Button.Resources>
                         <Style TargetType="Border">

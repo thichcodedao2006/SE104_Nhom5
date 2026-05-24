@@ -69,7 +69,7 @@
                                 </TextBlock.Style>
                             </TextBlock>
 
-                            <Image Source="{Binding CurrentPath, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill">
+                            <Image Source="{Binding CurrentPath, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Visible"/>
