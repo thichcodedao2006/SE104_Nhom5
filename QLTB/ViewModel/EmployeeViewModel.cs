@@ -25,6 +25,8 @@ namespace QLTB.ViewModel
         public string Sdt { get; set; }
         public string BoPhan { get; set; }
         public string TinhTrang { get; set; }
+
+        public string CurrentAvatar { get; set; }
         public Brush StatusColor => TinhTrang == "Đang rảnh" ? Brushes.Green : (TinhTrang == "Đang bận" ? Brushes.Red : Brushes.Gray);
     }
 
@@ -146,7 +148,8 @@ namespace QLTB.ViewModel
                 Sdt = nv.Sdt,
                 TinhTrang = nv.TinhTrang ?? "Không rõ",
                 BoPhan = bp != null ? bp.TenBoPhan : "Chưa có",
-                ChucDanh = cd != null ? cd.TenChucDanh : "Chưa có"
+                ChucDanh = cd != null ? cd.TenChucDanh : "Chưa có",
+                CurrentAvatar = CloudinaryService.GetImageUrl(KeyData.AvatarFolder, KeyData.NhanVienTag + nv.IdnhanVien)
             };
         }
 
@@ -232,6 +235,12 @@ namespace QLTB.ViewModel
                 {
                     ListNhanVien = new ObservableCollection<NhanVien>(allNhanViens);
                 }
+                if (ListNhanVien != null)
+                {
+                    // Chuyển đổi dữ liệu lần đầu tiên lúc vừa load xong
+                    var mappedList = ListNhanVien.Select(nv => MapToEmployeeUI(nv));
+                    FilteredEmployees = new ObservableCollection<Employee>(mappedList);
+                }
 
                 TotalEmployees = allNhanViens.Count;
                 ActiveEmployees = allNhanViens.Count(x => x.TinhTrang == "Đang rảnh");
@@ -262,7 +271,51 @@ namespace QLTB.ViewModel
                   p => true, p => OpenAddNV()
                 );
 
+            EditEmployeeCommand = new RelayCommand
+            (
+                p =>
+                {
+                    if (p is Employee e)
+                    {
+                        // mở cái edit
+                    }
+                }
 
+                );
+            DeleteEmployeeCommand = new RelayCommand
+                (
+                    async p =>
+                    {
+                        if (p is Employee e)
+                        {
+                            MessageBoxResult res;
+                            res = MessageBox.Show("Bạn có chắc muốn xóa nhân viên này?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                            if (res == MessageBoxResult.Yes)
+                            {
+                                if (e.TinhTrang == "Đang bận")
+                                {
+                                    MessageBox.Show("Nhân viên hiện đang trong quá trình bảo trì thiết bị.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    return;
+                                }
+                                var nv = await  DataProvider.Instance.DB.NhanViens.FirstOrDefaultAsync(x => x.IdnhanVien == e.Id);
+                                var tk =  await DataProvider.Instance.DB.TaiKhoans.FirstOrDefaultAsync( x=> x.Email == e.Email);
+                                if (nv != null)
+                                {
+                                    DataProvider.Instance.DB.Remove(nv);
+                                    
+                                }
+                                if (tk != null) // có tài khoản 
+                                {
+                                    DataProvider.Instance.DB.Remove(tk);
+                                }
+                                await DataProvider.Instance.DB.SaveChangesAsync();
+                                await Reload();
+                                MessageBox.Show("Xóa nhân viên thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            }    
+                        }
+                    }
+                );
         }
 
         private void OpenAddNV()
@@ -277,12 +330,7 @@ namespace QLTB.ViewModel
                 await Reload();
                 await InitializeData();
 
-                if (ListNhanVien != null)
-                {
-                    // Chuyển đổi dữ liệu lần đầu tiên lúc vừa load xong
-                    var mappedList = ListNhanVien.Select(nv => MapToEmployeeUI(nv));
-                    FilteredEmployees = new ObservableCollection<Employee>(mappedList);
-                }
+                
             }
             catch (Exception ex)
             {

@@ -23,6 +23,9 @@
     <Compile Update="UserControlFolder\Device\DeviceView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\Employee\EmployeeDetailView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControlFolder\Employee\EmployeeFormView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -115,11 +118,13 @@
     <None Update="Resource\SBButton.xaml">
       <SubType>Designer</SubType>
     </None>
-<<<<<<< Updated upstream
+    <Page Update="UserControlFolder\Employee\EmployeeDetailView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\Maintenance\MaintenanceEditFormView.xaml">
-=======
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\IncidentReport\IncidentDetailView.xaml">
->>>>>>> Stashed changes
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControlFolder\Maintenance\MaintenanceDetailView.xaml">

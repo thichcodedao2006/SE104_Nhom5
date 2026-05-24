@@ -248,7 +248,28 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Ellipse Grid.Column="0" Width="36" Height="36" Fill="#E0E7FF"/>
+                                    <Grid Grid.Column="0" Width="36" Height="36">
+                                        <Ellipse Fill="#E0E7FF"/>
+
+                                        <Ellipse>
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding CurrentAvatar}" Stretch="UniformToFill"/>
+                                            </Ellipse.Fill>
+                                            <Ellipse.Style>
+                                                <Style TargetType="Ellipse">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CurrentAvatar}" Value="{x:Null}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding CurrentAvatar}" Value="">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Ellipse.Style>
+                                        </Ellipse>
+                                    </Grid>
 
                                     <StackPanel Grid.Column="1" Margin="8 0 10 0" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding HoTen}" FontWeight="Bold" TextTrimming="CharacterEllipsis"/>

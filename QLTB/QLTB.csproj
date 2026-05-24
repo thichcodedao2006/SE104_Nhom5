@@ -21,6 +21,7 @@
     <None Remove="UserControlFolder\DashBoard\DashBoardView.xaml" />
     <None Remove="UserControlFolder\Device\DeviceFormView.xaml" />
     <None Remove="UserControlFolder\Device\DeviceView.xaml" />
+    <None Remove="UserControlFolder\Employee\EmployeeDetailView.xaml" />
     <None Remove="UserControlFolder\Employee\EmployeeFormView.xaml" />
     <None Remove="UserControlFolder\Employee\EmployeeView.xaml" />
     <None Remove="UserControlFolder\ForgetPass1.xaml" />
@@ -96,6 +97,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\Device\DeviceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Employee\EmployeeDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\Employee\EmployeeFormView.xaml">

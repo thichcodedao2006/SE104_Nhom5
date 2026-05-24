@@ -17,14 +17,14 @@ using QLTB.ViewModel;
 namespace QLTB.UserControlFolder.Employee
 {
     /// <summary>
-    /// Interaction logic for EmployeeFormView.xaml
+    /// Interaction logic for EmployeeDetailView.xaml
     /// </summary>
-    public partial class EmployeeFormView : UserControl
+    public partial class EmployeeDetailView : UserControl
     {
-        public EmployeeFormView()
+        public EmployeeDetailView()
         {
             InitializeComponent();
-            this.DataContext = new EmployeeFormVM();
+            this.DataContext = new EmployeeDetailVM();
         }
     }
 }

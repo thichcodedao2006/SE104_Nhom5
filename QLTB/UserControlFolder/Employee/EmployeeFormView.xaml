@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QLTB.UserControlFolder.Employee"
              mc:Ignorable="d" 
+             x:Name="thisUC"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:con="clr-namespace:QLTB.Condition"
              Background="Transparent">
 
     <Border Width="650"
@@ -18,7 +21,7 @@
         </Border.Effect>
 
         <StackPanel>
-            <TextBlock Text="Nhân viên" 
+            <TextBlock Text="Thông tin nhân viên" 
                        FontSize="22" 
                        FontWeight="Bold" 
                        Foreground="#111827" 
@@ -32,63 +35,68 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0">
+
                     <TextBlock Text="Họ và tên" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
                     <TextBox Style="{StaticResource RoundedTextBox}" 
                              Height="42" 
                              Padding="12,0" 
                              VerticalContentAlignment="Center" 
                              Tag="Nhập họ và tên" 
-                             Text="{Binding FullName}"/>
+                             Text="{Binding RealName, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBlock Text="Số điện thoại" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" 
-                             Height="42" 
-                             Padding="12,0" 
-                             VerticalContentAlignment="Center" 
-                             Tag="Nhập số điện thoại" 
-                             Text="{Binding Phone}"/>
-
-                    <TextBlock Text="Phòng ban" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
-                    <ComboBox Style="{StaticResource ModernComboBox}" 
-                              Height="42" 
-                              SelectedIndex="0"
-                              ItemsSource="{Binding Departments}"
-                              SelectedItem="{Binding SelectedDepartment}">
-                        <ComboBoxItem Content="Bảo trì"/>
-                        <ComboBoxItem Content="Kỹ thuật"/>
-                        <ComboBoxItem Content="Vận hành"/>
-                    </ComboBox>
-                </StackPanel>
-
-                <StackPanel Grid.Column="2">
-                    <TextBlock Text="Email" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                    <TextBlock Text="Email" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
                     <TextBox Style="{StaticResource RoundedTextBox}" 
                              Height="42" 
                              Padding="12,0" 
                              VerticalContentAlignment="Center" 
                              Tag="Nhập địa chỉ email" 
-                             Text="{Binding Email}"/>
+                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <con:UsernameInputCondition></con:UsernameInputCondition>
+                        </i:Interaction.Behaviors>
 
-                    <TextBlock Text="Vai trò" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    </TextBox>
+
+                    <TextBlock Text="Bộ phận" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" 
                               Height="42" 
-                              SelectedIndex="0"
-                              BorderBrush="#2563EB"
-                              ItemsSource="{Binding Roles}"
-                              SelectedItem="{Binding SelectedRole}">
-                        <ComboBoxItem Content="Kỹ thuật viên"/>
-                        <ComboBoxItem Content="Quản lý"/>
-                        <ComboBoxItem Content="Nhân viên"/>
+                              ItemsSource="{Binding ListBoPhan}"
+                              DisplayMemberPath="TenBoPhan"
+                              SelectedValuePath="Id"
+                              SelectedValue="{Binding SelectedBoPhan, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
+                </StackPanel>
 
-                    <TextBlock Text="Trạng thái" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                <StackPanel Grid.Column="2">
+
+                    <TextBlock Text="Số điện thoại" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" 
+                             Height="42" 
+                             Padding="12,0" 
+                             VerticalContentAlignment="Center" 
+                             Tag="Nhập số điện thoại" 
+                             Text="{Binding Sdt, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <con:PhoneCondition></con:PhoneCondition>
+                        </i:Interaction.Behaviors>
+
+                    </TextBox>
+
+                    <TextBlock Text="Chuyên môn" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" 
+                             Height="42" 
+                             Padding="12,0" 
+                             VerticalContentAlignment="Center" 
+                             Tag="VD: Sửa chữa máy lạnh, Lập trình..." 
+                             Text="{Binding ChuyenMon, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Text="Chức danh" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" 
                               Height="42" 
-                              SelectedIndex="0"
-                              ItemsSource="{Binding Statuses}"
-                              SelectedItem="{Binding SelectedStatus}">
-                        <ComboBoxItem Content="Đang hoạt động"/>
-                        <ComboBoxItem Content="Ngưng hoạt động"/>
+                              ItemsSource="{Binding ListChucDanh}"
+                              DisplayMemberPath="TenChucDanh"
+                              SelectedValuePath="Id"
+                              SelectedValue="{Binding SelectedChucDanh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
                 </StackPanel>
             </Grid>
@@ -102,7 +110,9 @@
                         BorderThickness="1" 
                         Margin="0,0,12,0" 
                         Cursor="Hand" 
-                        Command="{Binding CancelCommand}"/>
+                        Command="{Binding CloseCommand}"
+                        CommandParameter="{Binding ElementName=thisUC}"
+                        />
 
                 <Button Content="Lưu nhân viên" 
                         Width="150" 
@@ -112,7 +122,8 @@
                         FontWeight="Bold" 
                         BorderThickness="0" 
                         Cursor="Hand" 
-                        Command="{Binding AddEmployeeCommand}">
+                        Command="{Binding SaveEmployeeCommand}"
+                        CommandParameter="{Binding ElementName=thisUC}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="8"/>
@@ -120,6 +131,7 @@
                     </Button.Resources>
                 </Button>
             </StackPanel>
+
         </StackPanel>
     </Border>
 </UserControl>

@@ -99,7 +99,7 @@ create table TaiKhoan
 	LoaiTaiKhoan int, --0: Giam doc, 1: Quan ly kho, 2: Nhan vien binh thuong 
 	DuocXacThuc int, --0: chua duoc, 1: duoc 
 )
-
+	
 alter table TaiKhoan 
 drop column Avatar
 
@@ -332,3 +332,7 @@ where IDBaoTri = 4
 delete from NhanVien
 drop table NhanVien
 drop table BaoTri
+
+update NhanVien
+set TinhTrang = N'Đang rảnh'
+where IDNhanVien = 3
