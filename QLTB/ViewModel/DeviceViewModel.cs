@@ -21,10 +21,10 @@ namespace QLTB.ViewModel
         public string TenThietBi { get; set; }
         public string LoaiThietBi { get; set; }
         public string DonViSanXuat { get; set; }
-        public int? SoLuong { get; set; }
         public double? Gia { get; set; }
         public DateTime? NgayNhapThietBi { get; set; }
         public string Serial { get; set; }
+        public string PhongBan { get; set; }
         public string Status { get; set; }
     }
 
@@ -57,12 +57,7 @@ namespace QLTB.ViewModel
         public string SearchText
         {
             get => _searchText;
-            set
-            {
-                _searchText = value;
-                FilterDevices();
-                OnPropertyChanged(nameof(SearchText));
-            }
+            set { _searchText = value; FilterDevices(); OnPropertyChanged(nameof(SearchText)); }
         }
 
         private bool _isGridView;
@@ -73,22 +68,20 @@ namespace QLTB.ViewModel
         }
 
         public int TotalDevices => Devices?.Count ?? 0;
-        public int ActiveDevices => Devices?.Count(d => d.Status == "Đang hoạt động") ?? 0;
+        public int ActiveDevices => Devices?.Count(d => d.Status == "Đang hoạt động" || d.Status == "Tốt") ?? 0;
         public int MaintenanceDevices => Devices?.Count(d => d.Status == "Đang bảo trì") ?? 0;
         public int InactiveDevices => Devices?.Count(d => d.Status == "Ngừng hoạt động") ?? 0;
 
         public ICommand AddDeviceCommand { get; set; }
         public ICommand EditDeviceCommand { get; set; }
         public ICommand DeleteDeviceCommand { get; set; }
-        public ICommand ExportCommand { get; set; }
-        public ICommand ImportCommand { get; set; }
+        public ICommand DeleteByNameCommand { get; set; } // LỆNH MỚI: Xóa hàng loạt theo tên mẫu
         public ICommand SwitchToListViewCommand { get; set; }
         public ICommand SwitchToGridViewCommand { get; set; }
 
         public DeviceViewModel()
         {
             _context = new QuanLyVatTuContext();
-
             _ = LoadDataFromDatabaseAsync();
 
             SwitchToListViewCommand = new RelayCommand(o => IsGridView = false);
@@ -114,77 +107,132 @@ namespace QLTB.ViewModel
 
                 if (formViewModel.IsSaved)
                 {
-                    var existingDevice = await _context.ThietBis
-                        .FirstOrDefaultAsync(t => t.TenThietBi.ToLower() == formViewModel.Name.ToLower()
-                                               && t.DonViSanXuat.ToLower() == formViewModel.Manufacturer.ToLower());
-
-                    int targetDeviceId;
-
-                    if (existingDevice != null)
-                    {
-                        targetDeviceId = existingDevice.IdthietBi;
-                    }
-                    else
-                    {
-                        var newDevice = new ThietBi
-                        {
-                            TenThietBi = formViewModel.Name,
-                            LoaiThietBi = "Thiết bị điện tử",
-                            DonViSanXuat = formViewModel.Manufacturer,
-                            NgayNhapThietBi = DateTime.Now
-                        };
-
-                        _context.ThietBis.Add(newDevice);
-                        await _context.SaveChangesAsync();
-                        targetDeviceId = newDevice.IdthietBi;
-                    }
-
-                    int? departmentId = null;
-                    if (!string.IsNullOrWhiteSpace(formViewModel.Department))
-                    {
-                        var pb = await _context.PhongBans.FirstOrDefaultAsync(p => p.TenPhong == formViewModel.Department);
-                        if (pb != null)
-                        {
-                            departmentId = pb.Idphong;
-                        }
-                    }
-
-                    var newDetail = new ChiTietThietBi
-                    {
-                        IdthietBi = targetDeviceId,
-                        SoSeri = formViewModel.Serial,
-                        TinhTrang = formViewModel.Status == "Đang hoạt động" ? "Tốt" : formViewModel.Status,
-                        IdphongBan = departmentId
-                    };
-
-                    _context.ChiTietThietBis.Add(newDetail);
-                    await _context.SaveChangesAsync();
-
                     await LoadDataFromDatabaseAsync();
-                    MessageBox.Show("Thêm thiết bị và cập nhật số lượng kho thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            });
+
+            // LỆNH MỚI ĐƯỢC CÀI ĐẶT: XÓA SẠCH TẤT CẢ THIẾT BỊ CÙNG MẪU TÊN
+            DeleteByNameCommand = new RelayCommand(async o =>
+            {
+                var currentItem = o as DeviceDisplayItem ?? SelectedDevice;
+                if (currentItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn một thiết bị bất kỳ trong danh sách để làm mẫu xóa theo tên!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Cảnh báo nghiêm trọng trước khi thực hiện xóa diện rộng
+                var result = MessageBox.Show($"CẢNH BÁO: Bạn có chắc chắn muốn xóa TOÀN BỘ các thiết bị chi tiết có tên là [{currentItem.TenThietBi}] của nhà SX [{currentItem.DonViSanXuat}]?\nHành động này sẽ quét sạch toàn bộ các số Serial liên quan!", "Xác nhận xóa hàng loạt", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        // 1. Tìm tất cả các bản ghi con ChiTietThietBi thuộc về ID mã cha này
+                        var detailsToDelete = await _context.ChiTietThietBis
+                                                            .Where(ct => ct.IdthietBi == currentItem.IdthietBi)
+                                                            .ToListAsync();
+
+                        if (detailsToDelete.Any())
+                        {
+                            _context.ChiTietThietBis.RemoveRange(detailsToDelete);
+                        }
+
+                        // 2. Tìm luôn bản ghi cha mẫu sản phẩm này trong bảng ThietBi để xóa dọn sạch rác kho
+                        var parentDevice = await _context.ThietBis.FirstOrDefaultAsync(t => t.IdthietBi == currentItem.IdthietBi);
+                        if (parentDevice != null)
+                        {
+                            _context.ThietBis.Remove(parentDevice);
+                        }
+
+                        // Lưu thay đổi đồng loạt xuống database Somee
+                        await _context.SaveChangesAsync();
+
+                        // Nạp lại danh sách hiển thị phẳng mới
+                        await LoadDataFromDatabaseAsync();
+                        MessageBox.Show($"Đã tối ưu dọn dẹp sạch sẽ dòng sản phẩm [{currentItem.TenThietBi}] khỏi hệ thống dữ liệu kho!", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi hệ thống khi thực hiện xóa hàng loạt: " + ex.Message, "Lỗi SQL", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             });
 
             EditDeviceCommand = new RelayCommand(async o =>
             {
-                if (SelectedDevice == null)
+                var currentItem = o as DeviceDisplayItem ?? SelectedDevice;
+                if (currentItem == null)
                 {
-                    MessageBox.Show("Vui lòng chọn một thiết bị để sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Vui lòng chọn một thiết bị cụ thể từ danh sách để chỉnh sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                var dbDevice = await _context.ThietBis
-                                             .Include(d => d.ChiTietThietBis)
-                                                .ThenInclude(ct => ct.IdphongBanNavigation)
-                                             .FirstOrDefaultAsync(d => d.IdthietBi == SelectedDevice.IdthietBi);
-                if (dbDevice == null) return;
+                var dbDetail = await _context.ChiTietThietBis
+                                             .Include(ct => ct.IdthietBiNavigation)
+                                             .Include(ct => ct.IdphongBanNavigation)
+                                             .FirstOrDefaultAsync(ct => ct.IdthietBi == currentItem.IdthietBi && ct.SoSeri == currentItem.Serial);
+                if (dbDetail == null) return;
 
-                var formViewModel = new DeviceFormViewModel(dbDevice);
+                var formViewModel = new DeviceFormViewModel
+                {
+                    Name = dbDetail.IdthietBiNavigation?.TenThietBi,
+                    Manufacturer = dbDetail.IdthietBiNavigation?.DonViSanXuat,
+                    Category = dbDetail.IdthietBiNavigation?.LoaiThietBi,
+                    Serial = dbDetail.SoSeri,
+                    Department = dbDetail.IdphongBanNavigation?.TenPhong,
+                    Status = dbDetail.TinhTrang == "Tốt" ? "Đang hoạt động" : dbDetail.TinhTrang
+                };
+
+                formViewModel.SaveCommand = new RelayCommand(async param =>
+                {
+                    if (string.IsNullOrWhiteSpace(formViewModel.Name) || string.IsNullOrWhiteSpace(formViewModel.Serial))
+                    {
+                        MessageBox.Show("Tên thiết bị và Số Serial không được phép để trống!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    if (!formViewModel.Serial.Trim().Equals(dbDetail.SoSeri, StringComparison.OrdinalIgnoreCase))
+                    {
+                        bool isSerialExist = await _context.ChiTietThietBis.AnyAsync(ct => ct.SoSeri.ToLower() == formViewModel.Serial.Trim().ToLower());
+                        if (isSerialExist)
+                        {
+                            MessageBox.Show($"Số Serial [{formViewModel.Serial}] đã tồn tại ở một thiết bị khác!", "Xung đột Serial", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+
+                    try
+                    {
+                        if (dbDetail.IdthietBiNavigation != null)
+                        {
+                            dbDetail.IdthietBiNavigation.TenThietBi = formViewModel.Name.Trim();
+                            dbDetail.IdthietBiNavigation.DonViSanXuat = formViewModel.Manufacturer.Trim();
+                            dbDetail.IdthietBiNavigation.LoaiThietBi = formViewModel.Category.Trim();
+                        }
+
+                        int? pbId = null;
+                        if (!string.IsNullOrWhiteSpace(formViewModel.Department))
+                        {
+                            var pb = await _context.PhongBans.FirstOrDefaultAsync(p => p.TenPhong.ToLower() == formViewModel.Department.Trim().ToLower());
+                            pbId = pb?.Idphong;
+                        }
+
+                        dbDetail.SoSeri = formViewModel.Serial.Trim();
+                        dbDetail.TinhTrang = formViewModel.Status == "Đang hoạt động" ? "Tốt" : formViewModel.Status;
+                        dbDetail.IdphongBan = pbId;
+
+                        await _context.SaveChangesAsync();
+                        formViewModel.GetType().GetProperty("IsSaved")?.SetValue(formViewModel, true);
+
+                        if (param is Window w) w.Close();
+                    }
+                    catch (Exception ex) { MessageBox.Show("Lỗi cập nhật dữ liệu: " + ex.Message); }
+                });
+
                 var deviceForm = new QLTB.UserControlFolder.Device.DeviceFormView { DataContext = formViewModel };
-
                 Window window = new Window
                 {
-                    Title = "Chỉnh sửa thiết bị",
+                    Title = "Chỉnh sửa thông tin thiết bị",
                     Content = deviceForm,
                     SizeToContent = SizeToContent.WidthAndHeight,
                     WindowStartupLocation = WindowStartupLocation.CenterScreen,
@@ -195,100 +243,59 @@ namespace QLTB.ViewModel
 
                 window.ShowDialog();
 
-                if (formViewModel.IsSaved)
+                var isSavedObj = formViewModel.GetType().GetProperty("IsSaved")?.GetValue(formViewModel);
+                if (isSavedObj is bool isSaved && isSaved)
                 {
-                    dbDevice.TenThietBi = formViewModel.Name;
-                    dbDevice.DonViSanXuat = formViewModel.Manufacturer;
-
-                    var detail = dbDevice.ChiTietThietBis.FirstOrDefault();
-                    if (detail != null)
-                    {
-                        detail.SoSeri = formViewModel.Serial;
-                        detail.TinhTrang = formViewModel.Status == "Đang hoạt động" ? "Tốt" : formViewModel.Status;
-
-                        if (!string.IsNullOrWhiteSpace(formViewModel.Department))
-                        {
-                            var pb = await _context.PhongBans.FirstOrDefaultAsync(p => p.TenPhong == formViewModel.Department);
-                            if (pb != null)
-                            {
-                                detail.IdphongBan = pb.Idphong;
-                            }
-                        }
-                        else
-                        {
-                            detail.IdphongBan = null;
-                        }
-                    }
-
-                    await _context.SaveChangesAsync();
                     await LoadDataFromDatabaseAsync();
-                    MessageBox.Show("Cập nhật thông tin thiết bị thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             });
 
-            // Lệnh xóa đã được tối ưu hóa để loại bỏ ràng buộc khóa ngoại trước khi xóa cha
+            // LỆNH XÓA ĐƠN LẺ TRÊN TỪNG DÒNG (GIỮ NGUYÊN THEO YÊU CẦU CŨ CỦA BẠN)
             DeleteDeviceCommand = new RelayCommand(async o =>
             {
-                if (SelectedDevice == null)
+                var currentItem = o as DeviceDisplayItem ?? SelectedDevice;
+                if (currentItem == null)
                 {
-                    MessageBox.Show("Vui lòng chọn một thiết bị để xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Vui lòng chọn một thiết bị cụ thể từ danh sách để xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                var result = MessageBox.Show($"Bạn có chắc muốn xóa thiết bị {SelectedDevice.TenThietBi} khỏi hệ thống? Tất cả các số Serial chi tiết liên quan cũng sẽ bị xóa bỏ hoàn toàn.", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                var result = MessageBox.Show($"Bạn có chắc chắn muốn xóa thiết bị [{currentItem.TenThietBi}] có số Serial: {currentItem.Serial} khỏi hệ thống?", "Xác nhận xóa đơn lẻ", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var dbDevice = await _context.ThietBis
-                                                 .Include(d => d.ChiTietThietBis)
-                                                 .FirstOrDefaultAsync(d => d.IdthietBi == SelectedDevice.IdthietBi);
-                    if (dbDevice != null)
+                    var dbDetail = await _context.ChiTietThietBis.FirstOrDefaultAsync(ct => ct.IdthietBi == currentItem.IdthietBi && ct.SoSeri == currentItem.Serial);
+                    if (dbDetail != null)
                     {
-                        if (dbDevice.ChiTietThietBis != null && dbDevice.ChiTietThietBis.Any())
-                        {
-                            _context.ChiTietThietBis.RemoveRange(dbDevice.ChiTietThietBis);
-                        }
-
-                        _context.ThietBis.Remove(dbDevice);
+                        _context.ChiTietThietBis.Remove(dbDetail);
                         await _context.SaveChangesAsync();
 
                         await LoadDataFromDatabaseAsync();
-                        MessageBox.Show("Xóa thiết bị khỏi hệ thống thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Đã xóa thiết bị ra khỏi hệ thống thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             });
-
-            ExportCommand = new RelayCommand(o => ExportToCsv());
-            ImportCommand = new RelayCommand(async o => await ImportFromCsvAsync());
         }
 
         private async Task LoadDataFromDatabaseAsync()
         {
             try
             {
-                var rawList = await _context.ThietBis
-                                             .Include(d => d.ChiTietThietBis)
+                var flatList = await _context.ChiTietThietBis
+                                             .Include(ct => ct.IdthietBiNavigation)
+                                             .Include(ct => ct.IdphongBanNavigation)
                                              .ToListAsync();
 
-                var mappedList = rawList.Select(d => {
-                    var firstDetail = d.ChiTietThietBis.FirstOrDefault();
-                    string statusText = "Đang hoạt động";
-                    if (firstDetail != null && !string.IsNullOrEmpty(firstDetail.TinhTrang) && firstDetail.TinhTrang != "Tốt")
-                    {
-                        statusText = firstDetail.TinhTrang;
-                    }
-
-                    return new DeviceDisplayItem
-                    {
-                        IdthietBi = d.IdthietBi,
-                        TenThietBi = d.TenThietBi,
-                        LoaiThietBi = d.LoaiThietBi,
-                        DonViSanXuat = d.DonViSanXuat,
-                        SoLuong = d.ChiTietThietBis.Count,
-                        Gia = d.Gia,
-                        NgayNhapThietBi = d.NgayNhapThietBi,
-                        Serial = firstDetail?.SoSeri ?? "Không có",
-                        Status = statusText
-                    };
+                var mappedList = flatList.Select(ct => new DeviceDisplayItem
+                {
+                    IdthietBi = ct.IdthietBi,
+                    TenThietBi = ct.IdthietBiNavigation?.TenThietBi ?? "Không rõ tên",
+                    LoaiThietBi = ct.IdthietBiNavigation?.LoaiThietBi ?? "Thiết bị",
+                    DonViSanXuat = ct.IdthietBiNavigation?.DonViSanXuat ?? "Không rõ nhà SX",
+                    Gia = ct.IdthietBiNavigation?.Gia,
+                    NgayNhapThietBi = ct.IdthietBiNavigation?.NgayNhapThietBi,
+                    Serial = ct.SoSeri,
+                    PhongBan = ct.IdphongBanNavigation?.TenPhong ?? "Chưa phân bổ",
+                    Status = ct.TinhTrang == "Tốt" ? "Đang hoạt động" : ct.TinhTrang
                 }).ToList();
 
                 Devices = new ObservableCollection<DeviceDisplayItem>(mappedList);
@@ -297,7 +304,7 @@ namespace QLTB.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi kết nối cơ sở dữ liệu Somee: {ex.Message}", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi kết nối CSDL: {ex.Message}", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -311,8 +318,8 @@ namespace QLTB.ViewModel
             {
                 FilteredDevices = new ObservableCollection<DeviceDisplayItem>(
                     Devices.Where(d => (d.TenThietBi != null && d.TenThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                                    || (d.LoaiThietBi != null && d.LoaiThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                                    || (d.DonViSanXuat != null && d.DonViSanXuat.Contains(SearchText, StringComparison.OrdinalIgnoreCase))));
+                                    || (d.Serial != null && d.Serial.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                                    || (d.PhongBan != null && d.PhongBan.Contains(SearchText, StringComparison.OrdinalIgnoreCase))));
             }
             OnPropertyChanged(nameof(FilteredDevices));
         }
@@ -323,57 +330,6 @@ namespace QLTB.ViewModel
             OnPropertyChanged(nameof(ActiveDevices));
             OnPropertyChanged(nameof(MaintenanceDevices));
             OnPropertyChanged(nameof(InactiveDevices));
-        }
-
-        private void ExportToCsv()
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog { Filter = "CSV Files|*.csv", FileName = "DanhSachThietBi.csv" };
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                try
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("Ten,Loai,DonViSanXuat,NgayNhap");
-
-                    foreach (var d in FilteredDevices)
-                    {
-                        sb.AppendLine($"{d.TenThietBi},{d.LoaiThietBi},{d.DonViSanXuat},{d.NgayNhapThietBi}");
-                    }
-                    File.WriteAllText(saveFileDialog.FileName, sb.ToString(), Encoding.UTF8);
-                    MessageBox.Show("Xuất file CSV thành công!");
-                }
-                catch (Exception ex) { MessageBox.Show("Lỗi xuất file: " + ex.Message); }
-            }
-        }
-
-        private async Task ImportFromCsvAsync()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "CSV Files|*.csv" };
-            if (openFileDialog.ShowDialog() == true)
-            {
-                try
-                {
-                    var lines = File.ReadAllLines(openFileDialog.FileName);
-                    for (int i = 1; i < lines.Length; i++)
-                    {
-                        var cols = lines[i].Split(',');
-                        if (cols.Length >= 3)
-                        {
-                            _context.ThietBis.Add(new ThietBi
-                            {
-                                TenThietBi = cols[0],
-                                LoaiThietBi = cols[1],
-                                DonViSanXuat = cols[2],
-                                NgayNhapThietBi = DateTime.Now
-                            });
-                        }
-                    }
-                    await _context.SaveChangesAsync();
-                    await LoadDataFromDatabaseAsync();
-                    MessageBox.Show("Nhập dữ liệu từ file và lưu vào database thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (Exception ex) { MessageBox.Show("Lỗi nhập file: " + ex.Message); }
-            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

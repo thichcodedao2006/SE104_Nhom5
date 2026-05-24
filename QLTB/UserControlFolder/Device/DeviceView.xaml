@@ -21,18 +21,25 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Style="{StaticResource BlueButton}" Command="{Binding ImportCommand}" Height="42" Padding="18 0" Margin="0 0 12 0" Background="#6699FF" BorderBrush="#6699FF" BorderThickness="1" Cursor="Hand">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Upload" Width="14" Height="14" Margin="0 0 8 0"/>
-                        <TextBlock Text="Nhập file" Foreground="Black"/>
-                    </StackPanel>
-                </Button>
                 <Button Style="{StaticResource BlueButton}" Command="{Binding ExportCommand}" Height="42" Padding="18 0" Margin="0 0 12 0" Background="#6699FF" BorderBrush="#E5E7EB" BorderThickness="1" Cursor="Hand">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Download" Width="14" Height="14" Margin="0 0 8 0"/>
                         <TextBlock Text="Xuất file" Foreground="Black"/>
                     </StackPanel>
                 </Button>
+
+                <Button Command="{Binding DeleteByNameCommand}" Height="42" Padding="18 0" Margin="0 0 12 0" Background="#FEE2E2" Foreground="#EF4444" BorderBrush="#FCA5A5" BorderThickness="1" FontWeight="SemiBold" Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="ExclamationTriangle" Width="14" Height="14" Foreground="#EF4444" Margin="0 0 8 0"/>
+                        <TextBlock Text="Xóa theo tên"/>
+                    </StackPanel>
+                </Button>
+
                 <Button Style="{StaticResource BeautyButton}" Command="{Binding AddDeviceCommand}" Height="42" Padding="20 0" Background="#8B5CF6" Foreground="White" BorderThickness="0" FontWeight="SemiBold" Cursor="Hand">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Plus" Width="14" Height="14" Foreground="White" Margin="0 0 8 0"/>
@@ -94,7 +101,6 @@
                 </Grid>
 
                 <Grid Grid.Row="2">
-
                     <DataGrid x:Name="ListViewContainer"
                               ItemsSource="{Binding FilteredDevices}" 
                               SelectedItem="{Binding SelectedDevice}"
@@ -121,7 +127,6 @@
                         </DataGrid.Style>
 
                         <DataGrid.Columns>
-
                             <DataGridTemplateColumn Header="THIẾT BỊ" Width="2.2*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -141,8 +146,6 @@
                             <DataGridTextColumn Header="MÃ THIẾT BỊ" Binding="{Binding Serial}" Width="1.2*" ElementStyle="{StaticResource CenterTextStyle}"/>
 
                             <DataGridTextColumn Header="NHÀ SẢN XUẤT" Binding="{Binding DonViSanXuat}" Width="1.5*" ElementStyle="{StaticResource CenterTextStyle}"/>
-
-                            <DataGridTextColumn Header="SỐ LƯỢNG" Binding="{Binding SoLuong}" Width="1.0*" ElementStyle="{StaticResource CenterTextStyle}"/>
 
                             <DataGridTextColumn Header="GIÁ" Binding="{Binding Gia, StringFormat=\{0:N0\} VNĐ}" Width="1.3*" ElementStyle="{StaticResource CenterTextStyle}"/>
 
@@ -274,7 +277,6 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-
                 </Grid>
             </Grid>
         </Border>

@@ -8,6 +8,7 @@ using System.Windows.Input;
 using QLTB.Data;
 using QLTB.Helpers;
 using QLTB.Models;
+
 namespace QLTB.ViewModel
 {
     public class MainViewModel : BaseViewModel
@@ -28,7 +29,6 @@ namespace QLTB.ViewModel
                 OnPropertyChanged(nameof(CurrentViewModel));
             }
         }
-
 
         private DashBoardViewModel _dashboardVM;
         private MaterialViewModel _materialVM;
@@ -53,27 +53,31 @@ namespace QLTB.ViewModel
         public ICommand OpenStatisticCommand { get; set; }
 
         public ICommand SignOutCommand { get; set; }
-        public string CurrentAvatar { get => _currentAvatar; set
+        public string CurrentAvatar
+        {
+            get => _currentAvatar; set
             {
                 _currentAvatar = value;
                 OnPropertyChanged(nameof(CurrentAvatar));
             }
-                }
+        }
 
-        public TaiKhoan UserAccount { get => userAccount; set
+        public TaiKhoan UserAccount
+        {
+            get => userAccount; set
             {
                 userAccount = value;
                 OnPropertyChanged(nameof(UserAccount));
             }
-                }
-        public NhanVien UserDetail { get => userDetail; set
+        }
+        public NhanVien UserDetail
+        {
+            get => userDetail; set
             {
                 userDetail = value;
-                OnPropertyChanged(nameof(UserDetail));  
+                OnPropertyChanged(nameof(UserDetail));
             }
-                }
-
-
+        }
 
         public MainViewModel(TaiKhoan t)
         {
@@ -91,8 +95,8 @@ namespace QLTB.ViewModel
                     _dashboardVM = new DashBoardViewModel(t);
                 }
                 CurrentViewModel = _dashboardVM;
-                _dashboardVM.Reload();
 
+                _ = _dashboardVM.Reload();
             });
 
             OpenMaterialCommand = new RelayCommand(o =>
@@ -173,10 +177,9 @@ namespace QLTB.ViewModel
                 CurrentViewModel = new StatisticViewModel();
             });
             SignOutCommand = new RelayCommand<Window>
-                (
-                    (p) => true, (p) => LogOut(p)
-                );
-
+            (
+                (p) => true, (p) => LogOut(p)
+            );
         }
 
         public void Dispose()
@@ -197,7 +200,6 @@ namespace QLTB.ViewModel
 
         private void LogOut(Window p)
         {
-            
             fmDangNhap dn = new fmDangNhap();
             dn.Show();
             if (p != null)
@@ -208,13 +210,12 @@ namespace QLTB.ViewModel
 
         private void ChangeUserAvatar()
         {
-            CurrentAvatar = CloudinaryService.GetImageUrl(KeyData.AvatarFolder, KeyData.NhanVienTag + UserDetail.IdnhanVien); // thay đổi Avatar;
+            CurrentAvatar = CloudinaryService.GetImageUrl(KeyData.AvatarFolder, KeyData.NhanVienTag + UserDetail.IdnhanVien);
         }
 
         private void ImageChange(string newLink)
         {
             CurrentAvatar = newLink;
         }
-        
     }
 }

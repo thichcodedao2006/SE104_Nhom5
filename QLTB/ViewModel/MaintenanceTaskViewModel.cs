@@ -119,6 +119,13 @@ namespace QLTB.ViewModel
                     var dbMaintenance = await _context.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == SelectedMaintenance.IdBaoTri);
                     if (dbMaintenance != null)
                     {
+                        // ĐÃ SỬA: Đổi thành "Đang rảnh" khi phiếu bị xóa
+                        if (dbMaintenance.TinhTrangBaoTri != "Hoàn thành" && dbMaintenance.IdnhanVien.HasValue)
+                        {
+                            var staff = await _context.NhanViens.FirstOrDefaultAsync(nv => nv.IdnhanVien == dbMaintenance.IdnhanVien.Value);
+                            if (staff != null) staff.TinhTrang = "Đang rảnh";
+                        }
+
                         _context.BaoTris.Remove(dbMaintenance);
                         await _context.SaveChangesAsync();
                         await LoadMaintenancesAsync();
@@ -134,13 +141,21 @@ namespace QLTB.ViewModel
                     if (dbItem != null)
                     {
                         dbItem.TinhTrangBaoTri = "Hoàn thành";
+
+                        // ĐÃ SỬA: Khi bấm hoàn thành nhanh, cập nhật trạng thái thành "Đang rảnh"
+                        if (dbItem.IdnhanVien.HasValue)
+                        {
+                            var staff = await _context.NhanViens.FirstOrDefaultAsync(nv => nv.IdnhanVien == dbItem.IdnhanVien.Value);
+                            if (staff != null) staff.TinhTrang = "Đang rảnh";
+                        }
+
                         await _context.SaveChangesAsync();
                         await LoadMaintenancesAsync();
+                        MessageBox.Show("Đã duyệt hoàn thành công việc và cập nhật nhân sự sang trạng thái Đang rảnh!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             });
 
-            // Hiện thực hóa logic mở Popup Form chỉnh sửa và cập nhật dữ liệu bất đồng bộ
             EditTaskCommand = new RelayCommand(async o =>
             {
                 if (o is MaintenanceDisplayItem item)
@@ -164,14 +179,40 @@ namespace QLTB.ViewModel
                         var dbItem = await _context.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == item.IdBaoTri);
                         if (dbItem != null)
                         {
+                            int? oldStaffId = dbItem.IdnhanVien;
+
                             dbItem.NgayBaoTri = editVM.NgayBaoTri;
                             dbItem.DoUuTien = editVM.DoUuTien;
                             dbItem.TinhTrangBaoTri = editVM.TinhTrangBaoTri;
                             dbItem.IdnhanVien = editVM.SelectedStaffId;
 
+                            // ĐÃ SỬA: Trả người cũ về trạng thái "Đang rảnh"
+                            if (oldStaffId.HasValue && oldStaffId != editVM.SelectedStaffId)
+                            {
+                                var oldStaff = await _context.NhanViens.FirstOrDefaultAsync(nv => nv.IdnhanVien == oldStaffId.Value);
+                                if (oldStaff != null) oldStaff.TinhTrang = "Đang rảnh";
+                            }
+
+                            // ĐÃ SỬA: Đồng bộ người mới theo tiến độ công việc dựa vào "Đang bận" hoặc "Đang rảnh"
+                            if (editVM.SelectedStaffId.HasValue)
+                            {
+                                var currentStaff = await _context.NhanViens.FirstOrDefaultAsync(nv => nv.IdnhanVien == editVM.SelectedStaffId.Value);
+                                if (currentStaff != null)
+                                {
+                                    if (editVM.TinhTrangBaoTri == "Hoàn thành")
+                                    {
+                                        currentStaff.TinhTrang = "Đang rảnh";
+                                    }
+                                    else if (editVM.TinhTrangBaoTri == "Đang xử lý" || editVM.TinhTrangBaoTri == "Quá hạn")
+                                    {
+                                        currentStaff.TinhTrang = "Đang bận";
+                                    }
+                                }
+                            }
+
                             await _context.SaveChangesAsync();
                             await LoadMaintenancesAsync();
-                            MessageBox.Show("Cập nhật công việc bảo trì thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Cập nhật công việc bảo trì và đồng bộ trạng thái nhân sự thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                 }

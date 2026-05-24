@@ -7,99 +7,92 @@
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              Background="Transparent">
 
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
-    </UserControl.Resources>
-
-    <Border Width="650" Background="{StaticResource MainBackgroundBrush}" CornerRadius="12" Padding="25">
+    <Border Width="650" Background="{StaticResource MainBackgroundBrush}" CornerRadius="16" Padding="25">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="1" Opacity="0.1"/>
+            <DropShadowEffect BlurRadius="20" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.12"/>
         </Border.Effect>
 
         <StackPanel>
-            <TextBlock Text="Thêm thiết bị mới" FontSize="22" FontWeight="Bold" Foreground="#111827" Margin="0,0,0,20"/>
+            <TextBlock Text="Cập nhật kho thiết bị" FontSize="22" FontWeight="Bold" Foreground="#111827" Margin="0,0,0,15"/>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <GroupBox Header="1. THÔNG TIN CHUNG THIẾT BỊ " FontSize="13" FontWeight="Bold" Foreground="#2563EB" Margin="0,0,0,15" Padding="10,10,10,15">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0">
-                    <TextBlock Text="Tên thiết bị" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập tên thiết bị" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Tên thiết bị" FontWeight="SemiBold" Foreground="#374151" Margin="0,0,0,6"/>
+                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Ví dụ: Máy tính Dell Latitude" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
 
-                    <TextBlock Text="Nhà sản xuất" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập nhà sản xuất" Text="{Binding Manufacturer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Nhà sản xuất" FontWeight="SemiBold" Foreground="#374151" Margin="0,0,0,6"/>
+                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Ví dụ: Dell Global" Text="{Binding Manufacturer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </Grid>
 
-                    <TextBlock Text="Trạng thái" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <ComboBox Style="{StaticResource ModernComboBox}" Height="40" SelectedValue="{Binding Status, Mode=TwoWay}" SelectedValuePath="Content">
-                        <ComboBoxItem Content="Đang hoạt động"/>
-                        <ComboBoxItem Content="Đang bảo trì"/>
-                        <ComboBoxItem Content="Ngừng hoạt động"/>
-                    </ComboBox>
+                    <TextBlock Text="Loại thiết bị" FontWeight="SemiBold" Foreground="#374151" Margin="0,12,0,6"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Ví dụ: Thiết bị điện tử, Thiết bị văn phòng..." Text="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
+            </GroupBox>
 
-                <StackPanel Grid.Column="2">
-                    <TextBlock Text="Số Serial" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập số serial" Text="{Binding Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <GroupBox Header="2. THÔNG TIN ĐỊNH DANH CHI TIẾT " FontSize="13" FontWeight="Bold" Foreground="#059669" Margin="0,0,0,10" Padding="10,10,10,15">
+                <StackPanel>
 
-                    <TextBlock Text="Phòng ban" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập phòng ban" Text="{Binding Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Grid Margin="0,0,0,12">
+                        <TextBlock Text="Cách 1: Nhập thủ công một thiết bị đơn lẻ" VerticalAlignment="Center" FontStyle="Italic" Foreground="#6B7280"/>
+                        <Button Content="Cách 2: Nhập nhanh hàng loạt từ file CSV" HorizontalAlignment="Right" Width="240" Height="32" Background="#ECFDF5" Foreground="#059669" FontWeight="SemiBold" BorderBrush="#A7F3D0" Command="{Binding ImportFileCommand}" Cursor="Hand">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="6"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
 
-                    <TextBlock Text="Vị trí" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập vị trí" Text="{Binding Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Số Serial" FontWeight="SemiBold" Foreground="#374151" Margin="0,0,0,6"/>
+                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập số mã số định danh" Text="{Binding Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Text="Trạng thái ban đầu" FontWeight="SemiBold" Foreground="#374151" Margin="0,12,0,6"/>
+                            <ComboBox Style="{StaticResource ModernComboBox}" Height="38" SelectedValue="{Binding Status, Mode=TwoWay}" SelectedValuePath="Content">
+                                <ComboBoxItem Content="Đang hoạt động"/>
+                                <ComboBoxItem Content="Đang bảo trì"/>
+                                <ComboBoxItem Content="Ngừng hoạt động"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Tên Phòng Ban phân bổ" FontWeight="SemiBold" Foreground="#374151" Margin="0,0,0,6"/>
+                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập tên phòng chính xác" Text="{Binding Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
-            </Grid>
+            </GroupBox>
 
-            <TextBlock Text="Hình ảnh thiết bị" FontWeight="SemiBold" Margin="0,20,0,8"/>
-            <Border Height="150" BorderBrush="#D1D5DB" BorderThickness="1.5" CornerRadius="8" Background="#F9FAFB">
-                <Grid>
-                    <Image Source="{Binding ImagePath}" Stretch="Uniform" Margin="8">
-                        <Image.Style>
-                            <Style TargetType="Image">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ImagePath}" Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding ImagePath}" Value="">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <StackPanel.Style>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ImagePath}" Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding ImagePath}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </StackPanel.Style>
-
-                        <fa:ImageAwesome Icon="Image" Width="40" Height="40" Foreground="#6B7280" Margin="0,0,0,10"/>
-                        <TextBlock Text="Kéo thả ảnh hoặc click để chọn" Foreground="#6B7280" HorizontalAlignment="Center"/>
-                        <Button Content="Chọn tệp" Margin="0,10,0,0" Width="100" Height="32" Background="#F3F4F6" BorderBrush="#D1D5DB" Command="{Binding SelectImageCommand}"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
-                <Button Content="Hủy bỏ" Width="100" Height="40" Background="White" BorderBrush="#D1D5DB" BorderThickness="1" Margin="0,0,12,0" Cursor="Hand" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <Button Content="Thêm thiết bị" Width="130" Height="40" Background="#2563EB" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand" Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                <Button Content="Hủy bỏ" Width="100" Height="38" Background="White" BorderBrush="#D1D5DB" Margin="0,0,12,0" Cursor="Hand" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="6"/>
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="Xác nhận Lưu" Width="130" Height="38" Background="#2563EB" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand" Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
                         </Style>
                     </Button.Resources>
                 </Button>
