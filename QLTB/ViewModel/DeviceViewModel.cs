@@ -11,37 +11,46 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
-using QLTB.Models; 
+using QLTB.Models;
 
 namespace QLTB.ViewModel
 {
+    public class DeviceDisplayItem
+    {
+        public int IdthietBi { get; set; }
+        public string TenThietBi { get; set; }
+        public string LoaiThietBi { get; set; }
+        public string DonViSanXuat { get; set; }
+        public int? SoLuong { get; set; }
+        public double? Gia { get; set; }
+        public DateTime? NgayNhapThietBi { get; set; }
+        public string Serial { get; set; }
+        public string Status { get; set; }
+    }
+
     public class DeviceViewModel : INotifyPropertyChanged
     {
         private readonly QuanLyVatTuContext _context;
 
-        private ObservableCollection<ThietBi> _devices;
-        public ObservableCollection<ThietBi> Devices
+        private ObservableCollection<DeviceDisplayItem> _devices;
+        public ObservableCollection<DeviceDisplayItem> Devices
         {
             get => _devices;
             set { _devices = value; OnPropertyChanged(nameof(Devices)); }
         }
 
-        private ObservableCollection<ThietBi> _filteredDevices;
-        public ObservableCollection<ThietBi> FilteredDevices
+        private ObservableCollection<DeviceDisplayItem> _filteredDevices;
+        public ObservableCollection<DeviceDisplayItem> FilteredDevices
         {
             get => _filteredDevices;
             set { _filteredDevices = value; OnPropertyChanged(nameof(FilteredDevices)); }
         }
 
-        private ThietBi _selectedDevice;
-        public ThietBi SelectedDevice
+        private DeviceDisplayItem _selectedDevice;
+        public DeviceDisplayItem SelectedDevice
         {
             get => _selectedDevice;
-            set
-            {
-                _selectedDevice = value;
-                OnPropertyChanged(nameof(SelectedDevice));
-            }
+            set { _selectedDevice = value; OnPropertyChanged(nameof(SelectedDevice)); }
         }
 
         private string _searchText;
@@ -60,18 +69,13 @@ namespace QLTB.ViewModel
         public bool IsGridView
         {
             get => _isGridView;
-            set
-            {
-                _isGridView = value;
-                OnPropertyChanged(nameof(IsGridView));
-            }
+            set { _isGridView = value; OnPropertyChanged(nameof(IsGridView)); }
         }
 
-        // Thống kê dựa trên các trường thực tế của bảng ThietBi
         public int TotalDevices => Devices?.Count ?? 0;
-        public int ActiveDevices => Devices?.Count(d => d.LoaiThietBi == "Hoạt động") ?? 0;
-        public int MaintenanceDevices => Devices?.Count(d => d.LoaiThietBi == "Bảo trì") ?? 0;
-        public int InactiveDevices => Devices?.Count(d => d.LoaiThietBi == "Ngừng hoạt động") ?? 0;
+        public int ActiveDevices => Devices?.Count(d => d.Status == "Đang hoạt động") ?? 0;
+        public int MaintenanceDevices => Devices?.Count(d => d.Status == "Đang bảo trì") ?? 0;
+        public int InactiveDevices => Devices?.Count(d => d.Status == "Ngừng hoạt động") ?? 0;
 
         public ICommand AddDeviceCommand { get; set; }
         public ICommand EditDeviceCommand { get; set; }
@@ -85,16 +89,12 @@ namespace QLTB.ViewModel
         {
             _context = new QuanLyVatTuContext();
 
-            // Gọi hàm lấy dữ liệu từ database thực tế
-            LoadDataFromDatabase();
+            _ = LoadDataFromDatabaseAsync();
 
             SwitchToListViewCommand = new RelayCommand(o => IsGridView = false);
             SwitchToGridViewCommand = new RelayCommand(o => IsGridView = true);
 
-            // ==========================================
-            // LỆNH: THÊM THIẾT BỊ MỚI
-            // ==========================================
-            AddDeviceCommand = new RelayCommand(o =>
+            AddDeviceCommand = new RelayCommand(async o =>
             {
                 var formViewModel = new DeviceFormViewModel();
                 var deviceForm = new QLTB.UserControlFolder.Device.DeviceFormView { DataContext = formViewModel };
@@ -114,26 +114,58 @@ namespace QLTB.ViewModel
 
                 if (formViewModel.IsSaved)
                 {
-                    var newDevice = new ThietBi
+                    var existingDevice = await _context.ThietBis
+                        .FirstOrDefaultAsync(t => t.TenThietBi.ToLower() == formViewModel.Name.ToLower()
+                                               && t.DonViSanXuat.ToLower() == formViewModel.Manufacturer.ToLower());
+
+                    int targetDeviceId;
+
+                    if (existingDevice != null)
                     {
-                        TenThietBi = formViewModel.Name,
-                        LoaiThietBi = formViewModel.Status,
-                        DonViSanXuat = formViewModel.Manufacturer,
-                        NgayNhapThietBi = DateTime.Now
+                        targetDeviceId = existingDevice.IdthietBi;
+                    }
+                    else
+                    {
+                        var newDevice = new ThietBi
+                        {
+                            TenThietBi = formViewModel.Name,
+                            LoaiThietBi = "Thiết bị điện tử",
+                            DonViSanXuat = formViewModel.Manufacturer,
+                            NgayNhapThietBi = DateTime.Now
+                        };
+
+                        _context.ThietBis.Add(newDevice);
+                        await _context.SaveChangesAsync();
+                        targetDeviceId = newDevice.IdthietBi;
+                    }
+
+                    int? departmentId = null;
+                    if (!string.IsNullOrWhiteSpace(formViewModel.Department))
+                    {
+                        var pb = await _context.PhongBans.FirstOrDefaultAsync(p => p.TenPhong == formViewModel.Department);
+                        if (pb != null)
+                        {
+                            departmentId = pb.Idphong;
+                        }
+                    }
+
+                    var newDetail = new ChiTietThietBi
+                    {
+                        IdthietBi = targetDeviceId,
+                        SoSeri = formViewModel.Serial,
+                        TinhTrang = formViewModel.Status == "Đang hoạt động" ? "Tốt" : formViewModel.Status,
+                        IdphongBan = departmentId
                     };
 
-                    _context.ThietBis.Add(newDevice); // Thêm vào DbSet trong bối cảnh dữ liệu
-                    _context.SaveChanges();          // Lưu xuống Somee mssql Server
+                    _context.ChiTietThietBis.Add(newDetail);
+                    await _context.SaveChangesAsync();
 
-                    LoadDataFromDatabase(); // Cập nhật lại UI và thống kê
-                    MessageBox.Show("Thêm thiết bị mới vào cơ sở dữ liệu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    await LoadDataFromDatabaseAsync();
+                    MessageBox.Show("Thêm thiết bị và cập nhật số lượng kho thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             });
 
-            // ==========================================
-            // LỆNH: CHỈNH SỬA THIẾT BỊ
-            // ==========================================
-            EditDeviceCommand = new RelayCommand(o =>
+            EditDeviceCommand = new RelayCommand(async o =>
             {
                 if (SelectedDevice == null)
                 {
@@ -141,8 +173,13 @@ namespace QLTB.ViewModel
                     return;
                 }
 
-                // Đã sửa: formViewModel nhận SelectedDevice kiểu ThietBi chuẩn xác
-                var formViewModel = new DeviceFormViewModel(SelectedDevice);
+                var dbDevice = await _context.ThietBis
+                                             .Include(d => d.ChiTietThietBis)
+                                                .ThenInclude(ct => ct.IdphongBanNavigation)
+                                             .FirstOrDefaultAsync(d => d.IdthietBi == SelectedDevice.IdthietBi);
+                if (dbDevice == null) return;
+
+                var formViewModel = new DeviceFormViewModel(dbDevice);
                 var deviceForm = new QLTB.UserControlFolder.Device.DeviceFormView { DataContext = formViewModel };
 
                 Window window = new Window
@@ -160,68 +197,101 @@ namespace QLTB.ViewModel
 
                 if (formViewModel.IsSaved)
                 {
-                    // Lấy bản ghi thực tế trong Db dựa trên Khóa chính IDThietBi
-                    var dbDevice = _context.ThietBis.FirstOrDefault(d => d.IdthietBi == SelectedDevice.IdthietBi);
-                    if (dbDevice != null)
+                    dbDevice.TenThietBi = formViewModel.Name;
+                    dbDevice.DonViSanXuat = formViewModel.Manufacturer;
+
+                    var detail = dbDevice.ChiTietThietBis.FirstOrDefault();
+                    if (detail != null)
                     {
-                        dbDevice.TenThietBi = formViewModel.Name;
-                        dbDevice.LoaiThietBi = formViewModel.Status;
-                        dbDevice.DonViSanXuat = formViewModel.Manufacturer;
+                        detail.SoSeri = formViewModel.Serial;
+                        detail.TinhTrang = formViewModel.Status == "Đang hoạt động" ? "Tốt" : formViewModel.Status;
 
-                        _context.SaveChanges(); // Cập nhật thay đổi lên cơ sở dữ liệu
-
-                        LoadDataFromDatabase();
-                        MessageBox.Show("Cập nhật thông tin thiết bị thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        if (!string.IsNullOrWhiteSpace(formViewModel.Department))
+                        {
+                            var pb = await _context.PhongBans.FirstOrDefaultAsync(p => p.TenPhong == formViewModel.Department);
+                            if (pb != null)
+                            {
+                                detail.IdphongBan = pb.Idphong;
+                            }
+                        }
+                        else
+                        {
+                            detail.IdphongBan = null;
+                        }
                     }
+
+                    await _context.SaveChangesAsync();
+                    await LoadDataFromDatabaseAsync();
+                    MessageBox.Show("Cập nhật thông tin thiết bị thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             });
 
-            // ==========================================
-            // LỆNH: XÓA THIẾT BỊ
-            // ==========================================
-            DeleteDeviceCommand = new RelayCommand(o =>
+            // Lệnh xóa đã được tối ưu hóa để loại bỏ ràng buộc khóa ngoại trước khi xóa cha
+            DeleteDeviceCommand = new RelayCommand(async o =>
             {
                 if (SelectedDevice == null)
                 {
-                    MessageBox.Show("Vui lòng chọn một thiết bị để xóa!", "Thông báo");
+                    MessageBox.Show("Vui lòng chọn một thiết bị để xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                var result = MessageBox.Show($"Bạn có chắc muốn xóa thiết bị {SelectedDevice.TenThietBi} khỏi hệ thống?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                var result = MessageBox.Show($"Bạn có chắc muốn xóa thiết bị {SelectedDevice.TenThietBi} khỏi hệ thống? Tất cả các số Serial chi tiết liên quan cũng sẽ bị xóa bỏ hoàn toàn.", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var dbDevice = _context.ThietBis.FirstOrDefault(d => d.IdthietBi == SelectedDevice.IdthietBi);
+                    var dbDevice = await _context.ThietBis
+                                                 .Include(d => d.ChiTietThietBis)
+                                                 .FirstOrDefaultAsync(d => d.IdthietBi == SelectedDevice.IdthietBi);
                     if (dbDevice != null)
                     {
-                        _context.ThietBis.Remove(dbDevice); // Lệnh xóa đối tượng
-                        _context.SaveChanges();          // Thực thi DELETE lệnh SQL
+                        if (dbDevice.ChiTietThietBis != null && dbDevice.ChiTietThietBis.Any())
+                        {
+                            _context.ChiTietThietBis.RemoveRange(dbDevice.ChiTietThietBis);
+                        }
 
-                        LoadDataFromDatabase();
+                        _context.ThietBis.Remove(dbDevice);
+                        await _context.SaveChangesAsync();
+
+                        await LoadDataFromDatabaseAsync();
+                        MessageBox.Show("Xóa thiết bị khỏi hệ thống thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             });
 
             ExportCommand = new RelayCommand(o => ExportToCsv());
-            ImportCommand = new RelayCommand(o => ImportFromCsv());
+            ImportCommand = new RelayCommand(async o => await ImportFromCsvAsync());
         }
 
-        private void LoadData()
-        {
-            if (Devices != null)
-            {
-                FilterDevices();
-                RefreshStats();
-            }
-        }
-
-        // Hàm đọc dữ liệu thực tế kết nối trực tiếp từ Server SQL Somee
-        private void LoadDataFromDatabase()
+        private async Task LoadDataFromDatabaseAsync()
         {
             try
             {
-                var list = _context.ThietBis.ToList();
+                var rawList = await _context.ThietBis
+                                             .Include(d => d.ChiTietThietBis)
+                                             .ToListAsync();
 
-                Devices = new ObservableCollection<ThietBi>(list);
+                var mappedList = rawList.Select(d => {
+                    var firstDetail = d.ChiTietThietBis.FirstOrDefault();
+                    string statusText = "Đang hoạt động";
+                    if (firstDetail != null && !string.IsNullOrEmpty(firstDetail.TinhTrang) && firstDetail.TinhTrang != "Tốt")
+                    {
+                        statusText = firstDetail.TinhTrang;
+                    }
+
+                    return new DeviceDisplayItem
+                    {
+                        IdthietBi = d.IdthietBi,
+                        TenThietBi = d.TenThietBi,
+                        LoaiThietBi = d.LoaiThietBi,
+                        DonViSanXuat = d.DonViSanXuat,
+                        SoLuong = d.ChiTietThietBis.Count,
+                        Gia = d.Gia,
+                        NgayNhapThietBi = d.NgayNhapThietBi,
+                        Serial = firstDetail?.SoSeri ?? "Không có",
+                        Status = statusText
+                    };
+                }).ToList();
+
+                Devices = new ObservableCollection<DeviceDisplayItem>(mappedList);
                 FilterDevices();
                 RefreshStats();
             }
@@ -231,16 +301,15 @@ namespace QLTB.ViewModel
             }
         }
 
-        // Tìm kiếm an toàn chống dính lỗi hệ thống NullReferenceException nếu chuỗi trong database trống
         private void FilterDevices()
         {
             if (string.IsNullOrEmpty(SearchText))
             {
-                FilteredDevices = new ObservableCollection<ThietBi>(Devices ?? new ObservableCollection<ThietBi>());
+                FilteredDevices = new ObservableCollection<DeviceDisplayItem>(Devices ?? new ObservableCollection<DeviceDisplayItem>());
             }
             else
             {
-                FilteredDevices = new ObservableCollection<ThietBi>(
+                FilteredDevices = new ObservableCollection<DeviceDisplayItem>(
                     Devices.Where(d => (d.TenThietBi != null && d.TenThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
                                     || (d.LoaiThietBi != null && d.LoaiThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
                                     || (d.DonViSanXuat != null && d.DonViSanXuat.Contains(SearchText, StringComparison.OrdinalIgnoreCase))));
@@ -277,7 +346,7 @@ namespace QLTB.ViewModel
             }
         }
 
-        private void ImportFromCsv()
+        private async Task ImportFromCsvAsync()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "CSV Files|*.csv" };
             if (openFileDialog.ShowDialog() == true)
@@ -299,10 +368,9 @@ namespace QLTB.ViewModel
                             });
                         }
                     }
-                    _context.SaveChanges();
-
-                    LoadDataFromDatabase();
-                    MessageBox.Show("Nhập dữ liệu từ file và lưu vào database thành công!");
+                    await _context.SaveChangesAsync();
+                    await LoadDataFromDatabaseAsync();
+                    MessageBox.Show("Nhập dữ liệu từ file và lưu vào database thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex) { MessageBox.Show("Lỗi nhập file: " + ex.Message); }
             }

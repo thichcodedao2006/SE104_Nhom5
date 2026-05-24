@@ -1,19 +1,16 @@
 ﻿using QLTB.Helpers;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using QLTB.Models; // BẮT BUỘC THÊM DÒNG NÀY để nhận diện lớp ThietBi từ Database
+using QLTB.Models;
 
 namespace QLTB.ViewModel
 {
     public class DeviceFormViewModel : BaseViewModel
     {
-        // Các thuộc tính để Bind vào TextBox trên giao diện Form
         private string _name;
         public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
-
-        private string _model;
-        public string Model { get => _model; set { _model = value; OnPropertyChanged(); } }
 
         private string _serial;
         public string Serial { get => _serial; set { _serial = value; OnPropertyChanged(); } }
@@ -27,59 +24,78 @@ namespace QLTB.ViewModel
         private string _location;
         public string Location { get => _location; set { _location = value; OnPropertyChanged(); } }
 
-        private string _status = "Hoạt động"; // Mặc định là Hoạt động
+        private string _status = "Đang hoạt động";
         public string Status { get => _status; set { _status = value; OnPropertyChanged(); } }
 
-        private string _warrantyDate = DateTime.Now.AddYears(2).ToString("dd/MM/yyyy"); // Mặc định 2 năm bảo hành
+        private string _warrantyDate = DateTime.Now.AddYears(2).ToString("dd/MM/yyyy");
         public string WarrantyDate { get => _warrantyDate; set { _warrantyDate = value; OnPropertyChanged(); } }
 
         private string _imagePath;
-        public string ImagePath
-        {
-            get => _imagePath;
-            set
-            {
-                _imagePath = value;
-                OnPropertyChanged(nameof(ImagePath));
-            }
-        }
+        public string ImagePath { get => _imagePath; set { _imagePath = value; OnPropertyChanged(nameof(ImagePath)); } }
 
-        // Biến lưu trạng thái người dùng nhấn Lưu hay Hủy
         public bool IsSaved { get; private set; } = false;
 
-        // Các lệnh (Commands)
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand SelectImageCommand { get; set; }
 
-        // Hàm khởi tạo dùng khi THÊM MỚI (Giữ nguyên)
         public DeviceFormViewModel()
         {
             InitCommands();
         }
 
-        // ĐÃ SỬA: Đổi kiểu dữ liệu tham số nhận vào từ 'Device' cũ thành 'ThietBi' mới từ Database
         public DeviceFormViewModel(ThietBi existingDevice)
         {
-            // Đồng bộ ánh xạ dữ liệu từ các cột của bảng ThietBi trong SQL Server ra Form
-            Name = existingDevice.TenThietBi;
-            Status = existingDevice.LoaiThietBi;
-            Manufacturer = existingDevice.DonViSanXuat;
+            if (existingDevice != null)
+            {
+                Name = existingDevice.TenThietBi;
+                Manufacturer = existingDevice.DonViSanXuat;
+                WarrantyDate = existingDevice.NgayNhapThietBi?.ToString("dd/MM/yyyy") ?? DateTime.Now.ToString("dd/MM/yyyy");
 
-            // Vì bảng ThietBi trên DB Somee hiện tại của bạn không có các cột Model, Serial, Department, Location 
-            // nên ta sẽ tạm thời gán chuỗi rỗng để không bị lỗi giao diện UI, hoặc bạn có thể Scaffold lại nếu DB đã cập nhật cột.
-            Model = string.Empty;
-            Serial = string.Empty;
-            Department = string.Empty;
-            Location = string.Empty;
-            WarrantyDate = existingDevice.NgayNhapThietBi?.ToString("dd/MM/yyyy") ?? DateTime.Now.ToString("dd/MM/yyyy");
+                if (existingDevice.LoaiThietBi != null && (existingDevice.LoaiThietBi.Contains(":\\") || existingDevice.LoaiThietBi.Contains(":/")))
+                {
+                    ImagePath = existingDevice.LoaiThietBi;
+                }
+
+                var firstDetail = existingDevice.ChiTietThietBis?.FirstOrDefault();
+                if (firstDetail != null)
+                {
+                    Serial = firstDetail.SoSeri;
+
+                    if (string.IsNullOrEmpty(firstDetail.TinhTrang) || firstDetail.TinhTrang == "Tốt")
+                    {
+                        Status = "Đang hoạt động";
+                    }
+                    else
+                    {
+                        Status = firstDetail.TinhTrang;
+                    }
+
+                    if (firstDetail.IdphongBanNavigation != null)
+                    {
+                        Department = firstDetail.IdphongBanNavigation.TenPhong ?? string.Empty;
+                        Location = firstDetail.IdphongBanNavigation.ViTri != null ? "Tầng " + firstDetail.IdphongBanNavigation.ViTri : string.Empty;
+                    }
+                    else
+                    {
+                        Department = string.Empty;
+                        Location = string.Empty;
+                    }
+                }
+                else
+                {
+                    Serial = string.Empty;
+                    Status = "Đang hoạt động";
+                    Department = string.Empty;
+                    Location = string.Empty;
+                }
+            }
 
             InitCommands();
         }
 
         private void InitCommands()
         {
-            // Logic khi nhấn nút Lưu
             SaveCommand = new RelayCommand(o =>
             {
                 if (string.IsNullOrWhiteSpace(Name))
@@ -90,7 +106,6 @@ namespace QLTB.ViewModel
 
                 IsSaved = true;
 
-                // Tìm Window đang chứa Form này và đóng nó lại
                 if (o is Window currentWindow)
                 {
                     currentWindow.Close();
@@ -107,12 +122,11 @@ namespace QLTB.ViewModel
 
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    ImagePath = openFileDialog.FileName; // Lưu đường dẫn file ảnh đã chọn
+                    ImagePath = openFileDialog.FileName;
                     MessageBox.Show("Đã chọn ảnh thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             });
 
-            // Logic khi nhấn nút Hủy
             CancelCommand = new RelayCommand(o =>
             {
                 IsSaved = false;

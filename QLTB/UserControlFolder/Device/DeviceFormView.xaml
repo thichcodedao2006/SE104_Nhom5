@@ -11,20 +11,13 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
     </UserControl.Resources>
 
-    <Border Width="650"
-            Background="{StaticResource MainBackgroundBrush}"
-            CornerRadius="12"
-            Padding="25">
+    <Border Width="650" Background="{StaticResource MainBackgroundBrush}" CornerRadius="12" Padding="25">
         <Border.Effect>
             <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="1" Opacity="0.1"/>
         </Border.Effect>
 
         <StackPanel>
-            <TextBlock Text="Thêm thiết bị mới" 
-                       FontSize="22" 
-                       FontWeight="Bold" 
-                       Foreground="#111827" 
-                       Margin="0,0,0,20"/>
+            <TextBlock Text="Thêm thiết bị mới" FontSize="22" FontWeight="Bold" Foreground="#111827" Margin="0,0,0,20"/>
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -35,43 +28,28 @@
 
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Tên thiết bị" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" 
-                             Tag="Nhập tên thiết bị" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <TextBlock Text="Mã tài sản" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" 
-                             Tag="Nhập mã tài sản" Text="{Binding AssetCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập tên thiết bị" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Text="Nhà sản xuất" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" 
-                             Tag="Nhập nhà sản xuất" Text="{Binding Manufacturer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <TextBlock Text="Vị trí" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" 
-                             Tag="Nhập vị trí" Text="{Binding Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
-
-                <StackPanel Grid.Column="2">
-                    <TextBlock Text="Số Serial" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" 
-                             Tag="Nhập số serial" Text="{Binding Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <TextBlock Text="Model" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" 
-                             Tag="Nhập model" Text="{Binding Model, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <TextBlock Text="Phòng ban" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" 
-                             Tag="Nhập phòng ban" Text="{Binding Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập nhà sản xuất" Text="{Binding Manufacturer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Text="Trạng thái" FontWeight="SemiBold" Margin="0,15,0,8"/>
-                    <ComboBox Style="{StaticResource ModernComboBox}" Height="40" SelectedIndex="0"
-                              SelectedValue="{Binding Status, Mode=TwoWay}" 
-                              SelectedValuePath="Content">
+                    <ComboBox Style="{StaticResource ModernComboBox}" Height="40" SelectedValue="{Binding Status, Mode=TwoWay}" SelectedValuePath="Content">
                         <ComboBoxItem Content="Đang hoạt động"/>
                         <ComboBoxItem Content="Đang bảo trì"/>
                         <ComboBoxItem Content="Ngừng hoạt động"/>
                     </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Số Serial" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập số serial" Text="{Binding Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Text="Phòng ban" FontWeight="SemiBold" Margin="0,15,0,8"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập phòng ban" Text="{Binding Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Text="Vị trí" FontWeight="SemiBold" Margin="0,15,0,8"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập vị trí" Text="{Binding Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </Grid>
 
@@ -111,22 +89,14 @@
 
                         <fa:ImageAwesome Icon="Image" Width="40" Height="40" Foreground="#6B7280" Margin="0,0,0,10"/>
                         <TextBlock Text="Kéo thả ảnh hoặc click để chọn" Foreground="#6B7280" HorizontalAlignment="Center"/>
-                        <Button Content="Chọn tệp" Margin="0,10,0,0" Width="100" Height="32" 
-                                Background="#F3F4F6" BorderBrush="#D1D5DB"
-                                Command="{Binding SelectImageCommand}"/>
+                        <Button Content="Chọn tệp" Margin="0,10,0,0" Width="100" Height="32" Background="#F3F4F6" BorderBrush="#D1D5DB" Command="{Binding SelectImageCommand}"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,25,0,0">
-                <Button Content="Hủy bỏ" Width="100" Height="40" Background="White" BorderBrush="#D1D5DB" BorderThickness="1" 
-                        Margin="0,0,12,0" Cursor="Hand" 
-                        Command="{Binding CancelCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <Button Content="Thêm thiết bị" Width="130" Height="40" Background="#2563EB" Foreground="White" 
-                        FontWeight="Bold" BorderThickness="0" Cursor="Hand" 
-                        Command="{Binding SaveCommand}" 
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+                <Button Content="Hủy bỏ" Width="100" Height="40" Background="White" BorderBrush="#D1D5DB" BorderThickness="1" Margin="0,0,12,0" Cursor="Hand" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+                <Button Content="Thêm thiết bị" Width="130" Height="40" Background="#2563EB" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand" Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="6"/>

@@ -65,7 +65,20 @@ namespace QLTB.ViewModel
             }
         }
 
+        private string _selectedTimeFilter = "Tất cả thời gian";
+        public string SelectedTimeFilter
+        {
+            get => _selectedTimeFilter;
+            set
+            {
+                _selectedTimeFilter = value;
+                OnPropertyChanged(nameof(SelectedTimeFilter));
+                FilterHistory();
+            }
+        }
+
         public ICommand ViewDetailsCommand { get; set; }
+        public ICommand ExportToExcelCommand { get; set; }
 
         public MaintenanceHistoryViewModel()
         {
@@ -73,14 +86,13 @@ namespace QLTB.ViewModel
             _allDbRecords = new List<BaoTri>();
             HistoryRecords = new ObservableCollection<BaoTri>();
 
-            LoadHistoryFromDatabase();
+            _ = LoadHistoryFromDatabaseAsync();
 
             ViewDetailsCommand = new RelayCommand(o =>
             {
                 if (o is BaoTri record)
                 {
                     var detailViewModel = new MaintenanceDetailViewModel(record);
-
                     var detailForm = new QLTB.UserControlFolder.Maintenance.MaintenanceDetailView { DataContext = detailViewModel };
 
                     Window window = new Window
@@ -90,28 +102,29 @@ namespace QLTB.ViewModel
                         SizeToContent = SizeToContent.WidthAndHeight,
                         WindowStartupLocation = WindowStartupLocation.CenterScreen,
                         ResizeMode = ResizeMode.NoResize,
-                        WindowStyle = WindowStyle.None, 
-                        AllowsTransparency = true       
+                        WindowStyle = WindowStyle.None,
+                        AllowsTransparency = true
                     };
 
                     window.ShowDialog();
                 }
             });
+
+            ExportToExcelCommand = new RelayCommand(o => ExportToCsv());
         }
 
-        private void LoadHistoryFromDatabase()
+        private async Task LoadHistoryFromDatabaseAsync()
         {
             try
             {
-                // ĐÃ SỬA: Đổi điều kiện thành "Hoàn thành" để khớp chính xác dữ liệu trong SSMS của bạn
-                _allDbRecords = _context.BaoTris
+                _allDbRecords = await _context.BaoTris
                     .Include(b => b.IddichVuNavigation)
                     .Include(b => b.IdnhanVienNavigation)
                     .Include(b => b.ChiTietThietBi)
                         .ThenInclude(ct => ct.IdthietBiNavigation)
                     .Where(b => b.TinhTrangBaoTri == "Hoàn thành")
                     .OrderByDescending(b => b.NgayBaoTri)
-                    .ToList();
+                    .ToListAsync();
 
                 FilterHistory();
                 UpdateStatistics();
@@ -124,32 +137,98 @@ namespace QLTB.ViewModel
 
         private void FilterHistory()
         {
-            if (string.IsNullOrEmpty(SearchText))
+            if (_allDbRecords == null) return;
+
+            var query = _allDbRecords.AsEnumerable();
+
+            if (!string.IsNullOrEmpty(SearchText))
             {
-                HistoryRecords = new ObservableCollection<BaoTri>(_allDbRecords);
+                query = query.Where(b =>
+                    (b.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi != null && b.ChiTietThietBi.IdthietBiNavigation.TenThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (b.IddichVuNavigation?.TenDichVu != null && b.IddichVuNavigation.TenDichVu.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (b.IdnhanVienNavigation?.HoTen != null && b.IdnhanVienNavigation.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (b.SoSeri != null && b.SoSeri.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                );
             }
-            else
+
+            DateTime now = DateTime.Now;
+            if (SelectedTimeFilter == "Tháng này")
             {
-                HistoryRecords = new ObservableCollection<BaoTri>(
-                    _allDbRecords.Where(b =>
-                        (b.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi != null && b.ChiTietThietBi.IdthietBiNavigation.TenThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                        (b.IddichVuNavigation?.TenDichVu != null && b.IddichVuNavigation.TenDichVu.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                        (b.IdnhanVienNavigation?.HoTen != null && b.IdnhanVienNavigation.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                        (b.SoSeri != null && b.SoSeri.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                    ));
+                query = query.Where(b => b.NgayBaoTri.HasValue && b.NgayBaoTri.Value.Month == now.Month && b.NgayBaoTri.Value.Year == now.Year);
             }
+            else if (SelectedTimeFilter == "Tháng trước")
+            {
+                var firstDayOfThisMonth = new DateTime(now.Year, now.Month, 1);
+                var firstDayOfLastMonth = firstDayOfThisMonth.AddMonths(-1);
+                query = query.Where(b => b.NgayBaoTri.HasValue && b.NgayBaoTri.Value >= firstDayOfLastMonth && b.NgayBaoTri.Value < firstDayOfThisMonth);
+            }
+            else if (SelectedTimeFilter == "3 Tháng trước")
+            {
+                var threeMonthsAgo = now.AddMonths(-3);
+                query = query.Where(b => b.NgayBaoTri.HasValue && b.NgayBaoTri.Value >= threeMonthsAgo);
+            }
+
+            HistoryRecords = new ObservableCollection<BaoTri>(query);
         }
 
         private void UpdateStatistics()
         {
             TotalRecords = _allDbRecords.Count;
+            DateTime now = DateTime.Now;
 
             ThisMonth = _allDbRecords.Count(b => b.NgayBaoTri.HasValue &&
-                                                b.NgayBaoTri.Value.Month == 5 &&
-                                                b.NgayBaoTri.Value.Year == 2026);
+                                                b.NgayBaoTri.Value.Month == now.Month &&
+                                                b.NgayBaoTri.Value.Year == now.Year);
 
             TotalCost = _allDbRecords.Sum(b => b.IddichVuNavigation?.GiaDichVu ?? 0);
             AvgCost = TotalRecords > 0 ? TotalCost / TotalRecords : 0;
+        }
+
+        private void ExportToCsv()
+        {
+            if (HistoryRecords == null || !HistoryRecords.Any())
+            {
+                MessageBox.Show("Không có dữ liệu để xuất file!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "CSV Files (*.csv)|*.csv",
+                FileName = $"LichSuBaoTri_{DateTime.Now:yyyyMMdd_HHmmss}.csv"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    var sb = new StringBuilder();
+                    sb.AppendLine("Thiết bị,Số Seri,Loại hình dịch vụ,Ngày hoàn thành,Kỹ thuật viên,Chi phí (đ)");
+
+                    foreach (var item in HistoryRecords)
+                    {
+                        string device = item.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "N/A";
+                        string serial = item.SoSeri ?? "N/A";
+                        string service = item.IddichVuNavigation?.TenDichVu ?? "N/A";
+                        string date = item.NgayBaoTri.HasValue ? item.NgayBaoTri.Value.ToString("dd/MM/yyyy") : "N/A";
+                        string tech = item.IdnhanVienNavigation?.HoTen ?? "N/A";
+                        string cost = (item.IddichVuNavigation?.GiaDichVu ?? 0).ToString("F0");
+
+                        device = device.Contains(",") ? $"\"{device}\"" : device;
+                        service = service.Contains(",") ? $"\"{service}\"" : service;
+                        tech = tech.Contains(",") ? $"\"{tech}\"" : tech;
+
+                        sb.AppendLine($"{device},{serial},{service},{date},{tech},{cost}");
+                    }
+
+                    System.IO.File.WriteAllText(saveFileDialog.FileName, sb.ToString(), Encoding.UTF8);
+                    MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xuất file: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

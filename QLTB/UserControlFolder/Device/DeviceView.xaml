@@ -121,11 +121,12 @@
                         </DataGrid.Style>
 
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="THIẾT BỊ" Width="2*">
+
+                            <DataGridTemplateColumn Header="THIẾT BỊ" Width="2.2*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <Border Width="42" Height="42" Background="#D946EF" CornerRadius="21" Margin="0 0 12 0">
+                                            <Border Width="42" Height="42" Background="#8B5CF6" CornerRadius="21" Margin="0 0 12 0">
                                                 <fa:ImageAwesome Icon="Desktop" Width="18" Height="18" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Border>
                                             <StackPanel VerticalAlignment="Center">
@@ -137,18 +138,47 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTextColumn Header="MÃ THIẾT BỊ" Binding="{Binding IdthietBi}" Width="1.2*" ElementStyle="{StaticResource CenterTextStyle}"/>
+                            <DataGridTextColumn Header="MÃ THIẾT BỊ" Binding="{Binding Serial}" Width="1.2*" ElementStyle="{StaticResource CenterTextStyle}"/>
 
                             <DataGridTextColumn Header="NHÀ SẢN XUẤT" Binding="{Binding DonViSanXuat}" Width="1.5*" ElementStyle="{StaticResource CenterTextStyle}"/>
 
                             <DataGridTextColumn Header="SỐ LƯỢNG" Binding="{Binding SoLuong}" Width="1.0*" ElementStyle="{StaticResource CenterTextStyle}"/>
+
                             <DataGridTextColumn Header="GIÁ" Binding="{Binding Gia, StringFormat=\{0:N0\} VNĐ}" Width="1.3*" ElementStyle="{StaticResource CenterTextStyle}"/>
 
-                            <DataGridTemplateColumn Header="TRẠNG THÁI" Width="1.2*">
+                            <DataGridTemplateColumn Header="TRẠNG THÁI" Width="1.4*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border CornerRadius="12" Padding="10 4" Background="#DCFCE7" HorizontalAlignment="Center">
-                                            <TextBlock Text="{Binding LoaiThietBi}" FontSize="12" FontWeight="SemiBold" Foreground="#047857"/>
+                                        <Border CornerRadius="12" Padding="12 4" HorizontalAlignment="Center">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Background" Value="#DCFCE7"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Đang bảo trì">
+                                                            <Setter Property="Background" Value="#FEF3C7"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Ngừng hoạt động">
+                                                            <Setter Property="Background" Value="#FEE2E2"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+
+                                            <TextBlock Text="{Binding Status, FallbackValue='Đang hoạt động'}" FontSize="12" FontWeight="SemiBold">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Foreground" Value="#047857"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Đang bảo trì">
+                                                                <Setter Property="Foreground" Value="#D97706"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Ngừng hoạt động">
+                                                                <Setter Property="Foreground" Value="#DC2626"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
                                         </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -159,12 +189,12 @@
                             <DataGridTemplateColumn Header="THAO TÁC" Width="1*" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" >
-                                            <Button Width="32" Height="32" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.EditDeviceCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                                <fa:ImageAwesome Icon="Edit" Width="14" Height="14" Foreground="#6B7280"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Width="32" Height="32" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.EditDeviceCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                                <fa:ImageAwesome Icon="Edit" Width="14" Height="14" Foreground="#2563EB"/>
                                             </Button>
-                                            <Button Width="32" Height="32" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.DeleteDeviceCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                                <fa:ImageAwesome Icon="Trash" Width="14" Height="14" Foreground="#6B7280"/>
+                                            <Button Width="32" Height="32" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.DeleteDeviceCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                                <fa:ImageAwesome Icon="Trash" Width="14" Height="14" Foreground="#EF4444"/>
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>
@@ -191,7 +221,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Width="170" Height="190" Background="White" Margin="10" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1" Padding="16">
+                                <Border Width="180" Height="200" Background="White" Margin="10" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1" Padding="16">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
@@ -206,11 +236,38 @@
                                         <StackPanel Grid.Row="1">
                                             <TextBlock Text="{Binding TenThietBi}" FontWeight="Bold" FontSize="14" Foreground="#111827" TextTrimming="CharacterEllipsis"/>
                                             <TextBlock Text="{Binding DonViSanXuat}" FontSize="12" Foreground="#6B7280" Margin="0 4 0 0" TextTrimming="CharacterEllipsis"/>
-                                            <TextBlock Text="{Binding Gia, StringFormat=\{0:N0\} VNĐ}" FontSize="11" Foreground="#9CA3AF" Margin="0 2 0 0"/>
+                                            <TextBlock Text="{Binding Gia, StringFormat=\{0:N0\} đ}" FontSize="11" Foreground="#9CA3AF" Margin="0 2 0 0"/>
                                         </StackPanel>
 
-                                        <Border Grid.Row="2" CornerRadius="8" Padding="8 4" Background="#DCFCE7" HorizontalAlignment="Left">
-                                            <TextBlock Text="{Binding LoaiThietBi}" FontSize="11" FontWeight="SemiBold" Foreground="#047857"/>
+                                        <Border Grid.Row="2" CornerRadius="8" Padding="8 4" HorizontalAlignment="Left">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Background" Value="#DCFCE7"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Đang bảo trì">
+                                                            <Setter Property="Background" Value="#FEF3C7"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Ngừng hoạt động">
+                                                            <Setter Property="Background" Value="#FEE2E2"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <TextBlock Text="{Binding Status, FallbackValue='Đang hoạt động'}" FontSize="11" FontWeight="SemiBold">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Foreground" Value="#047857"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Đang bảo trì">
+                                                                <Setter Property="Foreground" Value="#D97706"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Ngừng hoạt động">
+                                                                <Setter Property="Foreground" Value="#DC2626"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
                                         </Border>
                                     </Grid>
                                 </Border>

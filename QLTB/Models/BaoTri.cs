@@ -12,7 +12,7 @@ public partial class BaoTri
     public string? SoSeri { get; set; }
 
     public int? IddichVu { get; set; }
-
+    
     public int? IdnhanVien { get; set; }
 
     public DateTime? NgayBaoTri { get; set; }

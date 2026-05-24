@@ -29,6 +29,7 @@
     <None Remove="UserControlFolder\IncidentReport\IncidentReportFormView.xaml" />
     <None Remove="UserControlFolder\IncidentReport\IncidentReportView.xaml" />
     <None Remove="UserControlFolder\Maintenance\MaintenanceDetailView.xaml" />
+    <None Remove="UserControlFolder\Maintenance\MaintenanceEditFormView.xaml" />
     <None Remove="UserControlFolder\Maintenance\MaintenanceHistoryView.xaml" />
     <None Remove="UserControlFolder\Maintenance\MaintenancePlan.xaml" />
     <None Remove="UserControlFolder\Maintenance\MaintenancePlanFormView.xaml" />
@@ -118,6 +119,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\Maintenance\MaintenanceDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlFolder\Maintenance\MaintenanceEditFormView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlFolder\Maintenance\MaintenanceHistoryView.xaml">
