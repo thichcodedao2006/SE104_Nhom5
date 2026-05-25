@@ -23,6 +23,7 @@ namespace QLTB.UserControlFolder.Maintenance
         public MaintenancePlan()
         {
             InitializeComponent();
+            DataContext = new ViewModel.MaintenancePlanViewModel();
         }
     }
 }

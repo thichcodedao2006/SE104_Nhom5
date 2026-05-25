@@ -275,41 +275,6 @@
                         </Style>
                     </Button.Style>
                 </Button>
-
-                <Button Content="Lịch"
-                    Command="{Binding SwitchToCalendarViewCommand}"
-                    Height="36"
-                    Padding="16 0"
-                    FontWeight="SemiBold"
-                    Cursor="Hand">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="Foreground" Value="#6B7280"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}"
-                                            Padding="{TemplateBinding Padding}">
-                                            <ContentPresenter HorizontalAlignment="Center"
-                                                          VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsListView}" Value="False">
-                                    <Setter Property="Foreground" Value="#2563EB"/>
-                                    <Setter Property="BorderBrush" Value="#2563EB"/>
-                                    <Setter Property="BorderThickness" Value="0 0 0 2"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
             </StackPanel>
         </Grid>
 
@@ -362,6 +327,7 @@
 
                                         <Button Content="Xem chi tiết"
                                             Command="{Binding DataContext.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
                                             Style="{StaticResource BlueButton}"
                                             Height="36"
                                             Padding="16 0"

@@ -46,28 +46,28 @@
 
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Loại bảo trì" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#374151"/>
-                    <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
-                               BorderBrush="#D1D5DB" 
-                              ItemsSource="{Binding TenDichVu}" SelectedItem="{Binding SelectedType}">
-                        <ComboBoxItem Content="Phòng ngừa"/>
-                        <ComboBoxItem Content="Sửa chữa"/>
-                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding DichVuList}"
+                              DisplayMemberPath="TenDichVu"
+                              SelectedItem="{Binding SelectedDichVu}"
+                              Style="{StaticResource ModernComboBox}"/>
 
                     <TextBlock Text="Thiết bị" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
-                    <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
-                               BorderBrush="#D1D5DB" 
-                              ItemsSource="{Binding TenThietBi}" SelectedItem="{Binding SelectedDevice}">
-                        <ComboBoxItem Content="Máy CNC A"/>
-                        <ComboBoxItem Content="Máy Phay B"/>
-                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding ThietBiList}"
+                              DisplayMemberPath="TenThietBi"
+                              SelectedItem="{Binding SelectedThietBi}"
+                              Style="{StaticResource ModernComboBox}"/>
 
                     <TextBlock Text="Số Serial" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
-                    <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
-                               BorderBrush="#D1D5DB" 
-                              ItemsSource="{Binding SoSeri}" SelectedItem="{Binding SelectedCycle}">
-                        <ComboBoxItem Content="1123"/>
-                        <ComboBoxItem Content="2344"/>
-                        <ComboBoxItem Content="4445"/>
+                    <ComboBox Style="{StaticResource ModernComboBox}"
+                              Height="45"
+                              BorderBrush="#D1D5DB"
+                              ItemsSource="{Binding SerialOptions}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding SoSeri}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
 
                     <TextBlock Text="Chu kì bảo hành" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
@@ -82,18 +82,13 @@
                     <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
                                BorderBrush="#D1D5DB" 
                               ItemsSource="{Binding DoUuTien}" SelectedItem="{Binding SelectedPriority}">
-                        <ComboBoxItem Content="Cao"/>
-                        <ComboBoxItem Content="Trung bình"/>
-                        <ComboBoxItem Content="Thấp"/>
                     </ComboBox>
 
                     <TextBlock Text="Người thực hiện" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
-                    <ComboBox Style="{StaticResource ModernComboBox}" Height="45" SelectedIndex="0"
-                               BorderBrush="#D1D5DB" 
-                              ItemsSource="{Binding HoTen}" SelectedItem="{Binding SelectedEmployee}">
-                        <ComboBoxItem Content="Nguyễn Văn A"/>
-                        <ComboBoxItem Content="Trần Thị B"/>
-                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding NhanVienList}"
+                              DisplayMemberPath="HoTen"
+                              SelectedItem="{Binding SelectedNhanVien}"
+                              Style="{StaticResource ModernComboBox}"/>
 
                     <TextBlock Text="Chi phí ước tính ($)" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
                     <TextBox Style="{StaticResource RoundedTextBox}" Height="45" Padding="12,0" 
@@ -127,12 +122,14 @@
                         BorderBrush="#D1D5DB"
                         Foreground="#374151"
                         BorderThickness="1" Margin="0,0,15,0" 
-                        Cursor="Hand" Command="{Binding CancelCommand}"/>
+                        Cursor="Hand" Command="{Binding CancelCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 
                 <Button Content="Tạo kế hoạch" Width="150" Height="45" Background="#2563EB" 
                         Foreground="White" FontWeight="Bold" BorderThickness="0" 
-                        Cursor="Hand" Command="{Binding CreatePlanCommand}">
-                    <Button.Resources>
+                        Cursor="Hand" Command="{Binding CreatePlanCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="8"/>
                         </Style>

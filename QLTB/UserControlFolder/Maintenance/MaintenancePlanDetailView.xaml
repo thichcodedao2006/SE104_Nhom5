@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="QLTB.UserControlFolder.Maintenance.MaintenancePlanDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+
+    <Border Width="760"
+            Background="{StaticResource MainBackgroundBrush}"
+            CornerRadius="16"
+            Padding="30"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+
+        <StackPanel>
+
+            <TextBlock Text="Chi tiết kế hoạch bảo trì"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="Black"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,25"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Tên kế hoạch" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}"
+                             Height="45"
+                             IsReadOnly="True"
+                             Text="{Binding Title}"/>
+
+                    <TextBlock Text="Loại bảo trì" FontWeight="SemiBold" Margin="0,20,0,8"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}"
+                             Height="45"
+                             IsReadOnly="True"
+                             Text="{Binding Type}"/>
+
+                    <TextBlock Text="Mức độ ưu tiên" FontWeight="SemiBold" Margin="0,20,0,8"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}"
+                             Height="45"
+                             IsReadOnly="True"
+                             Text="{Binding Priority}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Người thực hiện" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}"
+                             Height="45"
+                             IsReadOnly="True"
+                             Text="{Binding AssignedTo}"/>
+
+                    <TextBlock Text="Ngày bảo trì" FontWeight="SemiBold" Margin="0,20,0,8"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}"
+                             Height="45"
+                             IsReadOnly="True"
+                             Text="{Binding NextDue}"/>
+
+                    <TextBlock Text="Chi phí ước tính" FontWeight="SemiBold" Margin="0,20,0,8"/>
+                    <TextBox Style="{StaticResource RoundedTextBox}"
+                             Height="45"
+                             IsReadOnly="True"
+                             Text="{Binding EstimatedCost}"/>
+                </StackPanel>
+            </Grid>
+
+            <TextBlock Text="Danh sách thiết bị được bảo trì"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Margin="0,28,0,14"/>
+
+            <DataGrid ItemsSource="{Binding Devices}"
+                      Style="{StaticResource ModernDataGrid}"
+                      ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeader}"
+                      RowStyle="{StaticResource ModernDataGridRow}"
+                      CellStyle="{StaticResource ModernDataGridCell}"
+                      AutoGenerateColumns="False"
+                      Height="220">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Thiết bị"
+                                        Binding="{Binding TenThietBi}"
+                                        Width="2*"
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
+
+                    <DataGridTextColumn Header="Số Serial"
+                                        Binding="{Binding SoSeri}"
+                                        Width="*"
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
+
+                    <DataGridTextColumn Header="Tình trạng"
+                                        Binding="{Binding TinhTrang}"
+                                        Width="*"
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
+
+                    <DataGridTextColumn Header="Phòng ban"
+                                        Binding="{Binding PhongBan}"
+                                        Width="1.5*"
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button Content="Đóng"
+                    Width="110"
+                    Height="45"
+                    HorizontalAlignment="Right"
+                    Margin="0,28,0,0"
+                    Background="#2563EB"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    Command="{Binding CloseCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+        </StackPanel>
+    </Border>
+</UserControl>

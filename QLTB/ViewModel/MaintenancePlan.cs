@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace QLTB.ViewModel
@@ -42,14 +43,29 @@ namespace QLTB.ViewModel
 
             _ = LoadData();
 
-            CreatePlanCommand = new RelayCommand(o =>
-            {
-                // mở form tạo kế hoạch
-            });
+            CreatePlanCommand = new RelayCommand<object>
+            (
+                p => true,
+                p => OpenCreatePlan()
+            );
 
             ViewDetailsCommand = new RelayCommand(o =>
             {
-                // mở chi tiết
+                try
+                {
+                    if (o is MaintenancePlanItem item)
+                    {
+                        PopUpService.ShowPopUp(new MaintenancePlanDetailView(item));
+                    }
+                    else
+                    {
+                        MessageBox.Show("CommandParameter không phải MaintenancePlanItem");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi mở popup chi tiết:\n" + ex.Message);
+                }
             });
         }
 
@@ -120,7 +136,10 @@ namespace QLTB.ViewModel
             OnPropertyChanged(nameof(DueThisMonth));
             OnPropertyChanged(nameof(EstimatedMonthlyCost));
         }
-
+        private void OpenCreatePlan()
+        {
+            PopUpService.ShowPopUp(new MaintenancePlanFormView());
+        }
         private string ConvertUnit(int? unit)
         {
             return unit switch

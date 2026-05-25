@@ -3,20 +3,36 @@
   "WorkspaceRootPath": "D:\\SE104_Nhom5\\QLTB\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\viewmodel\\statisticviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\statisticviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\viewmodel\\maintenanceplanformview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\maintenanceplanformview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\statistic\\statisticview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\statistic\\statisticview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceplanformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenanceplanformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\employee\\employeeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\employee\\employeeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\viewmodel\\maintenanceplandetailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\maintenanceplandetailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\viewmodel\\employeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\employeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceplandetailview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenanceplandetailview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceplan.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenanceplan.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceplandetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenanceplandetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\viewmodel\\maintenanceplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\maintenanceplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceplan.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenanceplan.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,60 +42,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 737,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "StatisticView.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml",
-              "RelativeDocumentMoniker": "UserControlFolder\\Statistic\\StatisticView.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Statistic\\StatisticView.xaml",
-              "RelativeToolTip": "UserControlFolder\\Statistic\\StatisticView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-24T15:29:28.101Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "StatisticViewModel.cs",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\StatisticViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\StatisticViewModel.cs",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\StatisticViewModel.cs",
-              "RelativeToolTip": "ViewModel\\StatisticViewModel.cs",
-              "ViewState": "AgIAAMkAAAAAAAAAAAAYwC8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-24T15:32:36.727Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EmployeeView.xaml",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeView.xaml",
-              "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeView.xaml",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeView.xaml",
-              "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-24T15:34:10.466Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "EmployeeViewModel.cs",
-              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\EmployeeViewModel.cs",
-              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeViewModel.cs",
-              "RelativeToolTip": "ViewModel\\EmployeeViewModel.cs",
-              "ViewState": "AgIAAM0AAAAAAAAAAAAuwFAAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-24T15:34:04.01Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
@@ -88,11 +52,113 @@
         },
         {
           "DockedWidth": 1265,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MaintenancePlan.cs",
+              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenancePlan.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MaintenancePlan.cs",
+              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenancePlan.cs",
+              "RelativeToolTip": "ViewModel\\MaintenancePlan.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAwwEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T15:23:04.7Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MaintenancePlanFormView.cs",
+              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenancePlanFormView.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MaintenancePlanFormView.cs",
+              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenancePlanFormView.cs",
+              "RelativeToolTip": "ViewModel\\MaintenancePlanFormView.cs",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAIwKgAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T17:16:18.351Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MaintenancePlanFormView.xaml",
+              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml",
+              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml",
+              "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-25T17:15:02.891Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MaintenancePlanDetailViewModel.cs",
+              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenancePlanDetailViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MaintenancePlanDetailViewModel.cs",
+              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenancePlanDetailViewModel.cs",
+              "RelativeToolTip": "ViewModel\\MaintenancePlanDetailViewModel.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAywFYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T16:43:34.764Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MaintenancePlanDetailView.xaml.cs",
+              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml.cs",
+              "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml.cs",
+              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml.cs",
+              "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T16:25:30.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MaintenancePlanDetailView.xaml",
+              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml",
+              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml",
+              "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-25T16:25:15.199Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MaintenancePlan.xaml",
+              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
+              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
+              "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-25T15:31:26.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MaintenancePlan.xaml.cs",
+              "DocumentMoniker": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlan.xaml.cs",
+              "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlan.xaml.cs",
+              "ToolTip": "D:\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlan.xaml.cs",
+              "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenancePlan.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T15:22:15.895Z",
+              "EditorCaption": ""
             }
           ]
         }

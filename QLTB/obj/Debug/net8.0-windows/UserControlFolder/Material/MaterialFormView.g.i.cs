@@ -55,7 +55,7 @@ namespace QLTB.UserControlFolder.Material {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/QLTB;V1.0.0.0;component/usercontrolfolder/material/materialformview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QLTB;component/usercontrolfolder/material/materialformview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControlFolder\Material\MaterialFormView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

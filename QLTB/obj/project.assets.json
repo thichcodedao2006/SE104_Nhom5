@@ -6905,23 +6905,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hagiabao\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Acer\\.nuget\\packages\\": {},
+    "D:\\Program Files\\Visual\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Documents\\SE104(NhapMonCNPM)\\Đồ án\\SE104_Nhom5\\QLTB\\QLTB.csproj",
+      "projectUniqueName": "D:\\SE104_Nhom5\\QLTB\\QLTB.csproj",
       "projectName": "QLTB",
-      "projectPath": "E:\\Documents\\SE104(NhapMonCNPM)\\Đồ án\\SE104_Nhom5\\QLTB\\QLTB.csproj",
-      "packagesPath": "C:\\Users\\hagiabao\\.nuget\\packages\\",
-      "outputPath": "E:\\Documents\\SE104(NhapMonCNPM)\\Đồ án\\SE104_Nhom5\\QLTB\\obj\\",
+      "projectPath": "D:\\SE104_Nhom5\\QLTB\\QLTB.csproj",
+      "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+      "outputPath": "D:\\SE104_Nhom5\\QLTB\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\Program Files\\Visual\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\hagiabao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

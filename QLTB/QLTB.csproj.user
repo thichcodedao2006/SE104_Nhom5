@@ -62,6 +62,9 @@
     <Compile Update="UserControlFolder\Maintenance\MaintenancePlan.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControlFolder\Maintenance\MaintenancePlanDetailView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControlFolder\Maintenance\MaintenancePlanFormView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -118,6 +121,9 @@
     <None Update="Resource\SBButton.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UserControlFolder\Maintenance\MaintenancePlanDetailView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControlFolder\Employee\EmployeeDetailView.xaml">
       <SubType>Designer</SubType>
     </Page>
