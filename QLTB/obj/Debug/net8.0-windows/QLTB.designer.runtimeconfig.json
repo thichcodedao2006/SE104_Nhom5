@@ -12,13 +12,11 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\Acer\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Acer\\.nuget\\packages",
-      "D:\\Program Files\\Visual\\Shared\\NuGetPackages"
+      "C:\\Users\\DenisVilleneuve\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\DenisVilleneuve\\.nuget\\packages"
     ],
     "configProperties": {
       "System.Reflection.NullabilityInfoContext.IsSupported": true,
-      "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": true,
       "CSWINRT_USE_WINDOWS_UI_XAML_PROJECTIONS": false,
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
     }

@@ -12,22 +12,42 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace QLTB.ViewModel
 {
-    public class Employee
+    public class Employee : INotifyPropertyChanged
     {
-        // Bạn nên thêm Id vào để sau này làm chức năng Sửa/Xóa cho dễ nhé
         public int Id { get; set; }
         public string HoTen { get; set; }
         public string ChucDanh { get; set; }
         public string Email { get; set; }
         public string Sdt { get; set; }
         public string BoPhan { get; set; }
-        public string TinhTrang { get; set; }
+
+        private string _tinhTrang;
+        public string TinhTrang
+        {
+            get => _tinhTrang;
+            set
+            {
+                if (_tinhTrang != value)
+                {
+                    _tinhTrang = value;
+                    OnPropertyChanged(nameof(TinhTrang));
+                    OnPropertyChanged(nameof(StatusColor));
+                }
+            }
+        }
 
         public string CurrentAvatar { get; set; }
         public Brush StatusColor => TinhTrang == "Đang rảnh" ? Brushes.Green : (TinhTrang == "Đang bận" ? Brushes.Red : Brushes.Gray);
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     public class EmployeeViewModel : INotifyPropertyChanged
@@ -75,68 +95,47 @@ namespace QLTB.ViewModel
         public int TotalEmployees
         {
             get => totalEmployees;
-            set
-            {
-                totalEmployees = value;
-                OnPropertyChanged(nameof(TotalEmployees));
-            }
+            set { totalEmployees = value; OnPropertyChanged(nameof(TotalEmployees)); }
         }
 
         public int ActiveEmployees
         {
             get => activeEmployees;
-            set
-            {
-                activeEmployees = value;
-                OnPropertyChanged(nameof(ActiveEmployees));
-            }
+            set { activeEmployees = value; OnPropertyChanged(nameof(ActiveEmployees)); }
         }
 
         public int DepartmentsCount
         {
             get => departmentsCount;
-            set
-            {
-                departmentsCount = value;
-                OnPropertyChanged(nameof(DepartmentsCount));
-            }
+            set { departmentsCount = value; OnPropertyChanged(nameof(DepartmentsCount)); }
         }
 
         public int RolesCount
         {
             get => rolesCount;
-            set
-            {
-                rolesCount = value;
-                OnPropertyChanged(nameof(RolesCount));
-            }
+            set { rolesCount = value; OnPropertyChanged(nameof(RolesCount)); }
         }
 
         public string FilterText
         {
             get => _filterText;
-            set
-            {
-                _filterText = value;
-                // Khi người dùng đổi tiêu chí lọc trong ComboBox, tự động lọc lại
-                FilterEmployees();
-                OnPropertyChanged(nameof(FilterText));
-            }
+            set { _filterText = value; FilterEmployees(); OnPropertyChanged(nameof(FilterText)); }
         }
 
         public EmployeeViewModel()
         {
             FilterText = "Tên nhân viên";
             _ = LoadAllData();
-
-
             LoadCommand();
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += async (s, e) => await Reload();
+            timer.Start();
         }
 
-        // === HÀM ÁNH XẠ (MAPPING) DỮ LIỆU TỪ DB LÊN UI ===
         private Employee MapToEmployeeUI(NhanVien nv)
         {
-            // Đi tìm tên bộ phận và chức danh tương ứng
             var bp = ListBoPhan?.FirstOrDefault(b => b.Id == nv.IdboPhan);
             var cd = ListChucDanh?.FirstOrDefault(c => c.Id == nv.IdchucDanh);
 
@@ -156,11 +155,8 @@ namespace QLTB.ViewModel
         private void FilterEmployees()
         {
             if (ListNhanVien == null) return;
-
-            // 1. Tạo biến hứng kết quả lọc tạm thời
             IEnumerable<NhanVien> query = ListNhanVien;
 
-            // 2. Lọc dữ liệu nếu có chữ trong ô tìm kiếm
             if (!string.IsNullOrEmpty(SearchText))
             {
                 string keyword = SearchText.ToLower();
@@ -169,37 +165,15 @@ namespace QLTB.ViewModel
                 switch (criteria)
                 {
                     case "Xác thực của tài khoản":
-                        {
-                            // 1. Phân tích ý định của người dùng từ chuỗi keyword
-                            int? targetValue = null; // null nghĩa là gõ tào lao, chưa đoán được ý
+                        int? targetValue = null;
+                        if (keyword == "1" || keyword == "true" || keyword.Contains("đã") || keyword.Contains("rồi")) targetValue = 1;
+                        else if (keyword == "0" || keyword == "false" || keyword.Contains("chưa") || keyword.Contains("không")) targetValue = 0;
 
-                            // Nhóm từ khóa ám chỉ "ĐÃ XÁC THỰC" (map về 1)
-                            if (keyword == "1" || keyword == "true" ||
-                                keyword.Contains("đã") || keyword.Contains("rồi") || keyword.Contains("có"))
-                            {
-                                targetValue = 1;
-                            }
-                            // Nhóm từ khóa ám chỉ "CHƯA XÁC THỰC" (map về 0)
-                            else if (keyword == "0" || keyword == "false" ||
-                                     keyword.Contains("chưa") || keyword.Contains("không"))
-                            {
-                                targetValue = 0;
-                            }
-
-                            // 2. Tiến hành lọc dựa trên giá trị đã phiên dịch
-                            if (targetValue.HasValue)
-                            {
-                                query = query.Where(e => ListTaiKhoan != null &&
-                                                         ListTaiKhoan.Any(tk => tk.Email == e.Email && tk.DuocXacThuc == targetValue.Value));
-                            }
-                            else
-                            {
-                                // Nếu người dùng gõ những chữ không liên quan (ví dụ: "con mèo"), 
-                                // thì không trả về kết quả nào cả để tránh sai lệch dữ liệu.
-                                query = query.Where(e => false);
-                            }
-                            break;
-                        }
+                        if (targetValue.HasValue)
+                            query = query.Where(e => ListTaiKhoan != null && ListTaiKhoan.Any(tk => tk.Email == e.Email && tk.DuocXacThuc == targetValue.Value));
+                        else
+                            query = query.Where(e => false);
+                        break;
                     case "Tình trạng":
                         query = query.Where(e => e.TinhTrang != null && e.TinhTrang.ToLower().Contains(keyword));
                         break;
@@ -209,38 +183,25 @@ namespace QLTB.ViewModel
                     case "Chức vụ":
                         query = query.Where(e => ListChucDanh != null && ListChucDanh.FirstOrDefault(cd => cd.Id == e.IdchucDanh)?.TenChucDanh?.ToLower().Contains(keyword) == true);
                         break;
-                    case "Tên nhân viên":
                     default:
                         query = query.Where(e => e.HoTen != null && e.HoTen.ToLower().Contains(keyword));
                         break;
                 }
             }
 
-            // 3. Biến hình List<NhanVien> thành List<Employee> và gán lên UI
             var mappedResult = query.Select(nv => MapToEmployeeUI(nv));
             FilteredEmployees = new ObservableCollection<Employee>(mappedResult);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propName)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 
         public async Task Reload()
         {
             using (var context = new QuanLyVatTuContext())
             {
                 var allNhanViens = await context.NhanViens.ToListAsync();
+                if (allNhanViens == null) return;
 
-                if (allNhanViens != null)
-                {
-                    ListNhanVien = new ObservableCollection<NhanVien>(allNhanViens);
-                }
-                if (ListNhanVien != null)
-                {
-                    // Chuyển đổi dữ liệu lần đầu tiên lúc vừa load xong
-                    var mappedList = ListNhanVien.Select(nv => MapToEmployeeUI(nv));
-                    FilteredEmployees = new ObservableCollection<Employee>(mappedList);
-                }
+                ListNhanVien = new ObservableCollection<NhanVien>(allNhanViens);
+                FilterEmployees();
 
                 TotalEmployees = allNhanViens.Count;
                 ActiveEmployees = allNhanViens.Count(x => x.TinhTrang == "Đang rảnh");
@@ -253,101 +214,43 @@ namespace QLTB.ViewModel
         {
             using (var context = new QuanLyVatTuContext())
             {
-                var boPhans = await context.BoPhans.ToListAsync();
-                ListBoPhan = new ObservableCollection<BoPhan>(boPhans);
-
-                var chucDanhs = await context.ChucDanhs.ToListAsync();
-                ListChucDanh = new ObservableCollection<ChucDanh>(chucDanhs);
-
-                var taikhoans = await context.TaiKhoans.ToListAsync();
-                ListTaiKhoan = new ObservableCollection<TaiKhoan>(taikhoans);   
+                ListBoPhan = new ObservableCollection<BoPhan>(await context.BoPhans.ToListAsync());
+                ListChucDanh = new ObservableCollection<ChucDanh>(await context.ChucDanhs.ToListAsync());
+                ListTaiKhoan = new ObservableCollection<TaiKhoan>(await context.TaiKhoans.ToListAsync());
             }
         }
 
         private void LoadCommand()
         {
-            AddEmployeeCommand = new RelayCommand<object>
-            (
-                  p => true, p => OpenAddNV()
-                );
-
-            EditEmployeeCommand = new RelayCommand
-            (
-                p =>
+            AddEmployeeCommand = new RelayCommand<object>(p => true, p => OpenAddNV());
+            DeleteEmployeeCommand = new RelayCommand(async p =>
+            {
+                if (p is Employee e)
                 {
-                    if (p is Employee e)
+                    if (MessageBox.Show("Xóa nhân viên này?", "Thông báo", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        // mở cái edit
+                        if (e.TinhTrang == "Đang bận") { MessageBox.Show("Nhân viên đang bận."); return; }
+                        var nv = await DataProvider.Instance.DB.NhanViens.FirstOrDefaultAsync(x => x.IdnhanVien == e.Id);
+                        var tk = await DataProvider.Instance.DB.TaiKhoans.FirstOrDefaultAsync(x => x.Email == e.Email);
+                        if (nv != null) DataProvider.Instance.DB.Remove(nv);
+                        if (tk != null) DataProvider.Instance.DB.Remove(tk);
+                        await DataProvider.Instance.DB.SaveChangesAsync();
+                        await Reload();
                     }
                 }
-
-                );
-            DeleteEmployeeCommand = new RelayCommand
-                (
-                    async p =>
-                    {
-                        if (p is Employee e)
-                        {
-                            MessageBoxResult res;
-                            res = MessageBox.Show("Bạn có chắc muốn xóa nhân viên này?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
-                            if (res == MessageBoxResult.Yes)
-                            {
-                                if (e.TinhTrang == "Đang bận")
-                                {
-                                    MessageBox.Show("Nhân viên hiện đang trong quá trình bảo trì thiết bị.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                                    return;
-                                }
-                                var nv = await  DataProvider.Instance.DB.NhanViens.FirstOrDefaultAsync(x => x.IdnhanVien == e.Id);
-                                var tk =  await DataProvider.Instance.DB.TaiKhoans.FirstOrDefaultAsync( x=> x.Email == e.Email);
-                                if (nv != null)
-                                {
-                                    DataProvider.Instance.DB.Remove(nv);
-                                    
-                                }
-                                if (tk != null) // có tài khoản 
-                                {
-                                    DataProvider.Instance.DB.Remove(tk);
-                                }
-                                await DataProvider.Instance.DB.SaveChangesAsync();
-                                await Reload();
-                                MessageBox.Show("Xóa nhân viên thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                            }    
-                        }
-                    }
-                );
-
-            EditEmployeeCommand = new RelayCommand
-                (
-                p =>
-                {
-                    if (p is Employee e)
-                    {
-                        EmployeeDetailView detail = new EmployeeDetailView(e);
-                        PopUpService.ShowPopUp(detail);
-                    }
-                }
-                );
+            });
+            EditEmployeeCommand = new RelayCommand(p => { if (p is Employee e) PopUpService.ShowPopUp(new EmployeeDetailView(e)); });
         }
 
-        private void OpenAddNV()
-        {
-            EmployeeFormView emp = new EmployeeFormView();
-            PopUpService.ShowPopUp(emp);
-        }
+        private void OpenAddNV() => PopUpService.ShowPopUp(new EmployeeFormView());
+
         private async Task LoadAllData()
         {
-            try
-            {
-                await Reload();
-                await InitializeData();
-
-                
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show("Thủ phạm làm số bằng 0 đây: \n" + ex.Message);
-            }
+            try { await InitializeData(); await Reload(); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 }

@@ -3,20 +3,60 @@
   "WorkspaceRootPath": "D:\\test\\SE104_Nhom5\\QLTB\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\device\\deviceview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\device\\deviceview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\viewmodel\\maintenancetaskviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\maintenancetaskviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\viewmodel\\deviceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\deviceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\viewmodel\\employeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\employeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\employee\\employeeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\employee\\employeeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\viewmodel\\employeeformvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\employeeformvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\employee\\employeedetailview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\employee\\employeedetailview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\employee\\employeeformview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\employee\\employeeformview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\employee\\employeeview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\employee\\employeeview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\employee\\employeedetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\employee\\employeedetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\employee\\employeeformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\employee\\employeeformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\viewmodel\\employeedetailvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\employeedetailvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\viewmodel\\maintenanceeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\maintenanceeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\viewmodel\\maintenancetaskviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\maintenancetaskviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceeditformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenanceeditformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\device\\deviceview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\device\\deviceview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\viewmodel\\deviceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\deviceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\device\\deviceformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -49,10 +89,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceeditformview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenanceeditformview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenanceeditformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenanceeditformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\qltb.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -111,16 +147,8 @@
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\signupvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\employee\\employeeformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\employee\\employeeformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\helpers\\keydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:helpers\\keydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\usercontrolfolder\\employee\\employeeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\employee\\employeeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\helpers\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -201,10 +229,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\models\\fogetpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:models\\fogetpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\viewmodel\\employeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\employeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|d:\\test\\se104_nhom5\\qltb\\hashingdata\\security.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -290,36 +314,138 @@
       "DocumentGroups": [
         {
           "DockedWidth": 737,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MaintenanceEditViewModel.cs",
-              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceEditViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\MaintenanceEditViewModel.cs",
-              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceEditViewModel.cs",
-              "RelativeToolTip": "ViewModel\\MaintenanceEditViewModel.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAmwGUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-24T02:39:02.33Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DeviceView.xaml",
-              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceView.xaml",
-              "RelativeDocumentMoniker": "UserControlFolder\\Device\\DeviceView.xaml",
-              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceView.xaml",
-              "RelativeToolTip": "UserControlFolder\\Device\\DeviceView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-20T14:13:26.585Z",
+              "Title": "MaintenanceTaskViewModel.cs",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceTaskViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MaintenanceTaskViewModel.cs",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceTaskViewModel.cs",
+              "RelativeToolTip": "ViewModel\\MaintenanceTaskViewModel.cs",
+              "ViewState": "AgIAALcAAAAAAAAAAAAiwMQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T16:55:09.371Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "EmployeeViewModel.cs",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\EmployeeViewModel.cs",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeViewModel.cs",
+              "RelativeToolTip": "ViewModel\\EmployeeViewModel.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAIwBcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T14:13:26.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EmployeeFormVM.cs",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeFormVM.cs",
+              "RelativeDocumentMoniker": "ViewModel\\EmployeeFormVM.cs",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeFormVM.cs",
+              "RelativeToolTip": "ViewModel\\EmployeeFormVM.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T13:49:38.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EmployeeView.xaml",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeView.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeView.xaml",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeView.xaml",
+              "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-20T14:13:26.593Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EmployeeDetailView.xaml.cs",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeDetailView.xaml.cs",
+              "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeDetailView.xaml.cs",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeDetailView.xaml.cs",
+              "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeDetailView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T13:55:30.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EmployeeView.xaml.cs",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeView.xaml.cs",
+              "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeView.xaml.cs",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeView.xaml.cs",
+              "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T13:55:26.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EmployeeFormView.xaml",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeFormView.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeFormView.xaml",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeFormView.xaml",
+              "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeFormView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-20T14:13:26.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EmployeeFormView.xaml.cs",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeFormView.xaml.cs",
+              "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeFormView.xaml.cs",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeFormView.xaml.cs",
+              "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeFormView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T13:49:50.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EmployeeDetailView.xaml",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeDetailView.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeDetailView.xaml",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeDetailView.xaml",
+              "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeDetailView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-25T13:49:28.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "EmployeeDetailVM.cs",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeDetailVM.cs",
+              "RelativeDocumentMoniker": "ViewModel\\EmployeeDetailVM.cs",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeDetailVM.cs",
+              "RelativeToolTip": "ViewModel\\EmployeeDetailVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T13:46:00.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "DeviceViewModel.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\DeviceViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\DeviceViewModel.cs",
@@ -327,37 +453,58 @@
               "RelativeToolTip": "ViewModel\\DeviceViewModel.cs",
               "ViewState": "AgIAAD8BAAAAAAAAAAAqwFIBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-20T14:13:26.581Z",
+              "WhenOpened": "2026-05-20T14:13:26.581Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MaintenanceEditFormView.xaml",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml",
+              "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-24T02:44:15.426Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MaintenanceTaskViewModel.cs",
-              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceTaskViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\MaintenanceTaskViewModel.cs",
-              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceTaskViewModel.cs",
-              "RelativeToolTip": "ViewModel\\MaintenanceTaskViewModel.cs",
-              "ViewState": "AgIAABQBAAAAAAAAAAAmwDgBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-23T16:55:09.371Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 14,
               "Title": "DeviceFormView.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceFormView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Device\\DeviceFormView.xaml",
               "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceFormView.xaml",
               "RelativeToolTip": "UserControlFolder\\Device\\DeviceFormView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-23T10:39:52.052Z",
+              "WhenOpened": "2026-05-23T10:39:52.052Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MaintenanceEditViewModel.cs",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceEditViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MaintenanceEditViewModel.cs",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceEditViewModel.cs",
+              "RelativeToolTip": "ViewModel\\MaintenanceEditViewModel.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAmwFwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-24T02:39:02.33Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
+              "Title": "DeviceView.xaml",
+              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceView.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Device\\DeviceView.xaml",
+              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceView.xaml",
+              "RelativeToolTip": "UserControlFolder\\Device\\DeviceView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-20T14:13:26.585Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "DeviceFormViewModel.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\DeviceFormViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\DeviceFormViewModel.cs",
@@ -365,23 +512,11 @@
               "RelativeToolTip": "ViewModel\\DeviceFormViewModel.cs",
               "ViewState": "AgIAAKUAAAAAAAAAAAAowLQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-21T13:21:22.796Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-21T13:21:22.796Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "MaintenanceEditFormView.xaml",
-              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml",
-              "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml",
-              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml",
-              "RelativeToolTip": "UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-24T02:44:15.426Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 16,
               "Title": "DeviceFormView.xaml.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceFormView.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\Device\\DeviceFormView.xaml.cs",
@@ -393,7 +528,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 17,
               "Title": "MainViewModel.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MainViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\MainViewModel.cs",
@@ -405,7 +540,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 20,
               "Title": "BaoTri.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Models\\BaoTri.cs",
               "RelativeDocumentMoniker": "Models\\BaoTri.cs",
@@ -417,7 +552,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 23,
               "Title": "MaintenanceTask.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
@@ -428,7 +563,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 18,
               "Title": "DashBoardViewModel.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\DashBoardViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\DashBoardViewModel.cs",
@@ -440,7 +575,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 22,
               "Title": "QLTB.csproj",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\QLTB.csproj",
               "RelativeDocumentMoniker": "QLTB.csproj",
@@ -452,7 +587,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 19,
               "Title": "QuanLyVatTuContext.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Models\\QuanLyVatTuContext.cs",
               "RelativeDocumentMoniker": "Models\\QuanLyVatTuContext.cs",
@@ -464,7 +599,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 21,
               "Title": "MaintenanceEditFormView.xaml.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceEditFormView.xaml.cs",
@@ -476,7 +611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 24,
               "Title": "MaintenanceHistoryViewModel.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceHistoryViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\MaintenanceHistoryViewModel.cs",
@@ -488,7 +623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 25,
               "Title": "MaintenanceHistoryView.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceHistoryView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceHistoryView.xaml",
@@ -499,7 +634,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 26,
               "Title": "ChiTietThietBi.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Models\\ChiTietThietBi.cs",
               "RelativeDocumentMoniker": "Models\\ChiTietThietBi.cs",
@@ -511,7 +646,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 28,
               "Title": "MaintenanceDetailView.xaml.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceDetailView.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceDetailView.xaml.cs",
@@ -523,7 +658,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 27,
               "Title": "MaintenanceDetailViewModel.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceDetailViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\MaintenanceDetailViewModel.cs",
@@ -535,7 +670,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 29,
               "Title": "MaintenanceDetailView.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceDetailView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceDetailView.xaml",
@@ -546,7 +681,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 31,
               "Title": "DeviceView.xaml.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Device\\DeviceView.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\Device\\DeviceView.xaml.cs",
@@ -558,7 +693,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 30,
               "Title": "ThietBi.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Models\\ThietBi.cs",
               "RelativeDocumentMoniker": "Models\\ThietBi.cs",
@@ -570,7 +705,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 32,
               "Title": "BoolToVisibilityConverter.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Helpers\\BoolToVisibilityConverter.cs",
               "RelativeDocumentMoniker": "Helpers\\BoolToVisibilityConverter.cs",
@@ -582,7 +717,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 33,
               "Title": "IncidentReportFormView.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\IncidentReport\\IncidentReportFormView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\IncidentReport\\IncidentReportFormView.xaml",
@@ -593,7 +728,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 34,
               "Title": "MaterialViewModel.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaterialViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\MaterialViewModel.cs",
@@ -605,7 +740,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 35,
               "Title": "SignUpVM.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\SignUpVM.cs",
               "RelativeDocumentMoniker": "ViewModel\\SignUpVM.cs",
@@ -617,18 +752,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "EmployeeFormView.xaml",
-              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeFormView.xaml",
-              "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeFormView.xaml",
-              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeFormView.xaml",
-              "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeFormView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-20T14:13:26.588Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 36,
               "Title": "KeyData.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Helpers\\KeyData.cs",
               "RelativeDocumentMoniker": "Helpers\\KeyData.cs",
@@ -640,18 +764,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "EmployeeView.xaml",
-              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeView.xaml",
-              "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeView.xaml",
-              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeView.xaml",
-              "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-20T14:13:26.593Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 37,
               "Title": "EmailService.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Helpers\\EmailService.cs",
               "RelativeDocumentMoniker": "Helpers\\EmailService.cs",
@@ -663,7 +776,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 38,
               "Title": "fmDangNhap.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\fmDangNhap.xaml",
               "RelativeDocumentMoniker": "fmDangNhap.xaml",
@@ -674,7 +787,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 39,
               "Title": "ConvertAccount.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Helpers\\ConvertAccount.cs",
               "RelativeDocumentMoniker": "Helpers\\ConvertAccount.cs",
@@ -686,7 +799,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 40,
               "Title": "fmDangKy.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\fmDangKy.xaml",
               "RelativeDocumentMoniker": "fmDangKy.xaml",
@@ -697,7 +810,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 41,
               "Title": "LogInVM.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\LogInVM.cs",
               "RelativeDocumentMoniker": "ViewModel\\LogInVM.cs",
@@ -709,7 +822,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 42,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
@@ -721,7 +834,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 43,
               "Title": "ForgetPass3VM.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\ForgetPass3VM.cs",
               "RelativeDocumentMoniker": "ViewModel\\ForgetPass3VM.cs",
@@ -733,7 +846,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 44,
               "Title": "fmQuenMatKhau.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\fmQuenMatKhau.xaml",
               "RelativeDocumentMoniker": "fmQuenMatKhau.xaml",
@@ -744,7 +857,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 45,
               "Title": "ForgetPassVM.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\ForgetPassVM.cs",
               "RelativeDocumentMoniker": "ViewModel\\ForgetPassVM.cs",
@@ -756,7 +869,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 46,
               "Title": "ForgetPass3.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\ForgetPass3.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\ForgetPass3.xaml",
@@ -767,7 +880,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 47,
               "Title": "fmQuenMatKhau.xaml.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\fmQuenMatKhau.xaml.cs",
               "RelativeDocumentMoniker": "fmQuenMatKhau.xaml.cs",
@@ -779,7 +892,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 48,
               "Title": "ForgetPass1.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\ForgetPass1.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\ForgetPass1.xaml",
@@ -790,7 +903,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 49,
               "Title": "ForgetPass2VM.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\ForgetPass2VM.cs",
               "RelativeDocumentMoniker": "ViewModel\\ForgetPass2VM.cs",
@@ -802,7 +915,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 50,
               "Title": "ForgetPass.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Model\\ForgetPass.cs",
               "RelativeDocumentMoniker": "Model\\ForgetPass.cs",
@@ -814,7 +927,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 51,
               "Title": "ForgetPass2.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\ForgetPass2.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\ForgetPass2.xaml",
@@ -825,7 +938,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 52,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\App.xaml.cs",
               "RelativeDocumentMoniker": "App.xaml.cs",
@@ -837,7 +950,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 53,
               "Title": "RandomData.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Helpers\\RandomData.cs",
               "RelativeDocumentMoniker": "Helpers\\RandomData.cs",
@@ -849,7 +962,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 54,
               "Title": "ForgetPass1VM.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\ForgetPass1VM.cs",
               "RelativeDocumentMoniker": "ViewModel\\ForgetPass1VM.cs",
@@ -861,7 +974,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 55,
               "Title": "DataProvider.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Data\\DataProvider.cs",
               "RelativeDocumentMoniker": "Data\\DataProvider.cs",
@@ -873,7 +986,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 56,
               "Title": "FogetPass.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Models\\FogetPass.cs",
               "RelativeDocumentMoniker": "Models\\FogetPass.cs",
@@ -885,19 +998,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
-              "Title": "EmployeeViewModel.cs",
-              "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\EmployeeViewModel.cs",
-              "ToolTip": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeViewModel.cs",
-              "RelativeToolTip": "ViewModel\\EmployeeViewModel.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAgwDUAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-20T14:13:26.634Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 57,
               "Title": "Security.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\HashingData\\Security.cs",
               "RelativeDocumentMoniker": "HashingData\\Security.cs",
@@ -909,7 +1010,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 58,
               "Title": "Button.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Resource\\Button.xaml",
               "RelativeDocumentMoniker": "Resource\\Button.xaml",
@@ -921,7 +1022,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 59,
               "Title": "RelayCommand.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Helpers\\RelayCommand.cs",
               "RelativeDocumentMoniker": "Helpers\\RelayCommand.cs",
@@ -933,7 +1034,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 60,
               "Title": "NhanVien.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Models\\NhanVien.cs",
               "RelativeDocumentMoniker": "Models\\NhanVien.cs",
@@ -945,7 +1046,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 61,
               "Title": "SettingMainView.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Setting\\SettingMainView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Setting\\SettingMainView.xaml",
@@ -956,7 +1057,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 62,
               "Title": "SettingProfileView.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Setting\\SettingProfileView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Setting\\SettingProfileView.xaml",
@@ -967,7 +1068,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 63,
               "Title": "SettingViewModel.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\SettingViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\SettingViewModel.cs",
@@ -979,7 +1080,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 64,
               "Title": "MainResource.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Resource\\MainResource.xaml",
               "RelativeDocumentMoniker": "Resource\\MainResource.xaml",
@@ -991,7 +1092,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 65,
               "Title": "SidebarRadioButtonStyle.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Resource\\SidebarRadioButtonStyle.xaml",
               "RelativeDocumentMoniker": "Resource\\SidebarRadioButtonStyle.xaml",
@@ -1003,7 +1104,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 66,
               "Title": "MaintenancePlan.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenancePlan.cs",
               "RelativeDocumentMoniker": "ViewModel\\MaintenancePlan.cs",
@@ -1015,7 +1116,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 67,
               "Title": "SBButton.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Resource\\SBButton.xaml",
               "RelativeDocumentMoniker": "Resource\\SBButton.xaml",
@@ -1027,7 +1128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 68,
               "Title": "CardStyles.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Resource\\CardStyles.xaml",
               "RelativeDocumentMoniker": "Resource\\CardStyles.xaml",
@@ -1039,7 +1140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 69,
               "Title": "IncidentReportFormView.xaml.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\IncidentReport\\IncidentReportFormView.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\IncidentReport\\IncidentReportFormView.xaml.cs",
@@ -1051,7 +1152,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 70,
               "Title": "TextBox.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Resource\\TextBox.xaml",
               "RelativeDocumentMoniker": "Resource\\TextBox.xaml",
@@ -1063,7 +1164,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 71,
               "Title": "TextBoxStyles.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Resource\\TextBoxStyles.xaml",
               "RelativeDocumentMoniker": "Resource\\TextBoxStyles.xaml",
@@ -1075,7 +1176,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 72,
               "Title": "MaintenancePlanFormView.xaml.cs",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml.cs",
@@ -1087,7 +1188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 73,
               "Title": "InputStyles.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\Resource\\InputStyles.xaml",
               "RelativeDocumentMoniker": "Resource\\InputStyles.xaml",
@@ -1099,7 +1200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 74,
               "Title": "MaintenancePlanFormView.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml",
@@ -1110,7 +1211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 75,
               "Title": "MaterialFormView.xaml",
               "DocumentMoniker": "D:\\test\\SE104_Nhom5\\QLTB\\UserControlFolder\\Material\\MaterialFormView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Material\\MaterialFormView.xaml",

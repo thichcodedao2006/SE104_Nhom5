@@ -48,18 +48,15 @@ namespace QLTB.ViewModel
         {
             _context = new QuanLyVatTuContext();
 
-            // Gán dữ liệu ban đầu từ dòng được chọn trong DataGrid
             DeviceName = item.TenThietBi;
             NgayBaoTri = item.NgayBaoTri;
             DoUuTien = item.DoUuTien;
             TinhTrangBaoTri = item.TinhTrangBaoTri;
             SelectedSerial = item.SoSeri;
 
-            // ĐÃ SỬA: Chỉ lấy những nhân viên CHƯA nghỉ việc lên hệ thống ComboBox
-            StaffList = new ObservableCollection<NhanVien>(_context.NhanViens.Where(nv => nv.TinhTrang != "Đã nghỉ việc").ToList());
+            StaffList = new ObservableCollection<NhanVien>(_context.NhanViens.Where(nv => nv.TinhTrang != "Đã nghỉ việc" && (nv.TinhTrang == "Đang rảnh" || nv.HoTen == item.TenNhanVien)).ToList());
             ServiceList = new ObservableCollection<DichVuBaoTri>(_context.DichVuBaoTris.ToList());
 
-            // Tự động tìm kiếm ID tương ứng để hiển thị trúng đích lên ComboBox
             int? originalStaffId = null;
             var currentStaff = StaffList.FirstOrDefault(s => s.HoTen == item.TenNhanVien);
             if (currentStaff != null)
@@ -72,20 +69,14 @@ namespace QLTB.ViewModel
             if (currentService != null) SelectedServiceId = currentService.IddichVu;
 
             SaveCommand = new RelayCommand(o => {
-                // KIỂM TRA PHÂN CÔNG BẬN/RẢNH TUYỆT ĐỐI
-                if (SelectedStaffId.HasValue && SelectedStaffId != originalStaffId)
+                if (SelectedStaffId.HasValue)
                 {
                     var newStaff = _context.NhanViens.FirstOrDefault(nv => nv.IdnhanVien == SelectedStaffId.Value);
-
-                    // Quét trực tiếp xem nhân viên này có lịch bảo trì nào đang dang dở không
-                    bool hasActiveTask = _context.BaoTris.Any(b => b.IdnhanVien == SelectedStaffId.Value
-                                                                && (b.TinhTrangBaoTri == "Đang xử lý" || b.TinhTrangBaoTri == "Quá hạn"));
-
-                    // ĐÃ SỬA: Đối chiếu chuẩn theo từ khóa "Đang bận"
-                    if (hasActiveTask || (newStaff != null && newStaff.TinhTrang == "Đang bận"))
+                    bool isBusy = _context.BaoTris.Any(b => b.IdnhanVien == SelectedStaffId.Value && b.IdbaoTri != item.IdBaoTri && (b.TinhTrangBaoTri == "Đang xử lý" || b.TinhTrangBaoTri == "Quá hạn"));
+                    if (isBusy || (SelectedStaffId != originalStaffId && newStaff != null && newStaff.TinhTrang == "Đang bận"))
                     {
-                        MessageBox.Show($"Kỹ thuật viên [{newStaff?.HoTen}] hiện đang bận xử lý một ca bảo trì khác. Vui lòng chọn người khác hoặc đợi họ hoàn thành!", "Nhân sự đang bận", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return; // Chặn không cho đóng form hay lưu dữ liệu
+                        MessageBox.Show($"Kỹ thuật viên [{newStaff?.HoTen}] hiện đang bận. Vui lòng chọn người khác!", "Nhân sự đang bận", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
                     }
                 }
 

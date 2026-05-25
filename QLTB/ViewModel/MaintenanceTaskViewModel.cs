@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -13,6 +12,12 @@ using QLTB.Models;
 
 namespace QLTB.ViewModel
 {
+    public static class DataSyncService
+    {
+        public static event Action DataChanged;
+        public static void NotifyDataChanged() => DataChanged?.Invoke();
+    }
+
     public class MaintenanceDisplayItem
     {
         public int IdBaoTri { get; set; }
@@ -30,8 +35,6 @@ namespace QLTB.ViewModel
 
     public class MaintenanceTaskViewModel : INotifyPropertyChanged
     {
-        private readonly QuanLyVatTuContext _context;
-
         private ObservableCollection<MaintenanceDisplayItem> _maintenances;
         public ObservableCollection<MaintenanceDisplayItem> Maintenances
         {
@@ -100,7 +103,6 @@ namespace QLTB.ViewModel
 
         public MaintenanceTaskViewModel()
         {
-            _context = new QuanLyVatTuContext();
             TechnicianList = new ObservableCollection<string> { "Tất cả kỹ thuật viên" };
             _ = LoadMaintenancesAsync();
 
@@ -108,28 +110,24 @@ namespace QLTB.ViewModel
 
             DeleteMaintenanceCommand = new RelayCommand(async o =>
             {
-                if (SelectedMaintenance == null)
-                {
-                    MessageBox.Show("Vui lòng chọn một bản ghi để xóa!");
-                    return;
-                }
+                if (SelectedMaintenance == null) return;
                 var result = MessageBox.Show("Bạn có chắc chắn muốn xóa bản ghi bảo trì này?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var dbMaintenance = await _context.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == SelectedMaintenance.IdBaoTri);
-                    if (dbMaintenance != null)
+                    using (var db = new QuanLyVatTuContext())
                     {
-                        // ĐÃ SỬA: Đổi thành "Đang rảnh" khi phiếu bị xóa
-                        if (dbMaintenance.TinhTrangBaoTri != "Hoàn thành" && dbMaintenance.IdnhanVien.HasValue)
+                        var dbMaintenance = await db.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == SelectedMaintenance.IdBaoTri);
+                        if (dbMaintenance != null)
                         {
-                            var staff = await _context.NhanViens.FirstOrDefaultAsync(nv => nv.IdnhanVien == dbMaintenance.IdnhanVien.Value);
-                            if (staff != null) staff.TinhTrang = "Đang rảnh";
-                        }
+                            int? staffId = dbMaintenance.IdnhanVien;
+                            db.BaoTris.Remove(dbMaintenance);
+                            await db.SaveChangesAsync();
 
-                        _context.BaoTris.Remove(dbMaintenance);
-                        await _context.SaveChangesAsync();
-                        await LoadMaintenancesAsync();
+                            if (staffId.HasValue) await UpdateStaffStatusAsync(db, staffId.Value);
+                        }
                     }
+                    await LoadMaintenancesAsync();
+                    DataSyncService.NotifyDataChanged();
                 }
             });
 
@@ -137,22 +135,21 @@ namespace QLTB.ViewModel
             {
                 if (o is MaintenanceDisplayItem item)
                 {
-                    var dbItem = await _context.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == item.IdBaoTri);
-                    if (dbItem != null)
+                    using (var db = new QuanLyVatTuContext())
                     {
-                        dbItem.TinhTrangBaoTri = "Hoàn thành";
-
-                        // ĐÃ SỬA: Khi bấm hoàn thành nhanh, cập nhật trạng thái thành "Đang rảnh"
-                        if (dbItem.IdnhanVien.HasValue)
+                        var dbItem = await db.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == item.IdBaoTri);
+                        if (dbItem != null)
                         {
-                            var staff = await _context.NhanViens.FirstOrDefaultAsync(nv => nv.IdnhanVien == dbItem.IdnhanVien.Value);
-                            if (staff != null) staff.TinhTrang = "Đang rảnh";
-                        }
+                            dbItem.TinhTrangBaoTri = "Hoàn thành";
+                            db.Entry(dbItem).State = EntityState.Modified;
+                            await db.SaveChangesAsync();
 
-                        await _context.SaveChangesAsync();
-                        await LoadMaintenancesAsync();
-                        MessageBox.Show("Đã duyệt hoàn thành công việc và cập nhật nhân sự sang trạng thái Đang rảnh!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                            if (dbItem.IdnhanVien.HasValue) await UpdateStaffStatusAsync(db, dbItem.IdnhanVien.Value);
+                        }
                     }
+                    await LoadMaintenancesAsync();
+                    DataSyncService.NotifyDataChanged();
+                    MessageBox.Show("Đã hoàn thành công việc!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             });
 
@@ -162,152 +159,95 @@ namespace QLTB.ViewModel
                 {
                     var editVM = new MaintenanceEditViewModel(item);
                     var editView = new QLTB.UserControlFolder.Maintenance.MaintenanceEditFormView { DataContext = editVM };
-
-                    Window window = new Window
-                    {
-                        Content = editView,
-                        SizeToContent = SizeToContent.WidthAndHeight,
-                        WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                        WindowStyle = WindowStyle.None,
-                        AllowsTransparency = true
-                    };
-
+                    Window window = new Window { Content = editView, SizeToContent = SizeToContent.WidthAndHeight, WindowStartupLocation = WindowStartupLocation.CenterScreen, WindowStyle = WindowStyle.None, AllowsTransparency = true };
                     window.ShowDialog();
 
                     if (editVM.IsSaved)
                     {
-                        var dbItem = await _context.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == item.IdBaoTri);
-                        if (dbItem != null)
+                        try
                         {
-                            int? oldStaffId = dbItem.IdnhanVien;
-
-                            dbItem.NgayBaoTri = editVM.NgayBaoTri;
-                            dbItem.DoUuTien = editVM.DoUuTien;
-                            dbItem.TinhTrangBaoTri = editVM.TinhTrangBaoTri;
-                            dbItem.IdnhanVien = editVM.SelectedStaffId;
-
-                            // ĐÃ SỬA: Trả người cũ về trạng thái "Đang rảnh"
-                            if (oldStaffId.HasValue && oldStaffId != editVM.SelectedStaffId)
+                            using (var db = new QuanLyVatTuContext())
                             {
-                                var oldStaff = await _context.NhanViens.FirstOrDefaultAsync(nv => nv.IdnhanVien == oldStaffId.Value);
-                                if (oldStaff != null) oldStaff.TinhTrang = "Đang rảnh";
-                            }
-
-                            // ĐÃ SỬA: Đồng bộ người mới theo tiến độ công việc dựa vào "Đang bận" hoặc "Đang rảnh"
-                            if (editVM.SelectedStaffId.HasValue)
-                            {
-                                var currentStaff = await _context.NhanViens.FirstOrDefaultAsync(nv => nv.IdnhanVien == editVM.SelectedStaffId.Value);
-                                if (currentStaff != null)
+                                var dbItem = await db.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == item.IdBaoTri);
+                                if (dbItem != null)
                                 {
-                                    if (editVM.TinhTrangBaoTri == "Hoàn thành")
-                                    {
-                                        currentStaff.TinhTrang = "Đang rảnh";
-                                    }
-                                    else if (editVM.TinhTrangBaoTri == "Đang xử lý" || editVM.TinhTrangBaoTri == "Quá hạn")
-                                    {
-                                        currentStaff.TinhTrang = "Đang bận";
-                                    }
+                                    int? oldStaffId = dbItem.IdnhanVien;
+                                    dbItem.NgayBaoTri = editVM.NgayBaoTri;
+                                    dbItem.DoUuTien = editVM.DoUuTien;
+                                    dbItem.TinhTrangBaoTri = editVM.TinhTrangBaoTri?.ToString().Replace("System.Windows.Controls.ComboBoxItem: ", "");
+                                    dbItem.IdnhanVien = editVM.SelectedStaffId;
+                                    db.Entry(dbItem).State = EntityState.Modified;
+                                    await db.SaveChangesAsync();
+
+                                    if (oldStaffId.HasValue) await UpdateStaffStatusAsync(db, oldStaffId.Value);
+                                    if (editVM.SelectedStaffId.HasValue) await UpdateStaffStatusAsync(db, editVM.SelectedStaffId.Value);
                                 }
                             }
-
-                            await _context.SaveChangesAsync();
                             await LoadMaintenancesAsync();
-                            MessageBox.Show("Cập nhật công việc bảo trì và đồng bộ trạng thái nhân sự thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                            DataSyncService.NotifyDataChanged();
+                            MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
+                        catch (Exception ex) { MessageBox.Show("Lỗi: " + ex.Message); }
                     }
                 }
             });
+        }
+
+        private async Task UpdateStaffStatusAsync(QuanLyVatTuContext db, int staffId)
+        {
+            bool hasActiveTasks = await db.BaoTris
+                .AnyAsync(b => b.IdnhanVien == staffId
+                            && b.TinhTrangBaoTri != null
+                            && b.TinhTrangBaoTri.Trim().ToLower() != "hoàn thành");
+
+            var staff = await db.NhanViens.FirstOrDefaultAsync(n => n.IdnhanVien == staffId);
+            if (staff != null)
+            {
+                string newStatus = hasActiveTasks ? "Đang bận" : "Đang rảnh";
+
+                if (staff.TinhTrang != newStatus)
+                {
+                    staff.TinhTrang = newStatus;
+                    db.Entry(staff).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                }
+            }
         }
 
         private async Task LoadMaintenancesAsync()
         {
             try
             {
-                var rawList = await _context.BaoTris
-                                            .Include(b => b.IddichVuNavigation)
-                                            .Include(b => b.IdnhanVienNavigation)
-                                            .Include(b => b.ChiTietThietBi)
-                                                .ThenInclude(ct => ct.IdthietBiNavigation)
-                                            .ToListAsync();
-
-                var mappedList = rawList.Select(b => new MaintenanceDisplayItem
+                using (var db = new QuanLyVatTuContext())
                 {
-                    IdBaoTri = b.IdbaoTri,
-                    IdThietBi = b.IdthietBi ?? 0,
-                    TenThietBi = b.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "Thiết bị đã xóa",
-                    SoSeri = b.SoSeri,
-                    TenDichVu = b.IddichVuNavigation?.TenDichVu ?? "Không rõ dịch vụ",
-                    GiaDichVu = b.IddichVuNavigation?.GiaDichVu ?? 0,
-                    TenNhanVien = b.IdnhanVienNavigation?.HoTen ?? "Chưa phân công",
-                    NgayBaoTri = b.NgayBaoTri,
-                    DoUuTien = b.DoUuTien ?? "Thấp",
-                    TinhTrangBaoTri = b.TinhTrangBaoTri ?? "Đang xử lý",
-                    GhiChu = b.GhiChu
-                }).ToList();
-
-                Maintenances = new ObservableCollection<MaintenanceDisplayItem>(mappedList);
-
-                var staffNames = await _context.NhanViens.Select(nv => nv.HoTen).Distinct().ToListAsync();
-                if (!staffNames.Contains("Phạm Đan Trường"))
-                {
-                    staffNames.Add("Phạm Đan Trường");
+                    var rawList = await db.BaoTris.Include(b => b.IddichVuNavigation).Include(b => b.IdnhanVienNavigation).Include(b => b.ChiTietThietBi).ThenInclude(ct => ct.IdthietBiNavigation).ToListAsync();
+                    Maintenances = new ObservableCollection<MaintenanceDisplayItem>(rawList.Select(b => new MaintenanceDisplayItem { IdBaoTri = b.IdbaoTri, TenThietBi = b.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "Thiết bị đã xóa", SoSeri = b.SoSeri, TenDichVu = b.IddichVuNavigation?.TenDichVu ?? "Không rõ", TenNhanVien = b.IdnhanVienNavigation?.HoTen ?? "Chưa phân công", NgayBaoTri = b.NgayBaoTri, DoUuTien = b.DoUuTien ?? "Thấp", TinhTrangBaoTri = b.TinhTrangBaoTri ?? "Đang xử lý" }));
+                    var staffNames = await db.NhanViens.Select(nv => nv.HoTen).Distinct().ToListAsync();
+                    TechnicianList = new ObservableCollection<string>(staffNames.Prepend("Tất cả kỹ thuật viên"));
                 }
-
-                TechnicianList = new ObservableCollection<string> { "Tất cả kỹ thuật viên" };
-                foreach (var name in staffNames)
-                {
-                    TechnicianList.Add(name);
-                }
-
                 FilterMaintenances();
                 RefreshStats();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi tải danh sách: " + ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show("Lỗi tải: " + ex.Message); }
         }
 
         private void FilterMaintenances()
         {
             if (Maintenances == null) return;
-
             var result = Maintenances.AsEnumerable();
-
-            if (!string.IsNullOrEmpty(SearchText))
-            {
-                result = result.Where(m => (m.TenThietBi != null && m.TenThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                                        || (m.SoSeri != null && m.SoSeri.Contains(SearchText, StringComparison.OrdinalIgnoreCase)));
-            }
-
-            if (!string.IsNullOrEmpty(SelectedStatusFilter) && SelectedStatusFilter != "Tất cả trạng thái")
-            {
-                result = result.Where(m => m.TinhTrangBaoTri == SelectedStatusFilter);
-            }
-
-            if (!string.IsNullOrEmpty(SelectedPriorityFilter) && SelectedPriorityFilter != "Tất cả mức độ")
-            {
-                result = result.Where(m => m.DoUuTien == SelectedPriorityFilter);
-            }
-
-            if (!string.IsNullOrEmpty(SelectedTechnicianFilter) && SelectedTechnicianFilter != "Tất cả kỹ thuật viên")
-            {
-                result = result.Where(m => m.TenNhanVien == SelectedTechnicianFilter);
-            }
-
+            if (!string.IsNullOrEmpty(SearchText)) result = result.Where(m => (m.TenThietBi != null && m.TenThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) || (m.SoSeri != null && m.SoSeri.Contains(SearchText, StringComparison.OrdinalIgnoreCase)));
+            if (SelectedStatusFilter != "Tất cả trạng thái") result = result.Where(m => m.TinhTrangBaoTri == SelectedStatusFilter);
+            if (SelectedPriorityFilter != "Tất cả mức độ") result = result.Where(m => m.DoUuTien == SelectedPriorityFilter);
+            if (SelectedTechnicianFilter != "Tất cả kỹ thuật viên") result = result.Where(m => m.TenNhanVien == SelectedTechnicianFilter);
             FilteredMaintenances = new ObservableCollection<MaintenanceDisplayItem>(result);
         }
 
         private void RefreshStats()
         {
-            OnPropertyChanged(nameof(TotalCount));
-            OnPropertyChanged(nameof(ProcessingCount));
-            OnPropertyChanged(nameof(CompletedCount));
-            OnPropertyChanged(nameof(OverdueCount));
+            OnPropertyChanged(nameof(TotalCount)); OnPropertyChanged(nameof(ProcessingCount)); OnPropertyChanged(nameof(CompletedCount)); OnPropertyChanged(nameof(OverdueCount));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propName)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        protected void OnPropertyChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 }

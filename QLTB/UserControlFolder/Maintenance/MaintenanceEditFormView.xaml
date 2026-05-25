@@ -26,7 +26,7 @@
                     <TextBlock Text="Dịch vụ bảo trì" FontWeight="SemiBold" Margin="0,15,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" Height="40" 
                               ItemsSource="{Binding ServiceList}" 
-                              SelectedValue="{Binding SelectedServiceId}" 
+                              SelectedValue="{Binding SelectedServiceId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                               DisplayMemberPath="TenDichVu" 
                               SelectedValuePath="IddichVu"/>
 
@@ -51,7 +51,7 @@
                     <TextBlock Text="Người thực hiện (Kỹ thuật viên)" FontWeight="SemiBold" Margin="0,15,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" Height="40" 
                               ItemsSource="{Binding StaffList}" 
-                              SelectedValue="{Binding SelectedStaffId}" 
+                              SelectedValue="{Binding SelectedStaffId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                               DisplayMemberPath="HoTen" 
                               SelectedValuePath="IdnhanVien"/>
 
