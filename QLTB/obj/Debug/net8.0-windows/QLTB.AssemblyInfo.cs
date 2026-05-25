@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QLTB")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a40d78dadf7c2314bd50f28af74d6cea260f541")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d58740dbf256f92ecf42d3506a9a44f28ed03b05")]
 [assembly: System.Reflection.AssemblyProductAttribute("QLTB")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QLTB")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

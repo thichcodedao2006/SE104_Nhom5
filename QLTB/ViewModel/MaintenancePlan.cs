@@ -1,24 +1,25 @@
-﻿using QLTB.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using QLTB.Helpers;
+using QLTB.Models;
+using QLTB.UserControlFolder.Maintenance;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace QLTB.ViewModel
 {
-    // Model class for Maintenance Plan
     public class MaintenancePlanItem
     {
+        public int IdBaoTri { get; set; }
         public string Title { get; set; }
         public string Equipment { get; set; }
-        public string Priority { get; set; } // High Priority, Medium Priority, Low Priority
-        public string Status { get; set; } // Active, Inactive, Completed
-        public string Type { get; set; } // Preventive, Corrective
+        public string Priority { get; set; }
+        public string Status { get; set; }
+        public string Type { get; set; }
         public string NextDue { get; set; }
-        public string Schedule { get; set; } // Monthly - 1st, Quarterly, Weekly, etc.
+        public string Schedule { get; set; }
         public string AssignedTo { get; set; }
         public decimal EstimatedCost { get; set; }
     }
@@ -27,144 +28,110 @@ namespace QLTB.ViewModel
     {
         public ObservableCollection<MaintenancePlanItem> Plans { get; set; }
 
-        // Statistics
-        private int _totalPlans;
-        public int TotalPlans
-        {
-            get => _totalPlans;
-            set
-            {
-                _totalPlans = value;
-                OnPropertyChanged(nameof(TotalPlans));
-            }
-        }
-
-        private int _activePlans;
-        public int ActivePlans
-        {
-            get => _activePlans;
-            set
-            {
-                _activePlans = value;
-                OnPropertyChanged(nameof(ActivePlans));
-            }
-        }
-
-        private int _dueThisMonth;
-        public int DueThisMonth
-        {
-            get => _dueThisMonth;
-            set
-            {
-                _dueThisMonth = value;
-                OnPropertyChanged(nameof(DueThisMonth));
-            }
-        }
-
-        private decimal _estimatedMonthlyCost;
-        public decimal EstimatedMonthlyCost
-        {
-            get => _estimatedMonthlyCost;
-            set
-            {
-                _estimatedMonthlyCost = value;
-                OnPropertyChanged(nameof(EstimatedMonthlyCost));
-            }
-        }
-
-        // View mode
-        private bool _isListView;
-        public bool IsListView
-        {
-            get => _isListView;
-            set
-            {
-                _isListView = value;
-                OnPropertyChanged(nameof(IsListView));
-            }
-        }
+        public int TotalPlans { get; set; }
+        public int ActivePlans { get; set; }
+        public int DueThisMonth { get; set; }
+        public decimal EstimatedMonthlyCost { get; set; }
 
         public ICommand CreatePlanCommand { get; set; }
         public ICommand ViewDetailsCommand { get; set; }
-        public ICommand SwitchToListViewCommand { get; set; }
-        public ICommand SwitchToCalendarViewCommand { get; set; }
 
         public MaintenancePlanViewModel()
         {
-            IsListView = true;
+            Plans = new ObservableCollection<MaintenancePlanItem>();
 
-            // Sample data
-            Plans = new ObservableCollection<MaintenancePlanItem>
-            {
-                new MaintenancePlanItem
-                {
-                    Title = "Monthly CNC Inspection",
-                    Equipment = "CNC Machine A",
-                    Priority = "Cao",
-                    Status = "Hoạt động",
-                    Type = "Preventive",
-                    NextDue = "2026-06-01",
-                    Schedule = "Monthly - 1st",
-                    AssignedTo = "John Doe",
-                    EstimatedCost = 500
-                },
-                new MaintenancePlanItem
-                {
-                    Title = "Quarterly Hydraulic Service",
-                    Equipment = "Hydraulic Press B",
-                    Priority = "Trung bình",
-                    Status = "Active",
-                    Type = "Preventive",
-                    NextDue = "2026-07-15",
-                    Schedule = "Quarterly",
-                    AssignedTo = "Jane Smith",
-                    EstimatedCost = 1200
-                },
-                new MaintenancePlanItem
-                {
-                    Title = "Weekly Safety Check",
-                    Equipment = "Conveyor System C",
-                    Priority = "Cao",
-                    Status = "Active",
-                    Type = "Preventive",
-                    NextDue = "2026-05-19",
-                    Schedule = "Weekly",
-                    AssignedTo = "Mike Johnson",
-                    EstimatedCost = 150
-                }
-            };
+            _ = LoadData();
 
-            // Calculate statistics
-            UpdateStatistics();
-
-            // Commands
             CreatePlanCommand = new RelayCommand(o =>
             {
-                // Open create plan form
+                // mở form tạo kế hoạch
             });
 
             ViewDetailsCommand = new RelayCommand(o =>
             {
-                // Open plan details
+                // mở chi tiết
             });
+        }
 
-            SwitchToListViewCommand = new RelayCommand(o =>
-            {
-                IsListView = true;
-            });
+        private async Task LoadData()
+        {
+            using var context = new QuanLyVatTuContext();
 
-            SwitchToCalendarViewCommand = new RelayCommand(o =>
-            {
-                IsListView = false;
-            });
+            var data = await context.BaoTris
+                .Include(x => x.ChiTietThietBi)
+                    .ThenInclude(x => x.IdthietBiNavigation)
+                .Include(x => x.IddichVuNavigation)
+                .Include(x => x.IdnhanVienNavigation)
+                .ToListAsync();
+
+            Plans = new ObservableCollection<MaintenancePlanItem>(
+                data.Select(x => new MaintenancePlanItem
+                {
+                    IdBaoTri = x.IdbaoTri,
+
+                    Title = x.IddichVuNavigation?.TenDichVu ?? "Kế hoạch bảo trì",
+
+                    Equipment = x.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "Không rõ",
+
+                    Priority = x.DoUuTien ?? "Trung bình",
+
+                    Status = x.TinhTrangBaoTri ?? "Đang xử lý",
+
+                    Type = "Bảo trì",
+
+                    NextDue = x.NgayBaoTri?.ToString("yyyy-MM-dd") ?? "",
+
+                    Schedule = x.IddichVuNavigation != null
+                        ? $"{x.IddichVuNavigation.Value} {ConvertUnit(x.IddichVuNavigation.Unit)}"
+                        : "Không rõ",
+
+                    AssignedTo = x.IdnhanVienNavigation?.HoTen ?? "Chưa phân công",
+
+                    EstimatedCost = Convert.ToDecimal(x.IddichVuNavigation?.GiaDichVu ?? 0)
+                })
+            );
+
+            UpdateStatistics();
+
+            OnPropertyChanged(nameof(Plans));
         }
 
         private void UpdateStatistics()
         {
             TotalPlans = Plans.Count;
-            ActivePlans = Plans.Count(p => p.Status == "Active");
-            DueThisMonth = Plans.Count(p => DateTime.Parse(p.NextDue).Month == DateTime.Now.Month);
-            EstimatedMonthlyCost = Plans.Where(p => p.Status == "Active").Sum(p => p.EstimatedCost);
+
+            ActivePlans = Plans.Count(p =>
+                p.Status == "Đang xử lý" ||
+                p.Status == "Hoạt động");
+
+            DueThisMonth = Plans.Count(p =>
+                DateTime.TryParse(p.NextDue, out DateTime date)
+                && date.Month == DateTime.Now.Month
+                && date.Year == DateTime.Now.Year);
+
+            EstimatedMonthlyCost = Plans
+                .Where(p => DateTime.TryParse(p.NextDue, out DateTime date)
+                    && date.Month == DateTime.Now.Month
+                    && date.Year == DateTime.Now.Year)
+                .Sum(p => p.EstimatedCost);
+
+            OnPropertyChanged(nameof(TotalPlans));
+            OnPropertyChanged(nameof(ActivePlans));
+            OnPropertyChanged(nameof(DueThisMonth));
+            OnPropertyChanged(nameof(EstimatedMonthlyCost));
+        }
+
+        private string ConvertUnit(int? unit)
+        {
+            return unit switch
+            {
+                0 => "phút",
+                1 => "giờ",
+                2 => "ngày",
+                3 => "tháng",
+                4 => "năm",
+                _ => ""
+            };
         }
     }
 }
