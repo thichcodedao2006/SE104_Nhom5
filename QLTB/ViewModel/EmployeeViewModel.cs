@@ -82,6 +82,7 @@ namespace QLTB.ViewModel
         private int activeEmployees;
         private int departmentsCount;
         private int rolesCount;
+        private TaiKhoan UserAccount;
 
         private ObservableCollection<NhanVien> ListNhanVien;
         private ObservableCollection<BoPhan> ListBoPhan;
@@ -122,8 +123,9 @@ namespace QLTB.ViewModel
             set { _filterText = value; FilterEmployees(); OnPropertyChanged(nameof(FilterText)); }
         }
 
-        public EmployeeViewModel()
+        public EmployeeViewModel(TaiKhoan t)
         {
+            UserAccount = t;
             FilterText = "Tên nhân viên";
             _ = LoadAllData();
             LoadCommand();
@@ -239,7 +241,14 @@ namespace QLTB.ViewModel
                     }
                 }
             });
-            EditEmployeeCommand = new RelayCommand(p => { if (p is Employee e) PopUpService.ShowPopUp(new EmployeeDetailView(e)); });
+            EditEmployeeCommand = new RelayCommand(p => { if (p is Employee e)
+                {
+
+                    EmployeeDetailView detail = new EmployeeDetailView(e, UserAccount);
+                    PopUpService.ShowPopUp(detail);
+                }
+                    
+                    });
         }
 
         private void OpenAddNV() => PopUpService.ShowPopUp(new EmployeeFormView());

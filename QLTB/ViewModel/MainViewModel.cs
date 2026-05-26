@@ -121,10 +121,10 @@ namespace QLTB.ViewModel
             {
                 if (_employeeVM == null)
                 {
-                    _employeeVM = new EmployeeViewModel();
+                    _employeeVM = new EmployeeViewModel(t);
                 }
                 CurrentViewModel = _employeeVM;
-                _employeeVM.Reload();
+                _ = _employeeVM.Reload();
             });
 
             OpenMaintenancePlanCommand = new RelayCommand(o =>
@@ -171,6 +171,7 @@ namespace QLTB.ViewModel
                     _settingVM = new SettingViewModel(t, UserDetail);
                 }
                 CurrentViewModel = _settingVM;
+                _settingVM.Reload();
             });
 
             OpenStatisticCommand = new RelayCommand(o =>

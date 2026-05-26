@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QLTB.Models;
 using QLTB.ViewModel;
 
 namespace QLTB.UserControlFolder.Employee
@@ -21,10 +22,10 @@ namespace QLTB.UserControlFolder.Employee
     /// </summary>
     public partial class EmployeeDetailView : UserControl
     {
-        public EmployeeDetailView(ViewModel.Employee e)
+        public EmployeeDetailView(ViewModel.Employee e, TaiKhoan t)
         {
             InitializeComponent();
-            this.DataContext = new EmployeeDetailVM(e);
+            this.DataContext = new EmployeeDetailVM(e, t);
         }
     }
 }

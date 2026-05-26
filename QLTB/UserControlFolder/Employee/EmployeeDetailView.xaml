@@ -88,31 +88,53 @@
                         </Grid>
                     </Border>
 
-                    <Button Content="Xác thực tài khoản" 
-            Margin="0,16,0,0" 
-            Height="42" 
-            Foreground="White" 
-            FontWeight="SemiBold" 
-            Cursor="Hand"
-            Command="{Binding XacThucTaiKhoanCommand}">
+                    <Button Margin="0,16,0,0" 
+        Height="42" 
+        Foreground="White" 
+        FontWeight="SemiBold" 
+        Cursor="Hand"
+        Command="{Binding XacThucTaiKhoanCommand}">
                         <Button.Style>
                             <Style TargetType="Button">
+                                <Setter Property="Content" Value="Xác thực tài khoản"/>
                                 <Setter Property="Background" Value="#EF4444"/>
                                 <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Visibility" Value="Collapsed"/>
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" 
-                                    CornerRadius="8">
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
                                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
+
                                 <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
+                                    <DataTrigger Binding="{Binding UserAccount.LoaiTaiKhoan, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay   }" Value="0">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Account.DuocXacThuc}" Value="1">
+                                        <Setter Property="Content" Value="Hủy xác thực"/>
+                                        <Setter Property="Background" Value="#4B5563"/>
+                                    </DataTrigger>
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>
+                                            <Condition Binding="{Binding Account.DuocXacThuc}" Value="0"/>
+                                        </MultiDataTrigger.Conditions>
                                         <Setter Property="Background" Value="#DC2626"/>
-                                    </Trigger>
+                                    </MultiDataTrigger>
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>
+                                            <Condition Binding="{Binding Account.DuocXacThuc}" Value="1"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="#374151"/>
+                                    </MultiDataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>

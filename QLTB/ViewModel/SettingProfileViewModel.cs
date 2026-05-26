@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LiveChartsCore.Geo;
+using Microsoft.EntityFrameworkCore;
 using QLTB.Data;
 using QLTB.Helpers;
 using QLTB.Models;
@@ -17,12 +18,16 @@ namespace QLTB.ViewModel
     {
         private TaiKhoan userAccount;
         private NhanVien userProfile;
+        private string role;
         private string currentAvatar;
         private string _filePath = null;
+
+        private List<ChucDanh> listChucDanh;
         public SettingProfileViewModel(TaiKhoan t, NhanVien n)
         {
             UserAccount = t;
             UserProfile = n;
+
             LoadCommand();
             _ = Initialize();
         }
@@ -52,6 +57,19 @@ namespace QLTB.ViewModel
             }
                 }
 
+        public string Role { get => role; set
+            {
+                role = value;   
+                OnPropertyChanged(nameof(Role));
+            }
+                }
+
+        public List<ChucDanh> ListChucDanh { get => listChucDanh; set
+            {
+                listChucDanh = value;
+                OnPropertyChanged(nameof(ListChucDanh));    
+            }
+                }
 
         private void LoadCommand()
         {
@@ -116,7 +134,29 @@ namespace QLTB.ViewModel
 
         private async Task Initialize()
         {
+            
             CurrentAvatar = CloudinaryService.GetImageUrl(KeyData.AvatarFolder, KeyData.NhanVienTag + UserProfile.IdnhanVien);
+
+            await Reload();
+        }
+
+        public async Task Reload()
+        {
+            if (UserProfile != null)
+            {
+                using (var context = new QuanLyVatTuContext())
+                {
+                    var nv = await context.NhanViens.FirstOrDefaultAsync(x => x.IdnhanVien == UserProfile.IdnhanVien);
+                    if (nv != null)
+                    {
+                        var cd = await context.ChucDanhs.FirstOrDefaultAsync(x => x.Id == nv.IdchucDanh);
+                        if (cd != null)
+                        {
+                            Role = cd.TenChucDanh;
+                        }
+                    }
+                }
+            }
         }
         
     }

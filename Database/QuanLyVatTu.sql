@@ -59,6 +59,8 @@ create table ChucDanh
 	TenChucDanh nvarchar(50),
 )
 
+select * from ChucDanh
+
 create table NhanVien 
 (
 	IDNhanVien int primary key identity,

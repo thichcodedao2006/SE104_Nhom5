@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QLTB.Data;
 using QLTB.Helpers;
 using QLTB.Models;
 using SkiaSharp;
@@ -32,7 +33,10 @@ namespace QLTB.ViewModel
         private int selectedLoaiTaiKhoan;
         private string avatarPath;
         private Employee data;
+        private TaiKhoan account;
+        private TaiKhoan userAccount;
 
+        private bool HaveClickValidate = false;
 
         private List<BoPhan> listBoPhan;
         private List<ChucDanh> listChucDanh;
@@ -40,6 +44,8 @@ namespace QLTB.ViewModel
 
         public ICommand CloseForm {  get; set; }
         public ICommand SaveInfoCommand { get; set; }
+
+        public ICommand XacThucTaiKhoanCommand { get; set; }
 
         public string MaNV { get => maNV; set
             {
@@ -124,8 +130,23 @@ namespace QLTB.ViewModel
             }
                 }
 
-        public EmployeeDetailVM(Employee e)
+        public TaiKhoan Account { get => account; set
+            {
+                account = value;
+                OnPropertyChanged(nameof(Account));
+            }
+                }
+
+        public TaiKhoan UserAccount { get => userAccount; set
+            {
+                userAccount = value;
+                OnPropertyChanged(nameof(UserAccount));
+            }
+                }
+
+        public EmployeeDetailVM(Employee e, TaiKhoan t)
         {
+            UserAccount = t;
             _ = LoadData(e);
             LoadCommand();
         }
@@ -135,12 +156,73 @@ namespace QLTB.ViewModel
         {
             CloseForm = new RelayCommand<UserControl>
                 (
-                p => true, p => PopUpService.ClosePopUp(p)
+                p => true, p => Close(p)
                 );
             SaveInfoCommand = new RelayCommand<UserControl>
                 (
                 p => true,  async p => await SaveInfo(p)
                 );
+            XacThucTaiKhoanCommand = new RelayCommand<object>
+            (
+                 p => true, async p => await ValidateAccount()
+            );
+        }
+
+
+        private async Task ValidateAccount()
+        {
+            try
+            {
+                if (HaveClickValidate) return;
+                if (Account == null) return;
+
+                HaveClickValidate = true;
+
+                // 1. Thay đổi trạng thái ngay trên đối tượng đang hiển thị ở UI để nút đổi màu/chữ
+                if (Account.DuocXacThuc == 0)
+                {
+                    Account.DuocXacThuc = 1;
+                }
+                else
+                {
+                    Account.DuocXacThuc = 0;
+                }
+
+                // 2. Ép UI cập nhật lại giao diện ngay lập tức
+                OnPropertyChanged(nameof(Account));
+
+                // 3. Sử dụng Context riêng để tìm và cập nhật chính xác dòng đó dưới DB
+                using (var _context = new QuanLyVatTuContext())
+                {
+                    // Tìm thực thể sạch trực tiếp từ DB dựa vào Email hoặc Id của tài khoản
+                    var taiKhoanDb = await _context.TaiKhoans.FirstOrDefaultAsync(tk => tk.Email == Account.Email);
+
+                    if (taiKhoanDb != null)
+                    {
+                        // Cập nhật giá trị mới vào dòng tìm được dưới DB
+                        taiKhoanDb.DuocXacThuc = Account.DuocXacThuc;
+
+                        // Lưu thay đổi xuống SQL Server
+                        await _context.SaveChangesAsync();
+
+                        MessageBox.Show("Thay đổi xác thực tài khoản thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy tài khoản này trong cơ sở dữ liệu.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    HaveClickValidate = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Có lỗi xảy ra: {ex.Message}\n{ex.InnerException?.Message}", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void Close(UserControl p)
+        {
+            PopUpService.ClosePopUp(p);
         }
 
         private async Task SaveInfo(UserControl p)
@@ -248,6 +330,7 @@ namespace QLTB.ViewModel
                 {
                     // Gán giá trị vào biến SelectedLoaiTaiKhoan (đã Binding ở XAML trong câu hỏi trước)
                     SelectedLoaiTaiKhoan = taiKhoanInfo.LoaiTaiKhoan.Value;
+                    Account = taiKhoanInfo;
                 }
             }
         }

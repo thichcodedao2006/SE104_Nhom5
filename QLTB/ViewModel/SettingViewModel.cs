@@ -83,5 +83,13 @@ namespace QLTB.ViewModel
                     CurrentView = _system;
                 });
         }
+
+        public async Task Reload()
+        {
+            if (_profile != null)
+            {
+                _profile.Reload();
+            }
+        }
     }
 }

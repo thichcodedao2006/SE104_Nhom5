@@ -8,9 +8,6 @@
              xmlns:vm="clr-namespace:QLTB.ViewModel"
          Background="#F8FAFC">
 
-    <UserControl.DataContext>
-        <vm:EmployeeViewModel/>
-    </UserControl.DataContext>
 
     <Grid Margin="28">
         <Grid.RowDefinitions>
