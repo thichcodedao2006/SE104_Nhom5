@@ -11,39 +11,50 @@ namespace QLTB.Helpers
     {
         public static void ShowPopUp(object vm)
         {
-            Window ownerWindow = Application.Current.MainWindow;
-
-            // 2. Tạo một Window trống để làm vỏ bọc chứa UserControl
-            Window dialogWindow = new Window
+            try
             {
-                Title = "Chi tiết", // Bạn có thể tùy biến title dựa vào ViewModel nếu muốn
-                SizeToContent = SizeToContent.WidthAndHeight,
-                WindowStartupLocation = WindowStartupLocation.Manual,
-                Owner = ownerWindow, // Nằm đè lên MainWindow
-                WindowStyle = WindowStyle.None,
-                ResizeMode = ResizeMode.NoResize,
-                // Ép thẳng ViewModel vào Content và DataContext
-                Content = vm,
-                DataContext = vm
-            };
+                Window ownerWindow = Application.Current.MainWindow;
 
-            dialogWindow.Loaded += (sender, args) =>
+                Window dialogWindow = new Window
+                {
+                    Title = "Chi tiết",
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    WindowStartupLocation = WindowStartupLocation.Manual,
+                    Owner = ownerWindow,
+                    WindowStyle = WindowStyle.None,
+                    ResizeMode = ResizeMode.NoResize,
+                    Content = vm,
+                    // Đảm bảo Window kế thừa Resources từ Application
+                    Resources = Application.Current.Resources
+                };
+
+                dialogWindow.Loaded += (sender, args) =>
+                {
+                    try
+                    {
+                        if (dialogWindow.Owner != null)
+                        {
+                            dialogWindow.Left = dialogWindow.Owner.Left + (dialogWindow.Owner.ActualWidth - dialogWindow.ActualWidth) / 2;
+                            dialogWindow.Top = dialogWindow.Owner.Top + (dialogWindow.Owner.ActualHeight - dialogWindow.ActualHeight) / 2;
+                        }
+                        else
+                        {
+                            dialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        }
+                    }
+                    catch
+                    {
+                        dialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    }
+                };
+
+                dialogWindow.ShowDialog();
+            }
+            catch (Exception ex)
             {
-                if (dialogWindow.Owner != null)
-                {
-                    // Công thức: Tọa độ = Tọa độ cha + (Kích thước cha - Kích thước con) / 2
-                    dialogWindow.Left = dialogWindow.Owner.Left + (dialogWindow.Owner.ActualWidth - dialogWindow.ActualWidth) / 2;
-                    dialogWindow.Top = dialogWindow.Owner.Top + (dialogWindow.Owner.ActualHeight - dialogWindow.ActualHeight) / 2;
-                }
-                else
-                {
-                    // Nếu không tìm thấy cha, cho ra giữa màn hình máy tính luôn
-                    dialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                }
-            };
-
-            // 3. Hiển thị lên
-            dialogWindow.ShowDialog();
+                MessageBox.Show($"Lỗi trong PopUpService:\n{ex.Message}", 
+                    "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public static void ClosePopUp(object vm)

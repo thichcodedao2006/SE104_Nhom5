@@ -25,14 +25,82 @@ namespace QLTB.ViewModel
     {
         public MaintenancePlanItem Plan { get; set; }
 
-        public string Title => Plan.Title;
-        public string Type => Plan.Type;
-        public string Priority => Plan.Priority;
-        public string AssignedTo => Plan.AssignedTo;
-        public string NextDue => Plan.NextDue;
-        public decimal EstimatedCost => Plan.EstimatedCost;
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                _title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
 
-        public ObservableCollection<MaintenanceDeviceDetail> Devices { get; set; }
+        private string _type;
+        public string Type
+        {
+            get => _type;
+            set
+            {
+                _type = value;
+                OnPropertyChanged(nameof(Type));
+            }
+        }
+
+        private string _priority;
+        public string Priority
+        {
+            get => _priority;
+            set
+            {
+                _priority = value;
+                OnPropertyChanged(nameof(Priority));
+            }
+        }
+
+        private string _assignedTo;
+        public string AssignedTo
+        {
+            get => _assignedTo;
+            set
+            {
+                _assignedTo = value;
+                OnPropertyChanged(nameof(AssignedTo));
+            }
+        }
+
+        private string _nextDue;
+        public string NextDue
+        {
+            get => _nextDue;
+            set
+            {
+                _nextDue = value;
+                OnPropertyChanged(nameof(NextDue));
+            }
+        }
+
+        private decimal _estimatedCost;
+        public decimal EstimatedCost
+        {
+            get => _estimatedCost;
+            set
+            {
+                _estimatedCost = value;
+                OnPropertyChanged(nameof(EstimatedCost));
+            }
+        }
+
+        private ObservableCollection<MaintenanceDeviceDetail> _devices;
+        public ObservableCollection<MaintenanceDeviceDetail> Devices
+        {
+            get => _devices;
+            set
+            {
+                _devices = value;
+                OnPropertyChanged(nameof(Devices));
+            }
+        }
 
         public ICommand CloseCommand { get; set; }
 
@@ -40,11 +108,25 @@ namespace QLTB.ViewModel
         {
             Plan = item;
 
+            // Khởi tạo properties từ Plan
+            Title = Plan?.Title ?? "N/A";
+            Type = Plan?.Type ?? "N/A";
+            Priority = Plan?.Priority ?? "N/A";
+            AssignedTo = Plan?.AssignedTo ?? "N/A";
+            NextDue = Plan?.NextDue ?? "N/A";
+            EstimatedCost = Plan?.EstimatedCost ?? 0;
+
             Devices = new ObservableCollection<MaintenanceDeviceDetail>();
 
             CloseCommand = new RelayCommand<object>(
-                p => true,
-                p => PopUpService.ClosePopUp(this));
+            p => true,
+            p =>
+            {
+                if (p is DependencyObject d)
+                {
+                    Window.GetWindow(d)?.Close();
+                }
+            });
 
             _ = LoadDevices();
         }
@@ -53,6 +135,13 @@ namespace QLTB.ViewModel
         {
             try
             {
+                // Kiểm tra Plan có null không
+                if (Plan == null)
+                {
+                    MessageBox.Show("Lỗi: Không có thông tin kế hoạch bảo trì.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 using var context = new QuanLyVatTuContext();
 
                 var details = await context.ChiTietBaoTris
@@ -67,13 +156,13 @@ namespace QLTB.ViewModel
                 Devices = new ObservableCollection<MaintenanceDeviceDetail>(
                     details.Select(x => new MaintenanceDeviceDetail
                     {
-                        TenThietBi = x.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "",
-                        SoSeri = x.SoSeri,
-                        TinhTrang = x.ChiTietThietBi?.TinhTrang ?? "",
-                        PhongBan = x.ChiTietThietBi?.IdphongBanNavigation?.TenPhong ?? "",
-                        DichVu = x.IddichVuNavigation?.TenDichVu ?? "",
-                        TienDo = x.TienDo ?? "",
-                        KetQua = x.KetQua ?? ""
+                        TenThietBi = x.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "N/A",
+                        SoSeri = x.SoSeri ?? "N/A",
+                        TinhTrang = x.ChiTietThietBi?.TinhTrang ?? "N/A",
+                        PhongBan = x.ChiTietThietBi?.IdphongBanNavigation?.TenPhong ?? "N/A",
+                        DichVu = x.IddichVuNavigation?.TenDichVu ?? "N/A",
+                        TienDo = x.TienDo ?? "Chưa bắt đầu",
+                        KetQua = x.KetQua ?? "Chưa có"
                     })
                 );
 
@@ -81,7 +170,8 @@ namespace QLTB.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi mở chi tiết:\n" + ex.Message);
+                MessageBox.Show($"Lỗi tải dữ liệu chi tiết:\n{ex.Message}", 
+                    "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

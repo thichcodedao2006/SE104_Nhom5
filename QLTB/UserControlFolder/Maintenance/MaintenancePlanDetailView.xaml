@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Background="Transparent">
 
-    <Border Width="760"
+    <Border Width="1000"
             Background="{StaticResource MainBackgroundBrush}"
             CornerRadius="16"
             Padding="30"

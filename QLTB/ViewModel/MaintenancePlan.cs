@@ -55,16 +55,19 @@ namespace QLTB.ViewModel
                 {
                     if (o is MaintenancePlanItem item)
                     {
-                        PopUpService.ShowPopUp(new MaintenancePlanDetailView(item));
+                        var detailView = new MaintenancePlanDetailView(item);
+                        PopUpService.ShowPopUp(detailView);
                     }
                     else
                     {
-                        MessageBox.Show("CommandParameter không phải MaintenancePlanItem");
+                        MessageBox.Show("CommandParameter không phải MaintenancePlanItem", 
+                            "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi mở popup chi tiết:\n" + ex.Message);
+                    MessageBox.Show($"Lỗi mở popup chi tiết:\n{ex.Message}", 
+                        "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
         }
