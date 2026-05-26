@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|e:\\documents\\se104(nhapmoncnpm)\\\u0111\u1ED3 \u00E1n\\se104_nhom5\\qltb\\viewmodel\\settingnotificationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\settingnotificationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|e:\\documents\\se104(nhapmoncnpm)\\\u0111\u1ED3 \u00E1n\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenancetask.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenancetask.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|e:\\documents\\se104(nhapmoncnpm)\\\u0111\u1ED3 \u00E1n\\se104_nhom5\\qltb\\viewmodel\\materialviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\materialviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|e:\\documents\\se104(nhapmoncnpm)\\\u0111\u1ED3 \u00E1n\\se104_nhom5\\qltb\\usercontrolfolder\\material\\materialformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\material\\materialformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|e:\\documents\\se104(nhapmoncnpm)\\\u0111\u1ED3 \u00E1n\\se104_nhom5\\qltb\\usercontrolfolder\\maintenance\\maintenancetask.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:usercontrolfolder\\maintenance\\maintenancetask.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|e:\\documents\\se104(nhapmoncnpm)\\\u0111\u1ED3 \u00E1n\\se104_nhom5\\qltb\\viewmodel\\maintenanceeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -66,7 +70,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "MaintenancePlan.cs",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenancePlan.cs",
               "RelativeDocumentMoniker": "ViewModel\\MaintenancePlan.cs",
@@ -79,7 +83,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "MaintenancePlan.xaml",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlan.xaml",
@@ -91,7 +95,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "MaintenanceTask.xaml",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceTask.xaml",
@@ -103,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "MaintenanceTask.xaml.cs",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenanceTask.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenanceTask.xaml.cs",
@@ -115,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "MaintenancePlanDetailView.xaml.cs",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml.cs",
@@ -127,7 +131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "MaintenancePlanDetailViewModel.cs",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenancePlanDetailViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\MaintenancePlanDetailViewModel.cs",
@@ -139,7 +143,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "MaintenancePlanDetailView.xaml",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlanDetailView.xaml",
@@ -150,7 +154,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "MaintenancePlanFormView.xaml",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml",
               "RelativeDocumentMoniker": "UserControlFolder\\Maintenance\\MaintenancePlanFormView.xaml",
@@ -163,32 +167,19 @@
         },
         {
           "DockedWidth": 1863,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainViewModel.cs",
-              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MainViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\MainViewModel.cs",
-              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MainViewModel.cs",
-              "RelativeToolTip": "ViewModel\\MainViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:17:47.38Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MaterialViewModel.cs",
-              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaterialViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\MaterialViewModel.cs",
-              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaterialViewModel.cs",
-              "RelativeToolTip": "ViewModel\\MaterialViewModel.cs",
-              "ViewState": "AgIAAPsAAAAAAAAAAAAAAPgBAAAAAAAAAAAAAA==",
+              "Title": "SettingNotificationViewModel.cs",
+              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\SettingNotificationViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\SettingNotificationViewModel.cs",
+              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\SettingNotificationViewModel.cs",
+              "RelativeToolTip": "ViewModel\\SettingNotificationViewModel.cs",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAIwOEAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:16:44.298Z",
+              "WhenOpened": "2026-05-26T09:24:32.513Z",
               "EditorCaption": ""
             },
             {
@@ -196,33 +187,8 @@
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MaterialFormView.xaml",
-              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Material\\MaterialFormView.xaml",
-              "RelativeDocumentMoniker": "UserControlFolder\\Material\\MaterialFormView.xaml",
-              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Material\\MaterialFormView.xaml",
-              "RelativeToolTip": "UserControlFolder\\Material\\MaterialFormView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-26T09:18:00.305Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MaintenanceEditViewModel.cs",
-              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceEditViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\MaintenanceEditViewModel.cs",
-              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceEditViewModel.cs",
-              "RelativeToolTip": "ViewModel\\MaintenanceEditViewModel.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAIwEQAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:01:28.47Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -234,7 +200,55 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MainViewModel.cs",
+              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MainViewModel.cs",
+              "RelativeToolTip": "ViewModel\\MainViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:17:47.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MaterialViewModel.cs",
+              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaterialViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MaterialViewModel.cs",
+              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaterialViewModel.cs",
+              "RelativeToolTip": "ViewModel\\MaterialViewModel.cs",
+              "ViewState": "AgIAAPsAAAAAAAAAAAAAAPgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:16:44.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MaterialFormView.xaml",
+              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Material\\MaterialFormView.xaml",
+              "RelativeDocumentMoniker": "UserControlFolder\\Material\\MaterialFormView.xaml",
+              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Material\\MaterialFormView.xaml",
+              "RelativeToolTip": "UserControlFolder\\Material\\MaterialFormView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-26T09:18:00.305Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "MaintenanceEditViewModel.cs",
+              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceEditViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MaintenanceEditViewModel.cs",
+              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceEditViewModel.cs",
+              "RelativeToolTip": "ViewModel\\MaintenanceEditViewModel.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAIwEQAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:01:28.47Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "MaintenanceTaskViewModel.cs",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceTaskViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\MaintenanceTaskViewModel.cs",
