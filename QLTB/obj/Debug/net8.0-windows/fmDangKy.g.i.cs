@@ -83,7 +83,7 @@ namespace QLTB {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/QLTB;component/fmdangky.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QLTB;V1.0.0.0;component/fmdangky.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\fmDangKy.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

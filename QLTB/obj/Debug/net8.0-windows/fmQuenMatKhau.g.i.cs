@@ -55,7 +55,7 @@ namespace QLTB {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/QLTB;component/fmquenmatkhau.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QLTB;V1.0.0.0;component/fmquenmatkhau.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\fmQuenMatKhau.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

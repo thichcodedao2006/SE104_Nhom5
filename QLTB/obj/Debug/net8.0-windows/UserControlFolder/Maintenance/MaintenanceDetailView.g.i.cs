@@ -55,7 +55,8 @@ namespace QLTB.UserControlFolder.Maintenance {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/QLTB;component/usercontrolfolder/maintenance/maintenancedetailview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QLTB;V1.0.0.0;component/usercontrolfolder/maintenance/maintenancedetailview.xaml" +
+                    "", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControlFolder\Maintenance\MaintenanceDetailView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -63,7 +63,7 @@ namespace QLTB.UserControlFolder.Employee {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/QLTB;component/usercontrolfolder/employee/employeedetailview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QLTB;V1.0.0.0;component/usercontrolfolder/employee/employeedetailview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControlFolder\Employee\EmployeeDetailView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

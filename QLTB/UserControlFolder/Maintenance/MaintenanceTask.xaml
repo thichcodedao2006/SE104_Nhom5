@@ -262,11 +262,35 @@
                     <DataGridTemplateColumn Header="Thao tác" Width="1.2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="✎ Chỉnh sửa"
-                    Command="{Binding DataContext.EditTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                    CommandParameter="{Binding}"
-                    Style="{StaticResource BlueButton}"
-                    Height="36" Padding="12 0" Background="#2563EB" Foreground="White" BorderThickness="0" FontWeight="SemiBold" Cursor="Hand"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                    <Button Command="{Binding DataContext.EditTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        CommandParameter="{Binding}"
+                        ToolTip="Chỉnh sửa"
+                        Width="36" Height="36" Margin="0,0,8,0"
+                        Background="#EFF6FF" BorderThickness="0" Cursor="Hand">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="8"/>
+                                            </Style>
+                                        </Button.Resources>
+                                        <fa:ImageAwesome Icon="Pencil" Width="16" Height="16" Foreground="#2563EB"/>
+                                    </Button>
+
+                                    <Button Command="{Binding DataContext.DeleteMaintenanceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        CommandParameter="{Binding}"
+                        ToolTip="Xóa"
+                        Width="36" Height="36"
+                        Background="#FEF2F2" BorderThickness="0" Cursor="Hand">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="8"/>
+                                            </Style>
+                                        </Button.Resources>
+                                        <fa:ImageAwesome Icon="Trash" Width="16" Height="16" Foreground="#DC2626"/>
+                                    </Button>
+
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
