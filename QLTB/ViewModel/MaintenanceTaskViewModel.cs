@@ -111,11 +111,17 @@ namespace QLTB.ViewModel
             DeleteMaintenanceCommand = new RelayCommand(async o =>
             {
                 if (SelectedMaintenance == null) return;
-                var result = MessageBox.Show("Bạn có chắc chắn muốn xóa bản ghi bảo trì này?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                var result = MessageBox.Show("Bạn có chắc chắn muốn xóa toàn bộ phiếu bảo trì này và các thiết bị liên quan bên trong?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
                     using (var db = new QuanLyVatTuContext())
                     {
+                        var childDetails = await db.ChiTietBaoTris.Where(ct => ct.IdbaoTri == SelectedMaintenance.IdBaoTri).ToListAsync();
+                        if (childDetails.Any())
+                        {
+                            db.ChiTietBaoTris.RemoveRange(childDetails);
+                        }
+
                         var dbMaintenance = await db.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == SelectedMaintenance.IdBaoTri);
                         if (dbMaintenance != null)
                         {
@@ -137,19 +143,28 @@ namespace QLTB.ViewModel
                 {
                     using (var db = new QuanLyVatTuContext())
                     {
-                        var dbItem = await db.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == item.IdBaoTri);
-                        if (dbItem != null)
-                        {
-                            dbItem.TinhTrangBaoTri = "Hoàn thành";
-                            db.Entry(dbItem).State = EntityState.Modified;
-                            await db.SaveChangesAsync();
+                        await db.Database.ExecuteSqlRawAsync(
+                            "UPDATE ChiTietBaoTri SET TienDo = N'Hoàn thành' WHERE IDBaoTri = {0} AND IDThietBi = {1} AND SoSeri = {2}",
+                            item.IdBaoTri, item.IdThietBi, item.SoSeri);
 
-                            if (dbItem.IdnhanVien.HasValue) await UpdateStaffStatusAsync(db, dbItem.IdnhanVien.Value);
+                        var allDetailsInTicket = await db.ChiTietBaoTris.Where(ct => ct.IdbaoTri == item.IdBaoTri).ToListAsync();
+                        bool isTicketFinished = allDetailsInTicket.All(ct => ct.TienDo == "Hoàn thành");
+
+                        if (isTicketFinished)
+                        {
+                            await db.Database.ExecuteSqlRawAsync(
+                                "UPDATE BaoTri SET TinhTrangBaoTri = N'Hoàn thành' WHERE IDBaoTri = {0}", item.IdBaoTri);
+
+                            var dbMaster = await db.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == item.IdBaoTri);
+                            if (dbMaster != null && dbMaster.IdnhanVien.HasValue)
+                            {
+                                await UpdateStaffStatusAsync(db, dbMaster.IdnhanVien.Value);
+                            }
                         }
                     }
                     await LoadMaintenancesAsync();
                     DataSyncService.NotifyDataChanged();
-                    MessageBox.Show("Đã hoàn thành công việc!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Đã cập nhật hoàn thành hạng mục thiết bị!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             });
 
@@ -168,15 +183,20 @@ namespace QLTB.ViewModel
                         {
                             using (var db = new QuanLyVatTuContext())
                             {
-                                var dbItem = await db.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == item.IdBaoTri);
-                                if (dbItem != null)
+                                string newStatus = editVM.TinhTrangBaoTri?.ToString().Replace("System.Windows.Controls.ComboBoxItem: ", "");
+
+                                await db.Database.ExecuteSqlRawAsync(
+                                    "UPDATE ChiTietBaoTri SET TienDo = {0} WHERE IDBaoTri = {1} AND IDThietBi = {2} AND SoSeri = {3}",
+                                    newStatus, item.IdBaoTri, item.IdThietBi, item.SoSeri);
+
+                                var dbMaster = await db.BaoTris.FirstOrDefaultAsync(b => b.IdbaoTri == item.IdBaoTri);
+                                if (dbMaster != null)
                                 {
-                                    int? oldStaffId = dbItem.IdnhanVien;
-                                    dbItem.NgayBaoTri = editVM.NgayBaoTri;
-                                    dbItem.DoUuTien = editVM.DoUuTien;
-                                    dbItem.TinhTrangBaoTri = editVM.TinhTrangBaoTri?.ToString().Replace("System.Windows.Controls.ComboBoxItem: ", "");
-                                    dbItem.IdnhanVien = editVM.SelectedStaffId;
-                                    db.Entry(dbItem).State = EntityState.Modified;
+                                    int? oldStaffId = dbMaster.IdnhanVien;
+                                    dbMaster.NgayBaoTri = editVM.NgayBaoTri;
+                                    dbMaster.DoUuTien = editVM.DoUuTien;
+                                    dbMaster.IdnhanVien = editVM.SelectedStaffId;
+                                    db.Entry(dbMaster).State = EntityState.Modified;
                                     await db.SaveChangesAsync();
 
                                     if (oldStaffId.HasValue) await UpdateStaffStatusAsync(db, oldStaffId.Value);
@@ -185,9 +205,12 @@ namespace QLTB.ViewModel
                             }
                             await LoadMaintenancesAsync();
                             DataSyncService.NotifyDataChanged();
-                            MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Cập nhật thông tin hạng mục thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
-                        catch (Exception ex) { MessageBox.Show("Lỗi: " + ex.Message); }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi hệ thống khi lưu: " + ex.Message, "Lỗi SQL", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 }
             });
@@ -221,39 +244,23 @@ namespace QLTB.ViewModel
                 using (var db = new QuanLyVatTuContext())
                 {
                     var rawList = await db.ChiTietBaoTris
-                        .Include(ct => ct.IdbaoTriNavigation)
-                            .ThenInclude(bt => bt.IdnhanVienNavigation)
-                        .Include(ct => ct.IddichVuNavigation)
-                        .Include(ct => ct.ChiTietThietBi)
-                            .ThenInclude(cttb => cttb.IdthietBiNavigation)
-                        .ToListAsync();
-
-                    Maintenances = new ObservableCollection<MaintenanceDisplayItem>(
-                        rawList.Select(ct => new MaintenanceDisplayItem
+                        .Select(ct => new MaintenanceDisplayItem
                         {
                             IdBaoTri = ct.IdbaoTri,
-
-                            TenThietBi = ct.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi
-                                         ?? "Thiết bị đã xóa",
-
+                            IdThietBi = ct.IdthietBi,
+                            TenThietBi = ct.ChiTietThietBi != null && ct.ChiTietThietBi.IdthietBiNavigation != null ? ct.ChiTietThietBi.IdthietBiNavigation.TenThietBi : "Thiết bị đã xóa",
                             SoSeri = ct.SoSeri,
-
-                            TenDichVu = ct.IddichVuNavigation?.TenDichVu
-                                        ?? "Không rõ",
-
-                            TenNhanVien = ct.IdbaoTriNavigation?.IdnhanVienNavigation?.HoTen
-                                          ?? "Chưa phân công",
-
-                            NgayBaoTri = ct.IdbaoTriNavigation?.NgayBaoTri,
-
-                            DoUuTien = ct.IdbaoTriNavigation?.DoUuTien
-                                       ?? "Thấp",
-
-                            TinhTrangBaoTri = ct.TienDo
-                                               ?? ct.IdbaoTriNavigation?.TinhTrangBaoTri
-                                               ?? "Đang xử lý"
+                            TenDichVu = ct.IddichVuNavigation != null ? ct.IddichVuNavigation.TenDichVu : "Không rõ",
+                            GiaDichVu = ct.IddichVuNavigation != null ? (double)ct.IddichVuNavigation.GiaDichVu : 0,
+                            TenNhanVien = ct.IdbaoTriNavigation != null && ct.IdbaoTriNavigation.IdnhanVienNavigation != null ? ct.IdbaoTriNavigation.IdnhanVienNavigation.HoTen : "Chưa phân công",
+                            NgayBaoTri = ct.IdbaoTriNavigation != null ? ct.IdbaoTriNavigation.NgayBaoTri : null,
+                            DoUuTien = ct.IdbaoTriNavigation != null ? ct.IdbaoTriNavigation.DoUuTien : "Thấp",
+                            TinhTrangBaoTri = ct.TienDo ?? (ct.IdbaoTriNavigation != null ? ct.IdbaoTriNavigation.TinhTrangBaoTri : "Đang xử lý"),
+                            GhiChu = ct.GhiChuThietBi
                         })
-                    );
+                        .ToListAsync();
+
+                    Maintenances = new ObservableCollection<MaintenanceDisplayItem>(rawList);
 
                     var staffNames = await db.NhanViens
                         .Select(nv => nv.HoTen)
@@ -270,7 +277,7 @@ namespace QLTB.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi tải: " + ex.Message);
+                MessageBox.Show("Lỗi tải danh sách bảo trì: " + ex.Message, "Lỗi Dữ Liệu", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
