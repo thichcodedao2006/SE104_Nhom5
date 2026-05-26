@@ -75,7 +75,7 @@ namespace QLTB.UserControlFolder {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/QLTB;V1.0.0.0;component/usercontrolfolder/forgetpass3.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QLTB;component/usercontrolfolder/forgetpass3.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControlFolder\ForgetPass3.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
