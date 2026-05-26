@@ -171,9 +171,9 @@
 
                     <DataGridTextColumn Header="Loại hình dịch vụ" Binding="{Binding IddichVuNavigation.TenDichVu}" Width="1.8*"/>
 
-                    <DataGridTextColumn Header="Ngày hoàn thành" Binding="{Binding NgayBaoTri, StringFormat=\{0:dd/MM/yyyy\}}" Width="1.3*" ElementStyle="{StaticResource CenterTextStyle}"/>
+                    <DataGridTextColumn Header="Ngày hoàn thành" Binding="{Binding IdbaoTriNavigation.NgayBaoTri, StringFormat=\{0:dd/MM/yyyy\}}" Width="1.3*" ElementStyle="{StaticResource CenterTextStyle}"/>
 
-                    <DataGridTextColumn Header="Kỹ thuật viên" Binding="{Binding IdnhanVienNavigation.HoTen}" Width="1.3*" ElementStyle="{StaticResource CenterTextStyle}"/>
+                    <DataGridTextColumn Header="Kỹ thuật viên" Binding="{Binding IdbaoTriNavigation.IdnhanVienNavigation.HoTen}" Width="1.3*" ElementStyle="{StaticResource CenterTextStyle}"/>
 
                     <DataGridTemplateColumn Header="Chi phí" Width="1.2*">
                         <DataGridTemplateColumn.CellTemplate>

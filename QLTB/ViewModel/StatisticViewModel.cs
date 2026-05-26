@@ -132,11 +132,12 @@ namespace QLTB.ViewModel
         {
             double[] values = new double[12];
 
-            var data = context.BaoTris
+            var data = context.ChiTietBaoTris
+                .Include(x => x.IdbaoTriNavigation)
                 .Include(x => x.IddichVuNavigation)
-                .Where(x => x.NgayBaoTri != null)
+                .Where(x => x.IdbaoTriNavigation.NgayBaoTri != null)
                 .AsEnumerable()
-                .GroupBy(x => x.NgayBaoTri.Value.Month)
+                .GroupBy(x => x.IdbaoTriNavigation.NgayBaoTri.Value.Month)
                 .Select(g => new
                 {
                     Month = g.Key,
@@ -148,34 +149,34 @@ namespace QLTB.ViewModel
 
             CostSeries = new ISeries[]
             {
-                new LineSeries<double>
-                {
-                    Name = "Chi phí",
-                    Values = values,
-                    Fill = null,
-                    GeometrySize = 10
-                }
+        new LineSeries<double>
+        {
+            Name = "Chi phí",
+            Values = values,
+            Fill = null,
+            GeometrySize = 10
+        }
             };
 
             CostXAxes = new Axis[]
             {
-                new Axis
-                {
-                    Labels = new[]
-                    {
-                        "T1","T2","T3","T4","T5","T6",
-                        "T7","T8","T9","T10","T11","T12"
-                    }
-                }
+        new Axis
+        {
+            Labels = new[]
+            {
+                "T1","T2","T3","T4","T5","T6",
+                "T7","T8","T9","T10","T11","T12"
+            }
+        }
             };
 
             CostYAxes = new Axis[]
             {
-                new Axis
-                {
-                    MinLimit = 0,
-                    Labeler = value => value.ToString("N0") + "đ"
-                }
+        new Axis
+        {
+            MinLimit = 0,
+            Labeler = value => value.ToString("N0") + "đ"
+        }
             };
         }
 

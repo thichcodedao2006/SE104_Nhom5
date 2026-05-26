@@ -100,6 +100,20 @@
                                         Binding="{Binding PhongBan}"
                                         Width="1.5*"
                                         ElementStyle="{StaticResource CenterTextStyle}"/>
+                    <DataGridTextColumn Header="Dịch vụ"
+                                        Binding="{Binding DichVu}"
+                                        Width="1.5*"
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
+
+                    <DataGridTextColumn Header="Tiến độ"
+                                        Binding="{Binding TienDo}"
+                                        Width="1.2*"
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
+
+                    <DataGridTextColumn Header="Kết quả"
+                                        Binding="{Binding KetQua}"
+                                        Width="1.8*"
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
 

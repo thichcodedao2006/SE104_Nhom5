@@ -220,15 +220,58 @@ namespace QLTB.ViewModel
             {
                 using (var db = new QuanLyVatTuContext())
                 {
-                    var rawList = await db.BaoTris.Include(b => b.IddichVuNavigation).Include(b => b.IdnhanVienNavigation).Include(b => b.ChiTietThietBi).ThenInclude(ct => ct.IdthietBiNavigation).ToListAsync();
-                    Maintenances = new ObservableCollection<MaintenanceDisplayItem>(rawList.Select(b => new MaintenanceDisplayItem { IdBaoTri = b.IdbaoTri, TenThietBi = b.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "Thiết bị đã xóa", SoSeri = b.SoSeri, TenDichVu = b.IddichVuNavigation?.TenDichVu ?? "Không rõ", TenNhanVien = b.IdnhanVienNavigation?.HoTen ?? "Chưa phân công", NgayBaoTri = b.NgayBaoTri, DoUuTien = b.DoUuTien ?? "Thấp", TinhTrangBaoTri = b.TinhTrangBaoTri ?? "Đang xử lý" }));
-                    var staffNames = await db.NhanViens.Select(nv => nv.HoTen).Distinct().ToListAsync();
-                    TechnicianList = new ObservableCollection<string>(staffNames.Prepend("Tất cả kỹ thuật viên"));
+                    var rawList = await db.ChiTietBaoTris
+                        .Include(ct => ct.IdbaoTriNavigation)
+                            .ThenInclude(bt => bt.IdnhanVienNavigation)
+                        .Include(ct => ct.IddichVuNavigation)
+                        .Include(ct => ct.ChiTietThietBi)
+                            .ThenInclude(cttb => cttb.IdthietBiNavigation)
+                        .ToListAsync();
+
+                    Maintenances = new ObservableCollection<MaintenanceDisplayItem>(
+                        rawList.Select(ct => new MaintenanceDisplayItem
+                        {
+                            IdBaoTri = ct.IdbaoTri,
+
+                            TenThietBi = ct.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi
+                                         ?? "Thiết bị đã xóa",
+
+                            SoSeri = ct.SoSeri,
+
+                            TenDichVu = ct.IddichVuNavigation?.TenDichVu
+                                        ?? "Không rõ",
+
+                            TenNhanVien = ct.IdbaoTriNavigation?.IdnhanVienNavigation?.HoTen
+                                          ?? "Chưa phân công",
+
+                            NgayBaoTri = ct.IdbaoTriNavigation?.NgayBaoTri,
+
+                            DoUuTien = ct.IdbaoTriNavigation?.DoUuTien
+                                       ?? "Thấp",
+
+                            TinhTrangBaoTri = ct.TienDo
+                                               ?? ct.IdbaoTriNavigation?.TinhTrangBaoTri
+                                               ?? "Đang xử lý"
+                        })
+                    );
+
+                    var staffNames = await db.NhanViens
+                        .Select(nv => nv.HoTen)
+                        .Distinct()
+                        .ToListAsync();
+
+                    TechnicianList = new ObservableCollection<string>(
+                        staffNames.Prepend("Tất cả kỹ thuật viên")
+                    );
                 }
+
                 FilterMaintenances();
                 RefreshStats();
             }
-            catch (Exception ex) { MessageBox.Show("Lỗi tải: " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải: " + ex.Message);
+            }
         }
 
         private void FilterMaintenances()

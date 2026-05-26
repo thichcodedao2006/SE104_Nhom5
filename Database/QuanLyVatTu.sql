@@ -336,3 +336,34 @@ drop table BaoTri
 update NhanVien
 set TinhTrang = N'Đang rảnh'
 where IDNhanVien = 3
+
+drop table BaoTri
+
+create table BaoTri 
+(
+    IDBaoTri int primary key identity,
+    IDNhanVien int,
+    NgayBaoTri DateTime, 
+    GhiChu nvarchar(100),
+    DoUuTien nvarchar(20), 
+    TinhTrangBaoTri nvarchar(50),
+
+    foreign key (IDNhanVien) references NhanVien(IDNhanVien)
+);
+
+create table ChiTietBaoTri
+(
+    IDBaoTri int,
+    IDThietBi int,
+    SoSeri varchar(10),
+    IDDichVu int,
+    GhiChuThietBi nvarchar(255),
+    TienDo nvarchar(50),
+    KetQua nvarchar(255),
+
+    primary key (IDBaoTri, IDThietBi, SoSeri),
+
+    foreign key (IDBaoTri) references BaoTri(IDBaoTri),
+    foreign key (IDThietBi, SoSeri) references ChiTietThietBi(IDThietBi, SoSeri),
+    foreign key (IDDichVu) references DichVuBaoTri(IDDichVu)
+);

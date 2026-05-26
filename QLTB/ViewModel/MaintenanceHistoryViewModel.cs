@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +15,10 @@ namespace QLTB.ViewModel
     public class MaintenanceHistoryViewModel : BaseViewModel
     {
         private readonly QuanLyVatTuContext _context;
-        private List<BaoTri> _allDbRecords;
+        private List<ChiTietBaoTri> _allDbRecords;
 
-        private ObservableCollection<BaoTri> _historyRecords;
-        public ObservableCollection<BaoTri> HistoryRecords
+        private ObservableCollection<ChiTietBaoTri> _historyRecords;
+        public ObservableCollection<ChiTietBaoTri> HistoryRecords
         {
             get => _historyRecords;
             set { _historyRecords = value; OnPropertyChanged(nameof(HistoryRecords)); }
@@ -83,17 +82,28 @@ namespace QLTB.ViewModel
         public MaintenanceHistoryViewModel()
         {
             _context = new QuanLyVatTuContext();
-            _allDbRecords = new List<BaoTri>();
-            HistoryRecords = new ObservableCollection<BaoTri>();
+            _allDbRecords = new List<ChiTietBaoTri>();
+            HistoryRecords = new ObservableCollection<ChiTietBaoTri>();
 
             _ = LoadHistoryFromDatabaseAsync();
 
             ViewDetailsCommand = new RelayCommand(o =>
             {
-                if (o is BaoTri record)
+                if (o is ChiTietBaoTri record)
                 {
-                    var detailViewModel = new MaintenanceDetailViewModel(record);
-                    var detailForm = new QLTB.UserControlFolder.Maintenance.MaintenanceDetailView { DataContext = detailViewModel };
+                    var baoTri = record.IdbaoTriNavigation;
+
+                    if (baoTri == null)
+                    {
+                        MessageBox.Show("Không tìm thấy phiếu bảo trì.");
+                        return;
+                    }
+
+                    var detailViewModel = new MaintenanceDetailViewModel(baoTri);
+                    var detailForm = new QLTB.UserControlFolder.Maintenance.MaintenanceDetailView
+                    {
+                        DataContext = detailViewModel
+                    };
 
                     Window window = new Window
                     {
@@ -117,13 +127,14 @@ namespace QLTB.ViewModel
         {
             try
             {
-                _allDbRecords = await _context.BaoTris
-                    .Include(b => b.IddichVuNavigation)
-                    .Include(b => b.IdnhanVienNavigation)
-                    .Include(b => b.ChiTietThietBi)
-                        .ThenInclude(ct => ct.IdthietBiNavigation)
-                    .Where(b => b.TinhTrangBaoTri == "Hoàn thành")
-                    .OrderByDescending(b => b.NgayBaoTri)
+                _allDbRecords = await _context.ChiTietBaoTris
+                    .Include(ct => ct.IdbaoTriNavigation)
+                        .ThenInclude(bt => bt.IdnhanVienNavigation)
+                    .Include(ct => ct.IddichVuNavigation)
+                    .Include(ct => ct.ChiTietThietBi)
+                        .ThenInclude(tb => tb.IdthietBiNavigation)
+                    .Where(ct => ct.IdbaoTriNavigation.TinhTrangBaoTri == "Hoàn thành")
+                    .OrderByDescending(ct => ct.IdbaoTriNavigation.NgayBaoTri)
                     .ToListAsync();
 
                 FilterHistory();
@@ -143,32 +154,50 @@ namespace QLTB.ViewModel
 
             if (!string.IsNullOrEmpty(SearchText))
             {
-                query = query.Where(b =>
-                    (b.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi != null && b.ChiTietThietBi.IdthietBiNavigation.TenThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                    (b.IddichVuNavigation?.TenDichVu != null && b.IddichVuNavigation.TenDichVu.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                    (b.IdnhanVienNavigation?.HoTen != null && b.IdnhanVienNavigation.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                    (b.SoSeri != null && b.SoSeri.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                query = query.Where(ct =>
+                    (ct.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi != null &&
+                     ct.ChiTietThietBi.IdthietBiNavigation.TenThietBi.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+
+                    (ct.IddichVuNavigation?.TenDichVu != null &&
+                     ct.IddichVuNavigation.TenDichVu.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+
+                    (ct.IdbaoTriNavigation?.IdnhanVienNavigation?.HoTen != null &&
+                     ct.IdbaoTriNavigation.IdnhanVienNavigation.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+
+                    (ct.SoSeri != null &&
+                     ct.SoSeri.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
                 );
             }
 
             DateTime now = DateTime.Now;
+
             if (SelectedTimeFilter == "Tháng này")
             {
-                query = query.Where(b => b.NgayBaoTri.HasValue && b.NgayBaoTri.Value.Month == now.Month && b.NgayBaoTri.Value.Year == now.Year);
+                query = query.Where(ct =>
+                    ct.IdbaoTriNavigation.NgayBaoTri.HasValue &&
+                    ct.IdbaoTriNavigation.NgayBaoTri.Value.Month == now.Month &&
+                    ct.IdbaoTriNavigation.NgayBaoTri.Value.Year == now.Year);
             }
             else if (SelectedTimeFilter == "Tháng trước")
             {
                 var firstDayOfThisMonth = new DateTime(now.Year, now.Month, 1);
                 var firstDayOfLastMonth = firstDayOfThisMonth.AddMonths(-1);
-                query = query.Where(b => b.NgayBaoTri.HasValue && b.NgayBaoTri.Value >= firstDayOfLastMonth && b.NgayBaoTri.Value < firstDayOfThisMonth);
+
+                query = query.Where(ct =>
+                    ct.IdbaoTriNavigation.NgayBaoTri.HasValue &&
+                    ct.IdbaoTriNavigation.NgayBaoTri.Value >= firstDayOfLastMonth &&
+                    ct.IdbaoTriNavigation.NgayBaoTri.Value < firstDayOfThisMonth);
             }
             else if (SelectedTimeFilter == "3 Tháng trước")
             {
                 var threeMonthsAgo = now.AddMonths(-3);
-                query = query.Where(b => b.NgayBaoTri.HasValue && b.NgayBaoTri.Value >= threeMonthsAgo);
+
+                query = query.Where(ct =>
+                    ct.IdbaoTriNavigation.NgayBaoTri.HasValue &&
+                    ct.IdbaoTriNavigation.NgayBaoTri.Value >= threeMonthsAgo);
             }
 
-            HistoryRecords = new ObservableCollection<BaoTri>(query);
+            HistoryRecords = new ObservableCollection<ChiTietBaoTri>(query);
         }
 
         private void UpdateStatistics()
@@ -176,11 +205,12 @@ namespace QLTB.ViewModel
             TotalRecords = _allDbRecords.Count;
             DateTime now = DateTime.Now;
 
-            ThisMonth = _allDbRecords.Count(b => b.NgayBaoTri.HasValue &&
-                                                b.NgayBaoTri.Value.Month == now.Month &&
-                                                b.NgayBaoTri.Value.Year == now.Year);
+            ThisMonth = _allDbRecords.Count(ct =>
+                ct.IdbaoTriNavigation.NgayBaoTri.HasValue &&
+                ct.IdbaoTriNavigation.NgayBaoTri.Value.Month == now.Month &&
+                ct.IdbaoTriNavigation.NgayBaoTri.Value.Year == now.Year);
 
-            TotalCost = _allDbRecords.Sum(b => b.IddichVuNavigation?.GiaDichVu ?? 0);
+            TotalCost = _allDbRecords.Sum(ct => ct.IddichVuNavigation?.GiaDichVu ?? 0);
             AvgCost = TotalRecords > 0 ? TotalCost / TotalRecords : 0;
         }
 
@@ -203,6 +233,7 @@ namespace QLTB.ViewModel
                 try
                 {
                     var sb = new StringBuilder();
+
                     sb.AppendLine("Thiết bị,Số Seri,Loại hình dịch vụ,Ngày hoàn thành,Kỹ thuật viên,Chi phí (đ)");
 
                     foreach (var item in HistoryRecords)
@@ -210,8 +241,10 @@ namespace QLTB.ViewModel
                         string device = item.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "N/A";
                         string serial = item.SoSeri ?? "N/A";
                         string service = item.IddichVuNavigation?.TenDichVu ?? "N/A";
-                        string date = item.NgayBaoTri.HasValue ? item.NgayBaoTri.Value.ToString("dd/MM/yyyy") : "N/A";
-                        string tech = item.IdnhanVienNavigation?.HoTen ?? "N/A";
+                        string date = item.IdbaoTriNavigation?.NgayBaoTri.HasValue == true
+                            ? item.IdbaoTriNavigation.NgayBaoTri.Value.ToString("dd/MM/yyyy")
+                            : "N/A";
+                        string tech = item.IdbaoTriNavigation?.IdnhanVienNavigation?.HoTen ?? "N/A";
                         string cost = (item.IddichVuNavigation?.GiaDichVu ?? 0).ToString("F0");
 
                         device = device.Contains(",") ? $"\"{device}\"" : device;
@@ -222,6 +255,7 @@ namespace QLTB.ViewModel
                     }
 
                     System.IO.File.WriteAllText(saveFileDialog.FileName, sb.ToString(), Encoding.UTF8);
+
                     MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)

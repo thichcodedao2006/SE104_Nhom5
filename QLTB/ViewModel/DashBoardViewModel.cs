@@ -190,26 +190,34 @@ namespace QLTB.ViewModel
             int deviceOverRepair = 0;
 
             var listThietBi = await DataProvider.Instance.DB.ChiTietThietBis
-                                                        .Where(x => x.TinhTrang == "Tốt")
-                                                        .ToListAsync();
+                .Where(x => x.TinhTrang == "Tốt")
+                .ToListAsync();
 
             var listGocThietBi = await DataProvider.Instance.DB.ThietBis.ToListAsync();
-            var listBaoTri = await DataProvider.Instance.DB.BaoTris.ToListAsync();
+
+            var listChiTietBaoTri = await DataProvider.Instance.DB.ChiTietBaoTris
+                .Include(x => x.IdbaoTriNavigation)
+                .ToListAsync();
 
             DateTime today = DateTime.Today;
 
             foreach (ChiTietThietBi tb in listThietBi)
             {
                 var Tb = listGocThietBi.FirstOrDefault(x => x.IdthietBi == tb.IdthietBi);
-                var bt = listBaoTri.FirstOrDefault(x => x.IdthietBi == tb.IdthietBi && x.SoSeri == tb.SoSeri);
 
                 if (Tb == null) continue;
 
-                DateTime? baseDate = bt != null ? bt.NgayBaoTri : Tb.NgayNhapThietBi;
+                var lastBaoTri = listChiTietBaoTri
+                    .Where(x => x.IdthietBi == tb.IdthietBi && x.SoSeri == tb.SoSeri)
+                    .OrderByDescending(x => x.IdbaoTriNavigation.NgayBaoTri)
+                    .FirstOrDefault();
+
+                DateTime? baseDate = lastBaoTri?.IdbaoTriNavigation?.NgayBaoTri
+                                     ?? Tb.NgayNhapThietBi;
 
                 if (baseDate.HasValue && Tb.BaoHanhDinhKy.HasValue)
                 {
-                    double value = (double)Tb.BaoHanhDinhKy.Value;
+                    double value = Tb.BaoHanhDinhKy.Value;
                     int valueInt = Tb.BaoHanhDinhKy.Value;
 
                     DateTime nextRepairDay = Tb.DonViThoiGian switch
@@ -262,82 +270,64 @@ namespace QLTB.ViewModel
         {
             try
             {
-                // 1. Khởi tạo câu truy vấn gốc từ bảng BaoTris (chưa chạy xuống DB)
                 var query = DataProvider.Instance.DB.BaoTris.AsQueryable();
 
                 query = query.Where(x => x.NgayBaoTri.HasValue
-                              && x.NgayBaoTri.Value.Date >= FromDate.Date
-                              && x.NgayBaoTri.Value.Date <= ToDate.Date);
+                                      && x.NgayBaoTri.Value.Date >= FromDate.Date
+                                      && x.NgayBaoTri.Value.Date <= ToDate.Date);
 
-                // 3. Lọc theo TRẠNG THÁI (Nếu chọn một trạng thái cụ thể khác "Tất cả")
                 if (!string.IsNullOrEmpty(SelectedState) && SelectedState != "Tất cả")
                 {
                     query = query.Where(x => x.TinhTrangBaoTri == SelectedState);
                 }
 
-                // 4. Lọc theo NHÂN VIÊN (Nếu chọn một nhân viên cụ thể khác "Tất cả")
                 if (SelectedNVId != -1)
                 {
                     query = query.Where(x => x.IdnhanVien == SelectedNVId);
                 }
 
-                // 5. THỰC THI GIAI ĐOẠN 1: Tải danh sách bảo trì đã lọc sơ bộ về bộ nhớ RAM
-                var listBaoTriSơBộ = await query.ToListAsync();
+                var listBaoTri = await query
+                    .Include(x => x.IdnhanVienNavigation)
+                    .Include(x => x.ChiTietBaoTris)
+                        .ThenInclude(ct => ct.ChiTietThietBi)
+                            .ThenInclude(cttb => cttb.IdthietBiNavigation)
+                    .Include(x => x.ChiTietBaoTris)
+                        .ThenInclude(ct => ct.ChiTietThietBi)
+                            .ThenInclude(cttb => cttb.IdphongBanNavigation)
+                    .Include(x => x.ChiTietBaoTris)
+                        .ThenInclude(ct => ct.IddichVuNavigation)
+                    .ToListAsync();
 
-                // 6. NẠP SẴN CÁC BẢNG LIÊN QUAN LÊN RAM (Bổ sung thêm bảng DichVus)
-                var listChiTietTB = await DataProvider.Instance.DB.ChiTietThietBis.ToListAsync();
-                var listThietBiGoc = await DataProvider.Instance.DB.ThietBis.ToListAsync();
-                var listDichVu = await DataProvider.Instance.DB.DichVuBaoTris.ToListAsync(); // <-- THÊM DÒNG NÀY
+                var result = listBaoTri
+                    .SelectMany(bt => bt.ChiTietBaoTris.Select(ct => new ThongTinBaoTri
+                    {
+                        DeviceName = ct.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "",
+                        AssetCode = ct.SoSeri,
+                        JobType = ct.IddichVuNavigation?.TenDichVu ?? "",
+                        StartDate = bt.NgayBaoTri ?? DateTime.Today,
+                        EndDate = CalculateEndDate(
+                            bt.NgayBaoTri,
+                            ct.IddichVuNavigation?.Value,
+                            ct.IddichVuNavigation?.Unit
+                        ),
+                        Status = bt.TinhTrangBaoTri ?? "",
+                        IdPhongCuaThietBi = ct.ChiTietThietBi?.IdphongBan ?? -1,
+                        EmployeeName = bt.IdnhanVienNavigation?.HoTen ?? ""
+                    }))
+                    .ToList();
 
-                // 7. SỬ DỤNG LINQ TRÊN RAM ĐỂ JOIN 4 BẢNG VÀ XỬ LÝ LỆCH KIỂU
-                var result = (from bt in listBaoTriSơBộ
-
-                                  // Khớp kép ChiTietThietBi (Giải quyết lỗi int? và string? bằng cách ép kiểu an toàn)
-                              join cttb in listChiTietTB
-                              on new
-                              {
-                                  MaTB = bt.IdthietBi.HasValue ? bt.IdthietBi.Value : 0,
-                                  Seri = bt.SoSeri ?? string.Empty
-                              }
-                              equals new
-                              {
-                                  MaTB = cttb.IdthietBi,
-                                  Seri = cttb.SoSeri
-                              }
-
-                              // Join sang ThietBi gốc để lấy tên thiết bị
-                              join tbGoc in listThietBiGoc on bt.IdthietBi equals tbGoc.IdthietBi
-
-                              // BỔ SUNG: Join sang bảng DichVu để lấy tên dịch vụ bảo trì
-                              join dv in listDichVu on bt.IddichVu equals dv.IddichVu // (Kiểm tra lại chữ hoa/thường của IdDichVu theo DB của bạn)
-
-                              select new ThongTinBaoTri
-                              {
-                                  DeviceName = tbGoc.TenThietBi,
-                                  AssetCode = bt.SoSeri,
-
-                                  // Đã lấy được tên dịch vụ gán vào JobType sạch sẽ!
-                                  JobType = dv.TenDichVu, // Thay bằng tên cột chứa tên dịch vụ thực tế dưới DB của bạn
-
-                                  StartDate = bt.NgayBaoTri.Value,
-                                  EndDate = CalculateEndDate(bt.NgayBaoTri, dv.Value, dv.Unit),
-                                  Status = bt.TinhTrangBaoTri,
-                                  IdPhongCuaThietBi = cttb.IdphongBan.Value,
-                                  EmployeeName = ListNhanVien.FirstOrDefault(nv => nv.IdnhanVien == bt.IdnhanVien)?.HoTen
-                              }).ToList();
-
-                // 8. LỌC THEO PHÒNG BAN (Sau khi đã có IdPhong từ bảng ChiTietThietBi ở bước Join)
                 if (SelectedID != -1)
                 {
-                    result = result.Where(x => x.IdPhongCuaThietBi == SelectedID).ToList();
+                    result = result
+                        .Where(x => x.IdPhongCuaThietBi == SelectedID)
+                        .ToList();
                 }
 
-                // 9. CẬP NHẬT LÊN DATAGRID GIAO DIỆN
                 ListBaoTri = result;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Lỗi khi lọc danh sách bảo trì: {ex.Message}");
+                MessageBox.Show("Lỗi khi lọc danh sách bảo trì:\n" + ex.Message);
             }
         }
         private void Reset()

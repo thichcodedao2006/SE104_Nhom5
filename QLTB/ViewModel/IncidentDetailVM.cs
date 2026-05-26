@@ -210,81 +210,115 @@ namespace QLTB.ViewModel
 
         private async Task SaveReport(UserControl p)
         {
-            MessageBoxResult res = MessageBox.Show("Xác nhận lưu báo cáo. Các thông tin chỉnh sửa sẽ được thực hiện ở Danh sách bảo trì", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            MessageBoxResult res = MessageBox.Show(
+                "Xác nhận lưu báo cáo. Các thông tin chỉnh sửa sẽ được thực hiện ở Danh sách bảo trì",
+                "Thông báo",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Information);
 
-            if (res == MessageBoxResult.Yes)
+            if (res != MessageBoxResult.Yes) return;
+
+            try
             {
-                try
+                using (var context = new QuanLyVatTuContext())
                 {
-                    using (var context = new QuanLyVatTuContext())
+                    // 1. TẠO PHIẾU BẢO TRÌ CHUNG
+                    BaoTri newBaoTri = new BaoTri()
                     {
-                        // 1. TẠO MỚI PHIẾU BẢO TRÌ
-                        BaoTri newBaoTri = new BaoTri()
+                        IdnhanVien = SelectedStaff,
+                        NgayBaoTri = DateTime.Now,
+                        GhiChu = Data.Description,
+                        TinhTrangBaoTri = "Đang xử lý",
+                        DoUuTien = Data.Priority switch
                         {
-                            IdthietBi = Data.IdDevice,
-                            SoSeri = Data.SeriNumber,
-                            IddichVu = SelectedServiceId,
-                            IdnhanVien = SelectedStaff,
-                            NgayBaoTri = DateTime.Now,
-                            GhiChu = Data.Description,
-                            TinhTrangBaoTri = "Đang xử lý",
-                            DoUuTien = Data.Priority switch
-                            {
-                                "Chưa xác định" => "Thấp",
-                                "Thấp" => "Thấp",
-                                "Trung bình" => "Trung bình",
-                                _ => "Cao"
-                            }
-                        };
-
-                        context.BaoTris.Add(newBaoTri);
-                        await context.SaveChangesAsync();
-
-                        // 2. CẬP NHẬT LẠI PHIẾU BÁO CÁO SỰ CỐ
-                        var baoCao = await context.BaoCaoSuaChuas.FirstOrDefaultAsync(x => x.IdbaoCao == Data.IdReport);
-
-                        if (baoCao != null)
-                        {
-                            baoCao.TrangThai = "Đang xử lý";
-                            baoCao.IdBaoTri = newBaoTri.IdbaoTri;
-
-                            Data.Status = "Đang xử lý";
-                            Data.IdBaoTri = newBaoTri.IdbaoTri;
+                            "Chưa xác định" => "Thấp",
+                            "Thấp" => "Thấp",
+                            "Trung bình" => "Trung bình",
+                            _ => "Cao"
                         }
+                    };
 
-                        // 3. CẬP NHẬT TRẠNG THÁI NHÂN VIÊN
-                        if (SelectedStaff != null)
-                        {
-                            // Update dưới Database
-                            var nhanVienDb = await context.NhanViens.FirstOrDefaultAsync(nv => nv.IdnhanVien == SelectedStaff);
-                            if (nhanVienDb != null)
-                            {
-                                nhanVienDb.TinhTrang = "Đang bận"; // Sửa 'TinhTrang' thành tên cột trong DB của bạn
-                            }
+                    context.BaoTris.Add(newBaoTri);
+                    await context.SaveChangesAsync();
 
-                            // Update trên UI (ListNhanVien đang binding)
-                            if (ListNhanVien != null)
-                            {
-                                var nhanVienUi = ListNhanVien.FirstOrDefault(nv => nv.IdnhanVien == SelectedStaff);
-                                if (nhanVienUi != null)
-                                {
-                                    nhanVienUi.TinhTrang = "Đang bận"; // Sửa 'TinhTrang' thành thuộc tính tương ứng
-                                }
-                            }
-                        }
+                    // 2. TẠO CHI TIẾT BẢO TRÌ CHO THIẾT BỊ BỊ SỰ CỐ
+                    ChiTietBaoTri chiTiet = new ChiTietBaoTri()
+                    {
+                        IdbaoTri = newBaoTri.IdbaoTri,
+                        IdthietBi = Data.IdDevice,
+                        SoSeri = Data.SeriNumber,
+                        IddichVu = SelectedServiceId,
+                        GhiChuThietBi = Data.Description,
+                        TienDo = "Đang xử lý",
+                        KetQua = null
+                    };
 
-                        // Lưu thay đổi của Báo cáo và Nhân viên xuống DB cùng lúc
-                        await context.SaveChangesAsync();
+                    context.ChiTietBaoTris.Add(chiTiet);
 
-                        MessageBox.Show("Đã tạo phiếu bảo trì và phân công công việc thành công!", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // 3. CẬP NHẬT LẠI PHIẾU BÁO CÁO SỰ CỐ
+                    var baoCao = await context.BaoCaoSuaChuas
+                        .FirstOrDefaultAsync(x => x.IdbaoCao == Data.IdReport);
 
-                        PopUpService.ClosePopUp(p);
+                    if (baoCao != null)
+                    {
+                        baoCao.TrangThai = "Đang xử lý";
+                        baoCao.IdBaoTri = newBaoTri.IdbaoTri;
+
+                        Data.Status = "Đang xử lý";
+                        Data.IdBaoTri = newBaoTri.IdbaoTri;
                     }
+
+                    // 4. CẬP NHẬT TRẠNG THÁI THIẾT BỊ
+                    var chiTietThietBi = await context.ChiTietThietBis
+                        .FirstOrDefaultAsync(x => x.IdthietBi == Data.IdDevice
+                                               && x.SoSeri == Data.SeriNumber);
+
+                    if (chiTietThietBi != null)
+                    {
+                        chiTietThietBi.TinhTrang = "Đang bảo trì";
+                    }
+
+                    // 5. CẬP NHẬT TRẠNG THÁI NHÂN VIÊN
+                    if (SelectedStaff != null)
+                    {
+                        var nhanVienDb = await context.NhanViens
+                            .FirstOrDefaultAsync(nv => nv.IdnhanVien == SelectedStaff);
+
+                        if (nhanVienDb != null)
+                        {
+                            nhanVienDb.TinhTrang = "Đang bận";
+                        }
+
+                        if (ListNhanVien != null)
+                        {
+                            var nhanVienUi = ListNhanVien
+                                .FirstOrDefault(nv => nv.IdnhanVien == SelectedStaff);
+
+                            if (nhanVienUi != null)
+                            {
+                                nhanVienUi.TinhTrang = "Đang bận";
+                            }
+                        }
+                    }
+
+                    await context.SaveChangesAsync();
+
+                    MessageBox.Show(
+                        "Đã tạo phiếu bảo trì và phân công công việc thành công!",
+                        "Thành công",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+
+                    PopUpService.ClosePopUp(p);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Có lỗi xảy ra trong quá trình lưu:\n{ex.Message}", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Có lỗi xảy ra trong quá trình lưu:\n{ex.Message}",
+                    "Lỗi hệ thống",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -327,51 +361,59 @@ namespace QLTB.ViewModel
         {
             try
             {
-                CanEdit = true; // Ban đầu thì luôn luôn edit được 
+                CanEdit = true;
                 Data = data;
-                CurrentPath = CloudinaryService.GetImageUrl(KeyData.ReportFolder, KeyData.BaoCaoTag + Data.IdReport);
 
-                // 1. BẮT BUỘC phải load danh sách nhân viên và dịch vụ trước để ComboBox có Source
+                CurrentPath = CloudinaryService.GetImageUrl(
+                    KeyData.ReportFolder,
+                    KeyData.BaoCaoTag + Data.IdReport
+                );
+
                 await LoadDichVu();
                 await LoadNhanVien();
 
-                // 2. Kiểm tra nếu đã có phiếu Bảo trì (đã giao việc)
                 if (Data.IdBaoTri != -1)
                 {
-                    CanEdit = false; // Khóa UI không cho sửa
+                    CanEdit = false;
 
                     using (var context = new QuanLyVatTuContext())
                     {
-                        // TỐI ƯU HIỆU NĂNG: Chỉ lấy đúng 1 record từ DB, thay vì kéo cả bảng về
-                        BaoTri baoTri = await context.BaoTris.FirstOrDefaultAsync(x => x.IdbaoTri == Data.IdBaoTri);
+                        var baoTri = await context.BaoTris
+                            .Include(x => x.ChiTietBaoTris)
+                            .FirstOrDefaultAsync(x => x.IdbaoTri == Data.IdBaoTri);
 
                         if (baoTri != null)
                         {
-                            // Gán Service (Lưu ý: Đổi tên 'IdService' thành tên cột trong DB của bạn nếu khác)
-                            SelectedServiceId = baoTri.IddichVu.Value;
+                            var chiTiet = baoTri.ChiTietBaoTris.FirstOrDefault();
 
-                            
-
-                            // Lấy chuyên môn dựa trên danh sách nhân viên đã load ở trên
-                            if (ListNhanVien != null)
+                            if (chiTiet != null && chiTiet.IddichVu.HasValue)
                             {
-                                var staff = ListNhanVien.FirstOrDefault(x => x.IdnhanVien == baoTri.IdnhanVien);
+                                SelectedServiceId = chiTiet.IddichVu.Value;
+                            }
+
+                            if (ListNhanVien != null && baoTri.IdnhanVien.HasValue)
+                            {
+                                var staff = ListNhanVien
+                                    .FirstOrDefault(x => x.IdnhanVien == baoTri.IdnhanVien.Value);
+
                                 if (staff != null)
                                 {
                                     SelectedSpecial = staff.ChuyenMon;
                                 }
                             }
 
-                            // Gán Nhân viên (Lưu ý: Đổi tên 'IdStaff' thành tên cột trong DB của bạn, ví dụ IddichVu/IdnhanVien)
-                            SelectedStaff = baoTri.IdnhanVien.Value;
+                            if (baoTri.IdnhanVien.HasValue)
+                            {
+                                SelectedStaff = baoTri.IdnhanVien.Value;
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Nên log lỗi ra Console/File để dễ debug nếu có sự cố
                 System.Diagnostics.Debug.WriteLine($"Lỗi tại LoadData: {ex.Message}");
+                MessageBox.Show("Lỗi tải dữ liệu chi tiết sự cố:\n" + ex.Message);
             }
         }
 

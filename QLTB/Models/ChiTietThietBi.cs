@@ -15,7 +15,11 @@ public partial class ChiTietThietBi
 
     public virtual ICollection<BaoCaoSuaChua> BaoCaoSuaChuas { get; set; } = new List<BaoCaoSuaChua>();
 
-    public virtual ICollection<BaoTri> BaoTris { get; set; } = new List<BaoTri>();
+    // XÓA dòng BaoTris cũ
+    // public virtual ICollection<BaoTri> BaoTris { get; set; } = new List<BaoTri>();
+
+    // THÊM dòng mới
+    public virtual ICollection<ChiTietBaoTri> ChiTietBaoTris { get; set; } = new List<ChiTietBaoTri>();
 
     public virtual PhongBan? IdphongBanNavigation { get; set; }
 

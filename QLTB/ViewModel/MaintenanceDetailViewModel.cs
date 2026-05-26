@@ -24,22 +24,29 @@ namespace QLTB.ViewModel
         {
             if (record != null)
             {
+                var detail = record.ChiTietBaoTris?.FirstOrDefault();
+
                 IDBaoTri = $"#BT-{record.IdbaoTri}";
-                TenThietBi = record.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "Không rõ tên";
-                SoSeri = record.SoSeri ?? "N/A";
-                TenDichVu = record.IddichVuNavigation?.TenDichVu ?? "Dịch vụ tự do";
-                ChiPhi = (record.IddichVuNavigation?.GiaDichVu ?? 0).ToString("N0") + " VNĐ";
+
+                TenThietBi = detail?.ChiTietThietBi?
+                                    .IdthietBiNavigation?
+                                    .TenThietBi ?? "Không rõ tên";
+
+                SoSeri = detail?.SoSeri ?? "N/A";
+
+                TenDichVu = detail?.IddichVuNavigation?
+                                      .TenDichVu ?? "Dịch vụ tự do";
+
+                ChiPhi = ((decimal?)detail?.IddichVuNavigation?.GiaDichVu ?? 0)
+                    .ToString("N0") + " VNĐ";
+
                 KyThuatVien = record.IdnhanVienNavigation?.HoTen ?? "Chưa phân công";
-                NgayHoanThanh = record.NgayBaoTri?.ToString("dd/MM/yyyy HH:mm") ?? "N/A";
-                
-                if (record.GhiChu != null && record.GhiChu.Contains("khẩn cấp", StringComparison.OrdinalIgnoreCase))
-                {
-                    DoUuTien = "Cao";
-                }
-                else
-                {
-                    DoUuTien = "Trung bình";
-                }
+
+                NgayHoanThanh = record.NgayBaoTri?
+                    .ToString("dd/MM/yyyy HH:mm") ?? "N/A";
+
+                DoUuTien = record.DoUuTien ?? "Trung bình";
+
                 GhiChu = record.GhiChu ?? "Không có ghi chú nào.";
             }
 

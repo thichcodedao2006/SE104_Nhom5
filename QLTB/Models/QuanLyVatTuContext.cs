@@ -18,6 +18,7 @@ public partial class QuanLyVatTuContext : DbContext
     public virtual DbSet<BaoCaoSuaChua> BaoCaoSuaChuas { get; set; }
 
     public virtual DbSet<BaoTri> BaoTris { get; set; }
+    public virtual DbSet<ChiTietBaoTri> ChiTietBaoTris { get; set; }
 
     public virtual DbSet<BoPhan> BoPhans { get; set; }
 
@@ -74,33 +75,71 @@ public partial class QuanLyVatTuContext : DbContext
 
         modelBuilder.Entity<BaoTri>(entity =>
         {
-            entity.HasKey(e => e.IdbaoTri).HasName("PK__BaoTri__BBE08E29462CDAFE");
+            entity.HasKey(e => e.IdbaoTri);
 
             entity.ToTable("BaoTri");
 
-            entity.Property(e => e.IdbaoTri).HasColumnName("IDBaoTri");
-            entity.Property(e => e.DoUuTien).HasMaxLength(20);
-            entity.Property(e => e.GhiChu).HasMaxLength(100);
-            entity.Property(e => e.IddichVu).HasColumnName("IDDichVu");
-            entity.Property(e => e.IdnhanVien).HasColumnName("IDNhanVien");
-            entity.Property(e => e.IdthietBi).HasColumnName("IDThietBi");
-            entity.Property(e => e.NgayBaoTri).HasColumnType("datetime");
+            entity.Property(e => e.IdbaoTri)
+                .HasColumnName("IDBaoTri");
+
+            entity.Property(e => e.IdnhanVien)
+                .HasColumnName("IDNhanVien");
+
+            entity.Property(e => e.GhiChu)
+                .HasMaxLength(100);
+
+            entity.Property(e => e.DoUuTien)
+                .HasMaxLength(20);
+
+            entity.Property(e => e.TinhTrangBaoTri)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.NgayBaoTri)
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.IdnhanVienNavigation)
+                .WithMany(p => p.BaoTris)
+                .HasForeignKey(d => d.IdnhanVien);
+        });
+        modelBuilder.Entity<ChiTietBaoTri>(entity =>
+        {
+            entity.HasKey(e => new { e.IdbaoTri, e.IdthietBi, e.SoSeri });
+
+            entity.ToTable("ChiTietBaoTri");
+
+            entity.Property(e => e.IdbaoTri)
+                .HasColumnName("IDBaoTri");
+
+            entity.Property(e => e.IdthietBi)
+                .HasColumnName("IDThietBi");
+
             entity.Property(e => e.SoSeri)
                 .HasMaxLength(10)
                 .IsUnicode(false);
-            entity.Property(e => e.TinhTrangBaoTri).HasMaxLength(50);
 
-            entity.HasOne(d => d.IddichVuNavigation).WithMany(p => p.BaoTris)
-                .HasForeignKey(d => d.IddichVu)
-                .HasConstraintName("FK__BaoTri__IDDichVu__619B8048");
+            entity.Property(e => e.IddichVu)
+                .HasColumnName("IDDichVu");
 
-            entity.HasOne(d => d.IdnhanVienNavigation).WithMany(p => p.BaoTris)
-                .HasForeignKey(d => d.IdnhanVien)
-                .HasConstraintName("FK__BaoTri__IDNhanVi__628FA481");
+            entity.Property(e => e.GhiChuThietBi)
+                .HasMaxLength(255);
 
-            entity.HasOne(d => d.ChiTietThietBi).WithMany(p => p.BaoTris)
-                .HasForeignKey(d => new { d.IdthietBi, d.SoSeri })
-                .HasConstraintName("FK__BaoTri__60A75C0F");
+            entity.Property(e => e.TienDo)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.KetQua)
+                .HasMaxLength(255);
+
+            entity.HasOne(d => d.IdbaoTriNavigation)
+                .WithMany(p => p.ChiTietBaoTris)
+                .HasForeignKey(d => d.IdbaoTri);
+
+            entity.HasOne(d => d.ChiTietThietBi)
+                .WithMany(p => p.ChiTietBaoTris)
+                .HasForeignKey(d => new { d.IdthietBi, d.SoSeri });
+
+            entity.HasOne(d => d.IddichVuNavigation)
+                .WithMany(p => p.ChiTietBaoTris)
+                .HasForeignKey(d => d.IddichVu);
         });
 
         modelBuilder.Entity<BoPhan>(entity =>

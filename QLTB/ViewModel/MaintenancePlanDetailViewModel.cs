@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-
 namespace QLTB.ViewModel
 {
     public class MaintenanceDeviceDetail
@@ -17,12 +16,14 @@ namespace QLTB.ViewModel
         public string SoSeri { get; set; }
         public string TinhTrang { get; set; }
         public string PhongBan { get; set; }
+        public string DichVu { get; set; }
+        public string TienDo { get; set; }
+        public string KetQua { get; set; }
     }
 
     public class MaintenancePlanDetailViewModel : BaseViewModel
     {
         public MaintenancePlanItem Plan { get; set; }
-        public int IdBaoTri { get; set; }
 
         public string Title => Plan.Title;
         public string Type => Plan.Type;
@@ -54,29 +55,27 @@ namespace QLTB.ViewModel
             {
                 using var context = new QuanLyVatTuContext();
 
-                var item = await context.BaoTris
+                var details = await context.ChiTietBaoTris
                     .Include(x => x.ChiTietThietBi)
                         .ThenInclude(x => x.IdthietBiNavigation)
                     .Include(x => x.ChiTietThietBi)
                         .ThenInclude(x => x.IdphongBanNavigation)
-                    .FirstOrDefaultAsync(x => x.IdbaoTri == Plan.IdBaoTri);
+                    .Include(x => x.IddichVuNavigation)
+                    .Where(x => x.IdbaoTri == Plan.IdBaoTri)
+                    .ToListAsync();
 
-                if (item == null)
-                {
-                    MessageBox.Show("Không tìm thấy kế hoạch bảo trì.");
-                    return;
-                }
-
-                Devices = new ObservableCollection<MaintenanceDeviceDetail>
-        {
-            new MaintenanceDeviceDetail
-            {
-                TenThietBi = item.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "",
-                SoSeri = item.SoSeri,
-                TinhTrang = item.ChiTietThietBi?.TinhTrang ?? "",
-                PhongBan = item.ChiTietThietBi?.IdphongBanNavigation?.TenPhong ?? ""
-            }
-        };
+                Devices = new ObservableCollection<MaintenanceDeviceDetail>(
+                    details.Select(x => new MaintenanceDeviceDetail
+                    {
+                        TenThietBi = x.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "",
+                        SoSeri = x.SoSeri,
+                        TinhTrang = x.ChiTietThietBi?.TinhTrang ?? "",
+                        PhongBan = x.ChiTietThietBi?.IdphongBanNavigation?.TenPhong ?? "",
+                        DichVu = x.IddichVuNavigation?.TenDichVu ?? "",
+                        TienDo = x.TienDo ?? "",
+                        KetQua = x.KetQua ?? ""
+                    })
+                );
 
                 OnPropertyChanged(nameof(Devices));
             }

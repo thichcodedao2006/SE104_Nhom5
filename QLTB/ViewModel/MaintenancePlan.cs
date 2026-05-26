@@ -74,36 +74,45 @@ namespace QLTB.ViewModel
             using var context = new QuanLyVatTuContext();
 
             var data = await context.BaoTris
-                .Include(x => x.ChiTietThietBi)
-                    .ThenInclude(x => x.IdthietBiNavigation)
-                .Include(x => x.IddichVuNavigation)
                 .Include(x => x.IdnhanVienNavigation)
+                .Include(x => x.ChiTietBaoTris)
+                    .ThenInclude(ct => ct.ChiTietThietBi)
+                        .ThenInclude(cttb => cttb.IdthietBiNavigation)
+                .Include(x => x.ChiTietBaoTris)
+                    .ThenInclude(ct => ct.IddichVuNavigation)
                 .ToListAsync();
 
             Plans = new ObservableCollection<MaintenancePlanItem>(
-                data.Select(x => new MaintenancePlanItem
+                data.Select(x =>
                 {
-                    IdBaoTri = x.IdbaoTri,
+                    var firstDetail = x.ChiTietBaoTris.FirstOrDefault();
 
-                    Title = x.IddichVuNavigation?.TenDichVu ?? "Kế hoạch bảo trì",
+                    return new MaintenancePlanItem
+                    {
+                        IdBaoTri = x.IdbaoTri,
 
-                    Equipment = x.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "Không rõ",
+                        Title = x.GhiChu ?? "Kế hoạch bảo trì",
 
-                    Priority = x.DoUuTien ?? "Trung bình",
+                        Equipment = firstDetail?.ChiTietThietBi?.IdthietBiNavigation?.TenThietBi ?? "Không rõ",
 
-                    Status = x.TinhTrangBaoTri ?? "Đang xử lý",
+                        Priority = x.DoUuTien ?? "Trung bình",
 
-                    Type = "Bảo trì",
+                        Status = x.TinhTrangBaoTri ?? "Đang xử lý",
 
-                    NextDue = x.NgayBaoTri?.ToString("yyyy-MM-dd") ?? "",
+                        Type = firstDetail?.IddichVuNavigation?.TenDichVu ?? "Bảo trì",
 
-                    Schedule = x.IddichVuNavigation != null
-                        ? $"{x.IddichVuNavigation.Value} {ConvertUnit(x.IddichVuNavigation.Unit)}"
-                        : "Không rõ",
+                        NextDue = x.NgayBaoTri?.ToString("yyyy-MM-dd") ?? "",
 
-                    AssignedTo = x.IdnhanVienNavigation?.HoTen ?? "Chưa phân công",
+                        Schedule = firstDetail?.IddichVuNavigation != null
+                            ? $"{firstDetail.IddichVuNavigation.Value} {ConvertUnit(firstDetail.IddichVuNavigation.Unit)}"
+                            : "Không rõ",
 
-                    EstimatedCost = Convert.ToDecimal(x.IddichVuNavigation?.GiaDichVu ?? 0)
+                        AssignedTo = x.IdnhanVienNavigation?.HoTen ?? "Chưa phân công",
+
+                        EstimatedCost = Convert.ToDecimal(
+                            x.ChiTietBaoTris.Sum(ct => ct.IddichVuNavigation?.GiaDichVu ?? 0)
+                        )
+                    };
                 })
             );
 

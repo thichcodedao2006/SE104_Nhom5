@@ -141,9 +141,13 @@ namespace QLTB.ViewModel
                 .Select(x => x.SoSeri)
                 .ToListAsync();
 
-            foreach (var s in serials)
+            foreach (var serial in serials)
             {
-                SerialOptions.Add(new SerialOption { SoSeri = s });
+                SerialOptions.Add(new SerialOption
+                {
+                    SoSeri = serial,
+                    IsSelected = false
+                });
             }
 
             OnPropertyChanged(nameof(SerialOptions));
@@ -153,7 +157,12 @@ namespace QLTB.ViewModel
         {
             try
             {
-                if (SelectedDichVu == null || SelectedThietBi == null || SelectedNhanVien == null || SelectedSerial == null)
+                var selectedSerials = SerialOptions
+                    .Where(x => x.IsSelected)
+                    .Select(x => x.SoSeri)
+                    .ToList();
+
+                if (SelectedDichVu == null || SelectedThietBi == null || SelectedNhanVien == null || !selectedSerials.Any())
                 {
                     MessageBox.Show("Vui lòng chọn đầy đủ thông tin.");
                     return;
@@ -163,9 +172,6 @@ namespace QLTB.ViewModel
 
                 var baoTri = new BaoTri
                 {
-                    IdthietBi = SelectedThietBi.IdthietBi,
-                    SoSeri = SelectedSerial.SoSeri,
-                    IddichVu = SelectedDichVu.IddichVu,
                     IdnhanVien = SelectedNhanVien.IdnhanVien,
                     NgayBaoTri = NgayBaoTri ?? DateTime.Now,
                     DoUuTien = SelectedPriority,
@@ -174,11 +180,28 @@ namespace QLTB.ViewModel
                 };
 
                 context.BaoTris.Add(baoTri);
+                await context.SaveChangesAsync();
+
+                foreach (var serial in selectedSerials)
+                {
+                    var chiTietBaoTri = new ChiTietBaoTri
+                    {
+                        IdbaoTri = baoTri.IdbaoTri,
+                        IdthietBi = SelectedThietBi.IdthietBi,
+                        SoSeri = serial,
+                        IddichVu = SelectedDichVu.IddichVu,
+                        GhiChuThietBi = Notes,
+                        TienDo = "Đang xử lý",
+                        KetQua = null
+                    };
+
+                    context.ChiTietBaoTris.Add(chiTietBaoTri);
+                }
 
                 await context.SaveChangesAsync();
 
                 MessageBox.Show("Tạo kế hoạch bảo trì thành công.");
-                PopUpService.ClosePopUp(this);
+                CloseForm(p);
             }
             catch (Exception ex)
             {
