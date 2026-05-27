@@ -201,6 +201,11 @@ namespace QLTB.ViewModel
                 await context.SaveChangesAsync();
 
                 MessageBox.Show("Tạo kế hoạch bảo trì thành công.");
+                if (MaintenancePlanViewModel.Instance != null)
+                {
+                    await MaintenancePlanViewModel.Instance.ReloadData();
+                }
+
                 CloseForm(p);
             }
             catch (Exception ex)

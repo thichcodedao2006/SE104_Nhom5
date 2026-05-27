@@ -191,7 +191,8 @@
                                Foreground="#111827"
                                Margin="0,0,0,18"/>
 
-                    <DataGrid AutoGenerateColumns="False"
+                    <DataGrid ItemsSource="{Binding TopIncidentDevices}"
+                              AutoGenerateColumns="False"
                               CanUserAddRows="False"
                               HeadersVisibility="Column"
                               RowHeight="48"

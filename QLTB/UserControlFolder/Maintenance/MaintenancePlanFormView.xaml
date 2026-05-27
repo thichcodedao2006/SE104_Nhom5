@@ -70,11 +70,12 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBlock Text="Chu kì bảo hành" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
+                    <TextBlock Text="Ngày bảo trì" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
                     <TextBox Style="{StaticResource RoundedTextBox}" Height="45" Padding="12,0" 
                               BorderBrush="#D1D5DB" 
-                              VerticalContentAlignment="Center" Tag="Chu kì theo tháng" 
-                              Text="{Binding BaoHanhDinhKi}"/>
+                              VerticalContentAlignment="Center" Tag="Ngày dự kiến sẽ được tự tính" 
+                              Text="{Binding NgayBaoTri}"
+                               IsReadOnly="True"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2">
@@ -94,13 +95,9 @@
                     <TextBox Style="{StaticResource RoundedTextBox}" Height="45" Padding="12,0" 
                               BorderBrush="#D1D5DB" 
                              VerticalContentAlignment="Center" Tag="Nhập chi phí dự kiến" 
-                             Text="{Binding GiaDichVu}"/>
+                             Text="{Binding GiaDichVu}"
+                             IsReadOnly="True"/>
 
-                    <TextBlock Text="Ngày bảo trì" FontWeight="SemiBold" Margin="0,20,0,8" Foreground="#374151"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="45" Padding="12,0" 
-                              BorderBrush="#D1D5DB" 
-                              VerticalContentAlignment="Center" Tag="Ngày dự kiến sẽ được tự tính" 
-                              Text="{Binding NgayBaoTri}"/>  
                 </StackPanel>
             </Grid>
 
