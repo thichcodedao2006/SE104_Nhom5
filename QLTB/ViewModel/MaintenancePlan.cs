@@ -37,8 +37,11 @@ namespace QLTB.ViewModel
         public ICommand CreatePlanCommand { get; set; }
         public ICommand ViewDetailsCommand { get; set; }
 
+        public static MaintenancePlanViewModel Instance { get; set; }
+
         public MaintenancePlanViewModel()
         {
+            Instance = this;
             Plans = new ObservableCollection<MaintenancePlanItem>();
 
             _ = LoadData();
@@ -122,6 +125,10 @@ namespace QLTB.ViewModel
             UpdateStatistics();
 
             OnPropertyChanged(nameof(Plans));
+        }
+        public async Task ReloadData()
+        {
+            await LoadData();
         }
 
         private void UpdateStatistics()
