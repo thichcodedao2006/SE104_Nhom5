@@ -75,9 +75,10 @@ namespace QLTB.ViewModel
         public ICommand AddDeviceCommand { get; set; }
         public ICommand EditDeviceCommand { get; set; }
         public ICommand DeleteDeviceCommand { get; set; }
-        public ICommand DeleteByNameCommand { get; set; } // LỆNH MỚI: Xóa hàng loạt theo tên mẫu
+        public ICommand DeleteByNameCommand { get; set; }
         public ICommand SwitchToListViewCommand { get; set; }
         public ICommand SwitchToGridViewCommand { get; set; }
+        public ICommand ExportCommand { get; set; }
 
         public DeviceViewModel()
         {
@@ -86,6 +87,51 @@ namespace QLTB.ViewModel
 
             SwitchToListViewCommand = new RelayCommand(o => IsGridView = false);
             SwitchToGridViewCommand = new RelayCommand(o => IsGridView = true);
+
+            ExportCommand = new RelayCommand(o =>
+            {
+                if (Devices == null || !Devices.Any())
+                {
+                    MessageBox.Show("Không có dữ liệu thiết bị nào để xuất!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "CSV file (*.csv)|*.csv",
+                    FileName = $"DanhSachThietBi_{DateTime.Now:ddMMyyyy}.csv"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    try
+                    {
+                        using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName, false, Encoding.UTF8))
+                        {
+                            sw.Write("\xFEFF");
+                            sw.WriteLine("Tên Thiết Bị,Loại Thiết Bị,Nhà Sản Xuất,Số Serial,Phòng Ban,Trạng Thái");
+
+                            var listToExport = FilteredDevices != null && FilteredDevices.Any() ? FilteredDevices : Devices;
+                            foreach (var item in listToExport)
+                            {
+                                string ten = $"\"{item.TenThietBi}\"";
+                                string loai = $"\"{item.LoaiThietBi}\"";
+                                string nsx = $"\"{item.DonViSanXuat}\"";
+                                string seri = $"\"{item.Serial}\"";
+                                string phong = $"\"{item.PhongBan}\"";
+                                string trangThai = $"\"{item.Status}\"";
+
+                                sw.WriteLine($"{ten},{loai},{nsx},{seri},{phong},{trangThai}");
+                            }
+                        }
+                        MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi xuất file: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            });
 
             AddDeviceCommand = new RelayCommand(async o =>
             {
@@ -111,7 +157,6 @@ namespace QLTB.ViewModel
                 }
             });
 
-            // LỆNH MỚI ĐƯỢC CÀI ĐẶT: XÓA SẠCH TẤT CẢ THIẾT BỊ CÙNG MẪU TÊN
             DeleteByNameCommand = new RelayCommand(async o =>
             {
                 var currentItem = o as DeviceDisplayItem ?? SelectedDevice;
@@ -121,35 +166,26 @@ namespace QLTB.ViewModel
                     return;
                 }
 
-                // Cảnh báo nghiêm trọng trước khi thực hiện xóa diện rộng
-                var result = MessageBox.Show($"CẢNH BÁO: Bạn có chắc chắn muốn xóa TOÀN BỘ các thiết bị chi tiết có tên là [{currentItem.TenThietBi}] của nhà SX [{currentItem.DonViSanXuat}]?\nHành động này sẽ quét sạch toàn bộ các số Serial liên quan!", "Xác nhận xóa hàng loạt", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                var result = MessageBox.Show($"CẢNH BÁO: Bạn có chắc chắn muốn xóa TOÀN BỘ các thiết bị chi tiết có tên là [{currentItem.TenThietBi}]?\nHành động này sẽ xóa sạch số Serial và Lịch sử bảo trì liên quan!", "Xác nhận xóa hàng loạt", MessageBoxButton.YesNo, MessageBoxImage.Error);
                 if (result == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        // 1. Tìm tất cả các bản ghi con ChiTietThietBi thuộc về ID mã cha này
-                        var detailsToDelete = await _context.ChiTietThietBis
-                                                            .Where(ct => ct.IdthietBi == currentItem.IdthietBi)
-                                                            .ToListAsync();
+                        var chiTietBaoTris = await _context.ChiTietBaoTris.Where(ct => ct.IdthietBi == currentItem.IdthietBi).ToListAsync();
+                        if (chiTietBaoTris.Any()) _context.ChiTietBaoTris.RemoveRange(chiTietBaoTris);
 
-                        if (detailsToDelete.Any())
-                        {
-                            _context.ChiTietThietBis.RemoveRange(detailsToDelete);
-                        }
+                        var baoCaoSuaChuas = await _context.BaoCaoSuaChuas.Where(bc => bc.IdthietBi == currentItem.IdthietBi).ToListAsync();
+                        if (baoCaoSuaChuas.Any()) _context.BaoCaoSuaChuas.RemoveRange(baoCaoSuaChuas);
 
-                        // 2. Tìm luôn bản ghi cha mẫu sản phẩm này trong bảng ThietBi để xóa dọn sạch rác kho
+                        var detailsToDelete = await _context.ChiTietThietBis.Where(ct => ct.IdthietBi == currentItem.IdthietBi).ToListAsync();
+                        if (detailsToDelete.Any()) _context.ChiTietThietBis.RemoveRange(detailsToDelete);
+
                         var parentDevice = await _context.ThietBis.FirstOrDefaultAsync(t => t.IdthietBi == currentItem.IdthietBi);
-                        if (parentDevice != null)
-                        {
-                            _context.ThietBis.Remove(parentDevice);
-                        }
+                        if (parentDevice != null) _context.ThietBis.Remove(parentDevice);
 
-                        // Lưu thay đổi đồng loạt xuống database Somee
                         await _context.SaveChangesAsync();
-
-                        // Nạp lại danh sách hiển thị phẳng mới
                         await LoadDataFromDatabaseAsync();
-                        MessageBox.Show($"Đã tối ưu dọn dẹp sạch sẽ dòng sản phẩm [{currentItem.TenThietBi}] khỏi hệ thống dữ liệu kho!", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show($"Đã xóa sạch dòng sản phẩm [{currentItem.TenThietBi}] khỏi hệ thống!", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
@@ -173,13 +209,13 @@ namespace QLTB.ViewModel
                                              .FirstOrDefaultAsync(ct => ct.IdthietBi == currentItem.IdthietBi && ct.SoSeri == currentItem.Serial);
                 if (dbDetail == null) return;
 
-                var formViewModel = new DeviceFormViewModel
+                var formViewModel = new DeviceFormViewModel(currentItem.IdthietBi)
                 {
                     Name = dbDetail.IdthietBiNavigation?.TenThietBi,
                     Manufacturer = dbDetail.IdthietBiNavigation?.DonViSanXuat,
-                    Category = dbDetail.IdthietBiNavigation?.LoaiThietBi,
+                    SelectedCategory = dbDetail.IdthietBiNavigation?.LoaiThietBi,
                     Serial = dbDetail.SoSeri,
-                    Department = dbDetail.IdphongBanNavigation?.TenPhong,
+                    SelectedPhongBanId = dbDetail.IdphongBan,
                     Status = dbDetail.TinhTrang == "Tốt" ? "Đang hoạt động" : dbDetail.TinhTrang
                 };
 
@@ -207,19 +243,12 @@ namespace QLTB.ViewModel
                         {
                             dbDetail.IdthietBiNavigation.TenThietBi = formViewModel.Name.Trim();
                             dbDetail.IdthietBiNavigation.DonViSanXuat = formViewModel.Manufacturer.Trim();
-                            dbDetail.IdthietBiNavigation.LoaiThietBi = formViewModel.Category.Trim();
-                        }
-
-                        int? pbId = null;
-                        if (!string.IsNullOrWhiteSpace(formViewModel.Department))
-                        {
-                            var pb = await _context.PhongBans.FirstOrDefaultAsync(p => p.TenPhong.ToLower() == formViewModel.Department.Trim().ToLower());
-                            pbId = pb?.Idphong;
+                            dbDetail.IdthietBiNavigation.LoaiThietBi = string.IsNullOrWhiteSpace(formViewModel.SelectedCategory) ? "Thiết bị điện tử" : formViewModel.SelectedCategory.Trim();
                         }
 
                         dbDetail.SoSeri = formViewModel.Serial.Trim();
                         dbDetail.TinhTrang = formViewModel.Status == "Đang hoạt động" ? "Tốt" : formViewModel.Status;
-                        dbDetail.IdphongBan = pbId;
+                        dbDetail.IdphongBan = formViewModel.SelectedPhongBanId;
 
                         await _context.SaveChangesAsync();
                         formViewModel.GetType().GetProperty("IsSaved")?.SetValue(formViewModel, true);
@@ -250,7 +279,6 @@ namespace QLTB.ViewModel
                 }
             });
 
-            // LỆNH XÓA ĐƠN LẺ TRÊN TỪNG DÒNG (GIỮ NGUYÊN THEO YÊU CẦU CŨ CỦA BẠN)
             DeleteDeviceCommand = new RelayCommand(async o =>
             {
                 var currentItem = o as DeviceDisplayItem ?? SelectedDevice;
@@ -263,14 +291,27 @@ namespace QLTB.ViewModel
                 var result = MessageBox.Show($"Bạn có chắc chắn muốn xóa thiết bị [{currentItem.TenThietBi}] có số Serial: {currentItem.Serial} khỏi hệ thống?", "Xác nhận xóa đơn lẻ", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var dbDetail = await _context.ChiTietThietBis.FirstOrDefaultAsync(ct => ct.IdthietBi == currentItem.IdthietBi && ct.SoSeri == currentItem.Serial);
-                    if (dbDetail != null)
+                    try
                     {
-                        _context.ChiTietThietBis.Remove(dbDetail);
-                        await _context.SaveChangesAsync();
+                        var chiTietBaoTris = await _context.ChiTietBaoTris.Where(ct => ct.IdthietBi == currentItem.IdthietBi && ct.SoSeri == currentItem.Serial).ToListAsync();
+                        if (chiTietBaoTris.Any()) _context.ChiTietBaoTris.RemoveRange(chiTietBaoTris);
 
+                        var baoCaoSuaChuas = await _context.BaoCaoSuaChuas.Where(bc => bc.IdthietBi == currentItem.IdthietBi && bc.SoSeri == currentItem.Serial).ToListAsync();
+                        if (baoCaoSuaChuas.Any()) _context.BaoCaoSuaChuas.RemoveRange(baoCaoSuaChuas);
+
+                        var dbDetail = await _context.ChiTietThietBis.FirstOrDefaultAsync(ct => ct.IdthietBi == currentItem.IdthietBi && ct.SoSeri == currentItem.Serial);
+                        if (dbDetail != null)
+                        {
+                            _context.ChiTietThietBis.Remove(dbDetail);
+                        }
+
+                        await _context.SaveChangesAsync();
                         await LoadDataFromDatabaseAsync();
                         MessageBox.Show("Đã xóa thiết bị ra khỏi hệ thống thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi hệ thống khi xóa: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             });

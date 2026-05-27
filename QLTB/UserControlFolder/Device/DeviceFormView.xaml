@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QLTB.UserControlFolder.Device"
+             xmlns:helpers="clr-namespace:QLTB.Helpers"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              Background="Transparent">
+
+    <UserControl.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
 
     <Border Width="650" Background="{StaticResource MainBackgroundBrush}" CornerRadius="16" Padding="25">
         <Border.Effect>
@@ -26,26 +31,27 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Tên thiết bị" FontWeight="SemiBold" Foreground="#374151" Margin="0,0,0,6"/>
-                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Ví dụ: Máy tính Dell Latitude" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsEditMode}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Nhà sản xuất" FontWeight="SemiBold" Foreground="#374151" Margin="0,0,0,6"/>
-                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Ví dụ: Dell Global" Text="{Binding Manufacturer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Text="{Binding Manufacturer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsEditMode}"/>
                         </StackPanel>
                     </Grid>
 
                     <TextBlock Text="Loại thiết bị" FontWeight="SemiBold" Foreground="#374151" Margin="0,12,0,6"/>
-                    <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Ví dụ: Thiết bị điện tử, Thiết bị văn phòng..." Text="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Style="{StaticResource ModernComboBox}" Height="38" IsEditable="True"
+                              ItemsSource="{Binding CategoryList}" 
+                              Text="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </GroupBox>
 
             <GroupBox Header="2. THÔNG TIN ĐỊNH DANH CHI TIẾT " FontSize="13" FontWeight="Bold" Foreground="#059669" Margin="0,0,0,10" Padding="10,10,10,15">
                 <StackPanel>
-
                     <Grid Margin="0,0,0,12">
-                        <TextBlock Text="Cách 1: Nhập thủ công một thiết bị đơn lẻ" VerticalAlignment="Center" FontStyle="Italic" Foreground="#6B7280"/>
-                        <Button Content="Cách 2: Nhập nhanh hàng loạt từ file CSV" HorizontalAlignment="Right" Width="240" Height="32" Background="#ECFDF5" Foreground="#059669" FontWeight="SemiBold" BorderBrush="#A7F3D0" Command="{Binding ImportFileCommand}" Cursor="Hand">
+                        <TextBlock Text="Cách 1: Nhập thủ công" VerticalAlignment="Center" FontStyle="Italic" Foreground="#6B7280" Visibility="{Binding IsNewDevice, Converter={StaticResource BoolToVis}}"/>
+                        <Button Content="Cách 2: Import CSV" HorizontalAlignment="Right" Width="180" Height="32" Background="#ECFDF5" Foreground="#059669" FontWeight="SemiBold" BorderBrush="#A7F3D0" Command="{Binding ImportFileCommand}" Cursor="Hand" Visibility="{Binding IsNewDevice, Converter={StaticResource BoolToVis}}">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="6"/>
@@ -63,9 +69,9 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Số Serial" FontWeight="SemiBold" Foreground="#374151" Margin="0,0,0,6"/>
-                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập số mã số định danh" Text="{Binding Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Text="{Binding Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsEditMode}"/>
 
-                            <TextBlock Text="Trạng thái ban đầu" FontWeight="SemiBold" Foreground="#374151" Margin="0,12,0,6"/>
+                            <TextBlock Text="Trạng thái" FontWeight="SemiBold" Foreground="#374151" Margin="0,12,0,6"/>
                             <ComboBox Style="{StaticResource ModernComboBox}" Height="38" SelectedValue="{Binding Status, Mode=TwoWay}" SelectedValuePath="Content">
                                 <ComboBoxItem Content="Đang hoạt động"/>
                                 <ComboBoxItem Content="Đang bảo trì"/>
@@ -74,8 +80,12 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Tên Phòng Ban phân bổ" FontWeight="SemiBold" Foreground="#374151" Margin="0,0,0,6"/>
-                            <TextBox Style="{StaticResource RoundedTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" Tag="Nhập tên phòng chính xác" Text="{Binding Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="Phòng Ban phân bổ" FontWeight="SemiBold" Foreground="#374151" Margin="0,0,0,6"/>
+                            <ComboBox Style="{StaticResource ModernComboBox}" Height="38" 
+                                      ItemsSource="{Binding PhongBanList}" 
+                                      DisplayMemberPath="TenPhong" 
+                                      SelectedValuePath="Idphong" 
+                                      SelectedValue="{Binding SelectedPhongBanId, Mode=TwoWay}"/>
                         </StackPanel>
                     </Grid>
                 </StackPanel>
