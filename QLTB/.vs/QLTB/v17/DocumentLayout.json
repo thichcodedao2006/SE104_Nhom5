@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|e:\\documents\\se104(nhapmoncnpm)\\\u0111\u1ED3 \u00E1n\\se104_nhom5\\qltb\\viewmodel\\maintenancetaskviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\maintenancetaskviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|e:\\documents\\se104(nhapmoncnpm)\\\u0111\u1ED3 \u00E1n\\se104_nhom5\\qltb\\viewmodel\\statisticviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2F5E6DAD-79C0-F8EE-F2DE-FCB483587A0B}|QLTB.csproj|solutionrelative:viewmodel\\statisticviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -26,20 +30,20 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "StatisticViewModel.cs",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\StatisticViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\StatisticViewModel.cs",
               "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\StatisticViewModel.cs",
               "RelativeToolTip": "ViewModel\\StatisticViewModel.cs",
-              "ViewState": "AgIAAJgBAAAAAAAAAAAAAJ4BAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAJgBAAAAAAAAAAAAAKkBAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-27T03:41:29.387Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "EmployeeDetailView.xaml.cs",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\UserControlFolder\\Employee\\EmployeeDetailView.xaml.cs",
               "RelativeDocumentMoniker": "UserControlFolder\\Employee\\EmployeeDetailView.xaml.cs",
@@ -47,12 +51,11 @@
               "RelativeToolTip": "UserControlFolder\\Employee\\EmployeeDetailView.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-27T03:40:22.481Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-27T03:40:22.481Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "EmployeeViewModel.cs",
               "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\EmployeeViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\EmployeeViewModel.cs",
@@ -60,7 +63,25 @@
               "RelativeToolTip": "ViewModel\\EmployeeViewModel.cs",
               "ViewState": "AgIAANwAAAAAAAAAAAAowN8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-27T03:36:54.999Z",
+              "WhenOpened": "2026-05-27T03:36:54.999Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1863,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MaintenanceTaskViewModel.cs",
+              "DocumentMoniker": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceTaskViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MaintenanceTaskViewModel.cs",
+              "ToolTip": "E:\\Documents\\SE104(NhapMonCNPM)\\\u0110\u1ED3 \u00E1n\\SE104_Nhom5\\QLTB\\ViewModel\\MaintenanceTaskViewModel.cs",
+              "RelativeToolTip": "ViewModel\\MaintenanceTaskViewModel.cs",
+              "ViewState": "AgIAAJkBAAAAAAAAAAAqwLoBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T03:45:20.519Z",
               "EditorCaption": ""
             },
             {
