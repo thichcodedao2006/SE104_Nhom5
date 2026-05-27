@@ -256,6 +256,9 @@ namespace QLTB.ViewModel
                     context.ChiTietBaoTris.Add(chiTiet);
 
                     // 3. CẬP NHẬT LẠI PHIẾU BÁO CÁO SỰ CỐ
+
+
+
                     var baoCao = await context.BaoCaoSuaChuas
                         .FirstOrDefaultAsync(x => x.IdbaoCao == Data.IdReport);
 
@@ -263,9 +266,12 @@ namespace QLTB.ViewModel
                     {
                         baoCao.TrangThai = "Đang xử lý";
                         baoCao.IdBaoTri = newBaoTri.IdbaoTri;
+                        baoCao.MucDoNghiemTrong = Data.Priority;
 
                         Data.Status = "Đang xử lý";
                         Data.IdBaoTri = newBaoTri.IdbaoTri;
+
+                        OnPropertyChanged(nameof(Data));
                     }
 
                     // 4. CẬP NHẬT TRẠNG THÁI THIẾT BỊ
@@ -400,6 +406,7 @@ namespace QLTB.ViewModel
                                 {
                                     SelectedSpecial = staff.ChuyenMon;
                                 }
+                              
                             }
 
                             if (baoTri.IdnhanVien.HasValue)
@@ -423,9 +430,23 @@ namespace QLTB.ViewModel
             {
                 return;
             }
-            SelectedStaff = 0;
-            var filterlist = ListNhanVien.Where(x => x.ChuyenMon == SelectedSpecial && x.TinhTrang =="Đang rảnh");
-            FilterNameList = new ObservableCollection<NhanVien>(filterlist);
+            if (CanEdit)
+            {
+                SelectedStaff = 0;
+            }
+
+            if (CanEdit)
+            {
+                // Chế độ tạo mới: Chỉ hiện người đang rảnh
+                var filterlist = ListNhanVien.Where(x => x.ChuyenMon == SelectedSpecial && x.TinhTrang == "Đang rảnh");
+                FilterNameList = new ObservableCollection<NhanVien>(filterlist);
+            }
+            else
+            {
+                // Chế độ xem chi tiết: Hiện tất cả người thuộc chuyên môn đó (bao gồm người đang bận xử lý ca này)
+                var filterlist = ListNhanVien.Where(x => x.ChuyenMon == SelectedSpecial);
+                FilterNameList = new ObservableCollection<NhanVien>(filterlist);
+            }
         }
         private void UpdatePrice()
         {

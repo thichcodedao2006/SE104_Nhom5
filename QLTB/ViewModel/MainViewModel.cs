@@ -202,6 +202,13 @@ namespace QLTB.ViewModel
 
         private void LogOut(Window p)
         {
+            try
+            {
+                // Xóa sạch toàn bộ Cache đang lưu vết các thực thể trong DbContext (nếu có)
+                // Điều này đảm bảo phiên đăng nhập sau hoàn toàn sạch sẽ dữ liệu
+                DataProvider.Instance.DB.ChangeTracker.Clear();
+            }
+            catch { /* Tránh crash nếu tầng DB chưa khởi tạo xong */ }
             fmDangNhap dn = new fmDangNhap();
             dn.Show();
             if (p != null)
@@ -212,6 +219,7 @@ namespace QLTB.ViewModel
 
         private void ChangeUserAvatar()
         {
+            if (UserDetail != null)
             CurrentAvatar = CloudinaryService.GetImageUrl(KeyData.AvatarFolder, KeyData.NhanVienTag + UserDetail.IdnhanVien);
         }
 

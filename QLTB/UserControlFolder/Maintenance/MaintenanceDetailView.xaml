@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              Width="500" Height="580" Background="Transparent">
 
-    <Border Background="#F8FAFC" CornerRadius="16" BorderBrush="#E2E8F0" BorderThickness="1">
+    <Border Background="{StaticResource MainBackgroundBrush}" CornerRadius="16" BorderBrush="#E2E8F0" BorderThickness="1">
         <Border.Effect>
             <DropShadowEffect BlurRadius="15" Direction="270" ShadowDepth="3" Opacity="0.15"/>
         </Border.Effect>

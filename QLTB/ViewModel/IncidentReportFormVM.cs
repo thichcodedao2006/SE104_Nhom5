@@ -103,16 +103,10 @@ namespace QLTB.ViewModel
 
         private async Task SaveReport(UserControl p)
         {
-            var ct = await DataProvider.Instance.DB.ChiTietThietBis.FirstOrDefaultAsync(x => x.IdthietBi == SelectedDevice);
+            var ct = await DataProvider.Instance.DB.ChiTietThietBis.AnyAsync(x => x.IdthietBi == SelectedDevice && x.SoSeri == SeriNumber);
 
             if (ct != null)
             {
-                if (ct.SoSeri != SeriNumber)
-                {
-                    MessageBox.Show("Số seri không hợp lệ.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-
                 // ==========================================
                 // PHẦN THÊM MỚI: KIỂM TRA TRẠNG THÁI BÁO CÁO CŨ
                 // ==========================================
@@ -153,7 +147,7 @@ namespace QLTB.ViewModel
             }
             else
             {
-                MessageBox.Show("Không tồn tại thiết bị có ID: " + SelectedDevice, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Không tồn tại thiết bị.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

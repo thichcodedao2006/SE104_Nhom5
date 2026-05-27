@@ -4,7 +4,7 @@
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              Background="Transparent">
 
-    <Border Width="650" Background="#FFFFFF" BorderBrush="#D1D5DB" BorderThickness="1" CornerRadius="16" Padding="25">
+    <Border Width="650" Background="{StaticResource MainBackgroundBrush}" BorderBrush="#D1D5DB" BorderThickness="1" CornerRadius="16" Padding="25">
         <Border.Effect>
             <DropShadowEffect BlurRadius="25" Direction="-90" RenderingBias="Quality" ShadowDepth="3" Opacity="0.15"/>
         </Border.Effect>

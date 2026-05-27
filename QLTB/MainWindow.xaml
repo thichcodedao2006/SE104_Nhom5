@@ -123,113 +123,140 @@
                 <!-- Menu -->
                 <StackPanel Grid.Row="1" Margin="0 12 0 0">
 
-                    <Button Style="{StaticResource SidebarButton}"
-                        Command="{Binding OpenDashboardCommand}">
+                    <Button Style="{StaticResource SidebarButton}" Command="{Binding OpenDashboardCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="ThLarge"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
+                            <fa:ImageAwesome Icon="ThLarge" Width="16" Height="16" Margin="0 0 12 0"
+                             Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                             <TextBlock Text="Dashboard"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}"
-                     Command="{Binding OpenEmployeeCommand}">
+                    <Button Command="{Binding OpenEmployeeCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SidebarButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UserAccount.LoaiTaiKhoan}" Value="2">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="Users"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
+                            <fa:ImageAwesome Icon="Users" Width="16" Height="16" Margin="0 0 12 0"
+                             Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                             <TextBlock Text="Nhân viên bảo trì"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}"
-                         Command="{Binding OpenDeviceCommand}">
+                    <Button Command="{Binding OpenDeviceCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SidebarButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UserAccount.LoaiTaiKhoan}" Value="2">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="Archive"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
+                            <fa:ImageAwesome Icon="Archive" Width="16" Height="16" Margin="0 0 12 0"
+                             Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                             <TextBlock Text="Thiết bị"/>
                         </StackPanel>
                     </Button>
 
-                    
-
-                    <Button Style="{StaticResource SidebarButton}"
-                            Command="{Binding OpenMaintenancePlanCommand}">
+                    <Button Command="{Binding OpenMaintenancePlanCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SidebarButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UserAccount.LoaiTaiKhoan}" Value="2">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="Calendar"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
+                            <fa:ImageAwesome Icon="Calendar" Width="16" Height="16" Margin="0 0 12 0"
+                             Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                             <TextBlock Text="Kế hoạch bảo trì"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}"
-                            Command="{Binding OpenMaintenanceTaskCommand}">
+                    <Button Command="{Binding OpenMaintenanceTaskCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SidebarButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UserAccount.LoaiTaiKhoan}" Value="2">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="ListAlt"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
-                            <TextBlock Text="Danh sách bảo trì cần làm"
-                                    TextWrapping="Wrap"/>
+                            <fa:ImageAwesome Icon="ListAlt" Width="16" Height="16" Margin="0 0 12 0"
+                             Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+                            <TextBlock Text="Danh sách bảo trì cần làm" TextWrapping="Wrap"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}"
-                            Command="{Binding OpenMaintenanceHistoryCommand}">
+                    <Button Command="{Binding OpenMaintenanceHistoryCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SidebarButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UserAccount.LoaiTaiKhoan}" Value="2">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="History"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
+                            <fa:ImageAwesome Icon="History" Width="16" Height="16" Margin="0 0 12 0"
+                             Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                             <TextBlock Text="Lịch sử bảo trì"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}"
-                            Command="{Binding OpenIncidentReportCommand}">
+                    <Button Command="{Binding OpenIncidentReportCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SidebarButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UserAccount.LoaiTaiKhoan}" Value="2">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="ExclamationTriangle"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
+                            <fa:ImageAwesome Icon="ExclamationTriangle" Width="16" Height="16" Margin="0 0 12 0"
+                             Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                             <TextBlock Text="Báo cáo sự cố"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}"
-                            Command="{Binding OpenStatisticCommand}">
+                    <Button Command="{Binding OpenStatisticCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SidebarButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UserAccount.LoaiTaiKhoan}" Value="1">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding UserAccount.LoaiTaiKhoan}" Value="2">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="BarChart"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
+                            <fa:ImageAwesome Icon="BarChart" Width="16" Height="16" Margin="0 0 12 0"
+                             Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                             <TextBlock Text="Thống kê"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource SidebarButton}"
-                            Command="{Binding OpenSettingCommand}">
+                    <Button Style="{StaticResource SidebarButton}" Command="{Binding OpenSettingCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="Cog"
-                                          Width="16"
-                                          Height="16"
-                                          Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
-                                          Margin="0 0 12 0"/>
+                            <fa:ImageAwesome Icon="Cog" Width="16" Height="16" Margin="0 0 12 0"
+                             Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                             <TextBlock Text="Cài đặt"/>
                         </StackPanel>
                     </Button>
